@@ -1,0 +1,24 @@
+{
+  "header": {
+    "title": "Safe trip Rio de Janeiro"
+  },
+  "sidebar": {
+    "alerts": "Alertas de Segurança",
+    "noAlerts": "Nenhum alerta no momento",
+    "riskLevel": "Nível de Risco",
+    "low": "Baixo",
+    "medium": "Médio",
+    "high": "Alto",
+    "touristSpots": "Pontos Turísticos",
+    "viewOnMap": "Ver no Mapa"
+  },
+  "legend": {
+    "title": "Legenda",
+    "safe": "Zona Segura",
+    "moderate": "Zona Moderada",
+    "danger": "Zona de Perigo"
+  },
+  "footer": {
+    "copyright": "© 2025 Safe trip Rio de Janeiro"
+  }
+}

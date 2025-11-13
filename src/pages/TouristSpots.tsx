@@ -43,7 +43,13 @@ export default function TouristSpots() {
     setShowAllPremium(true);
   };
 
-  const filteredSpots = touristSpots.filter(spot =>
+  // Top 10 most visited spots (same as Highlights page)
+  const topTenSpots = touristSpots.slice(0, 10);
+  
+  // All spots available for premium users
+  const availableSpots = isPremium ? touristSpots : topTenSpots;
+
+  const filteredSpots = availableSpots.filter(spot =>
     spot.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     spot.region.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -102,7 +108,17 @@ export default function TouristSpots() {
               <MapPin className="w-10 h-10 text-primary" />
               <h2 className="text-4xl font-bold">Pontos Turísticos do Rio de Janeiro</h2>
             </div>
-            <p className="text-lg text-muted-foreground">Descubra mais de 100 pontos turísticos por todo o estado</p>
+            <p className="text-lg text-muted-foreground">
+              {isPremium 
+                ? "Descubra mais de 100 pontos turísticos por todo o estado" 
+                : "Top 10 pontos turísticos mais visitados"}
+            </p>
+            {!isPremium && (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 p-3 rounded-lg">
+                <Crown className="w-4 h-4 text-yellow-500" />
+                <span>Assine Premium para acessar todos os 100+ pontos turísticos</span>
+              </div>
+            )}
             <div className="relative max-w-md">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
               <Input placeholder="Buscar por nome ou região..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-10" />
@@ -110,10 +126,28 @@ export default function TouristSpots() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Card><CardContent className="pt-6"><div className="text-center space-y-1"><div className="text-3xl font-bold">{filteredSpots.length}</div><div className="text-sm text-muted-foreground">Pontos Turísticos</div></div></CardContent></Card>
+            <Card><CardContent className="pt-6"><div className="text-center space-y-1"><div className="text-3xl font-bold">{availableSpots.length}</div><div className="text-sm text-muted-foreground">Pontos {isPremium ? 'Turísticos' : 'Disponíveis'}</div></div></CardContent></Card>
             <Card><CardContent className="pt-6"><div className="text-center space-y-1"><div className="text-3xl font-bold">{regions.length}</div><div className="text-sm text-muted-foreground">Regiões</div></div></CardContent></Card>
             <Card><CardContent className="pt-6"><div className="text-center space-y-1"><div className="text-3xl font-bold">{spotsByRisk.low.length}</div><div className="text-sm text-muted-foreground">Baixo Risco</div></div></CardContent></Card>
-            <Card><CardContent className="pt-6"><div className="text-center space-y-1"><div className="text-3xl font-bold">★ 4.8</div><div className="text-sm text-muted-foreground">Avaliação Média</div></div></CardContent></Card>
+            <Card>
+              <CardContent className="pt-6">
+                <div className="text-center space-y-1">
+                  <div className="text-3xl font-bold">★ 4.8</div>
+                  <div className="text-sm text-muted-foreground">Avaliação Média</div>
+                </div>
+                {!isPremium && (
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full mt-2"
+                    onClick={handleShowAllPremium}
+                  >
+                    <Crown className="w-3 h-3 mr-1" />
+                    Ver Todos
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
           </div>
 
           <Tabs defaultValue="all" className="w-full">

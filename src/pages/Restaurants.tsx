@@ -6,11 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Utensils, Search, Clock, DollarSign, Star, Crown } from 'lucide-react';
+import { ArrowLeft, Utensils, Search, Clock, DollarSign, Star } from 'lucide-react';
 import { restaurants, cuisineTypes, Restaurant } from '@/data/restaurants';
-import { useAuth } from '@/hooks/useAuth';
-import { usePremium } from '@/hooks/usePremium';
-import PremiumCard from '@/components/PremiumCard';
 import ConfirmExitDialog from '@/components/ConfirmExitDialog';
 import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
@@ -18,8 +15,6 @@ import AppMenu from '@/components/AppMenu';
 export default function Restaurants() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { user, loading: authLoading } = useAuth();
-  const { isPremium, isLoading } = usePremium();
   const [searchQuery, setSearchQuery] = useState('');
   const [showExitDialog, setShowExitDialog] = useState(false);
 
@@ -79,91 +74,6 @@ export default function Restaurants() {
     </Card>
   );
 
-  if (isLoading || authLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center">
-        <p className="text-muted-foreground">Carregando...</p>
-      </div>
-    );
-  }
-
-  if (!isPremium) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 relative">
-        <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="container flex h-16 items-center justify-between px-4">
-            <div className="flex items-center gap-3">
-              <Button variant="ghost" size="icon" onClick={() => navigate('/')}>
-                <ArrowLeft className="w-5 h-5" />
-              </Button>
-              <img src={logo} alt="Safe Trip" className="w-10 h-10 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => navigate('/')} />
-              <h1 className="text-xl font-bold">{t('header.title')}</h1>
-            </div>
-            <AppMenu />
-          </div>
-        </header>
-
-        {/* Content wrapper with blurred main content */}
-        <div className="container py-8 px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Main content - blurred */}
-            <div className="lg:col-span-2 blur-md pointer-events-none space-y-8">
-            <div className="space-y-4 animate-fade-in">
-              <div className="flex items-center gap-3">
-                <Utensils className="w-10 h-10 text-primary" />
-                <h2 className="text-4xl font-bold">Restaurantes Premium</h2>
-              </div>
-              <p className="text-lg text-muted-foreground">
-                Os 200 melhores restaurantes do Rio de Janeiro
-              </p>
-              <div className="relative max-w-md">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <Input placeholder="Buscar restaurantes..." className="pl-10" />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Card><CardContent className="pt-6"><div className="text-center space-y-2"><div className="text-4xl font-bold">{restaurants.length}</div><div className="text-sm text-muted-foreground">Restaurantes</div></div></CardContent></Card>
-              <Card><CardContent className="pt-6"><div className="text-center space-y-2"><div className="text-4xl font-bold">{cuisineTypes.length}</div><div className="text-sm text-muted-foreground">Tipos de Culinária</div></div></CardContent></Card>
-              <Card><CardContent className="pt-6"><div className="text-center space-y-2"><div className="text-4xl font-bold">4.6</div><div className="text-sm text-muted-foreground">Avaliação Média</div></div></CardContent></Card>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {restaurants.slice(0, 8).map((restaurant) => (
-                <RestaurantCard key={restaurant.id} restaurant={restaurant} />
-              ))}
-            </div>
-            </div>
-
-            {/* Premium Card - sticky sidebar */}
-            <div className="lg:col-span-1">
-              <div className="sticky top-24 space-y-4">
-                <PremiumCard />
-                <div className="flex flex-col gap-2">
-                  {!user && (
-                    <Button 
-                      className="w-full bg-secondary hover:bg-secondary/90"
-                      onClick={() => navigate('/auth')}
-                    >
-                      Fazer Login / Cadastro
-                    </Button>
-                  )}
-                  <Button 
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => setShowExitDialog(true)}
-                  >
-                    Voltar ao Início
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
@@ -186,13 +96,7 @@ export default function Restaurants() {
             />
             <h1 className="text-xl font-bold">{t('header.title')}</h1>
           </div>
-          <div className="flex items-center gap-3">
-            <Badge variant="default" className="bg-gradient-to-r from-yellow-500 to-primary">
-              <Crown className="w-3 h-3 mr-1" />
-              Premium
-            </Badge>
-            <AppMenu />
-          </div>
+          <AppMenu />
         </div>
       </header>
 
@@ -202,10 +106,10 @@ export default function Restaurants() {
         <div className="space-y-4 animate-fade-in">
           <div className="flex items-center gap-3">
             <Utensils className="w-10 h-10 text-primary" />
-            <h2 className="text-4xl font-bold">Restaurantes Premium</h2>
+            <h2 className="text-4xl font-bold">Restaurantes</h2>
           </div>
           <p className="text-lg text-muted-foreground">
-            Os 200 melhores restaurantes do Rio de Janeiro, exclusivo para assinantes Premium
+            Os 200 melhores restaurantes do Rio de Janeiro
           </p>
 
           {/* Search */}

@@ -2,6 +2,10 @@
   "header": {
     "title": "Safe trip Rio de Janeiro"
   },
+  "hero": {
+    "title": "Explore Rio Safely",
+    "subtitle": "Navigate the Marvelous City with real-time information about risk zones and tourist attractions"
+  },
   "sidebar": {
     "alerts": "Safety Alerts",
     "noAlerts": "No alerts at this time",
@@ -10,7 +14,21 @@
     "medium": "Medium",
     "high": "High",
     "touristSpots": "Tourist Spots",
-    "viewOnMap": "View on Map"
+    "viewOnMap": "View on Map",
+    "featured": "Featured"
+  },
+  "premium": {
+    "badge": "Premium",
+    "title": "Unlock Premium Features",
+    "description": "Access safe routes, real-time alerts and much more",
+    "features": {
+      "routes": "Custom safe routes",
+      "alerts": "Real-time alerts",
+      "offline": "Offline maps",
+      "support": "Priority support"
+    },
+    "cta": "Subscribe Premium",
+    "price": "$4.99/month"
   },
   "legend": {
     "title": "Legend",

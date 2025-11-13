@@ -2,6 +2,10 @@
   "header": {
     "title": "Safe trip Rio de Janeiro"
   },
+  "hero": {
+    "title": "Explore o Rio com Segurança",
+    "subtitle": "Navegue pela Cidade Maravilhosa com informações em tempo real sobre zonas de risco e pontos turísticos"
+  },
   "sidebar": {
     "alerts": "Alertas de Segurança",
     "noAlerts": "Nenhum alerta no momento",
@@ -10,7 +14,21 @@
     "medium": "Médio",
     "high": "Alto",
     "touristSpots": "Pontos Turísticos",
-    "viewOnMap": "Ver no Mapa"
+    "viewOnMap": "Ver no Mapa",
+    "featured": "Em Destaque"
+  },
+  "premium": {
+    "badge": "Premium",
+    "title": "Desbloqueie Recursos Premium",
+    "description": "Acesso a rotas seguras, alertas em tempo real e muito mais",
+    "features": {
+      "routes": "Rotas seguras personalizadas",
+      "alerts": "Alertas em tempo real",
+      "offline": "Mapas offline",
+      "support": "Suporte prioritário"
+    },
+    "cta": "Assinar Premium",
+    "price": "R$ 19,90/mês"
   },
   "legend": {
     "title": "Legenda",

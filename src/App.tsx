@@ -10,7 +10,7 @@ import TouristSpots from "./pages/TouristSpots";
 import Restaurants from "./pages/Restaurants";
 import Weather from "./pages/Weather";
 import SecurityAlerts from "./pages/SecurityAlerts";
-import Gallery from "./pages/Gallery";
+import TouristGallery from "./pages/TouristGallery";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,7 +29,7 @@ const App = () => (
           <Route path="/restaurants" element={<Restaurants />} />
           <Route path="/weather" element={<Weather />} />
           <Route path="/security-alerts" element={<SecurityAlerts />} />
-          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/gallery" element={<TouristGallery />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

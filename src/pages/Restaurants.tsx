@@ -109,7 +109,7 @@ export default function Restaurants() {
             <h2 className="text-4xl font-bold">Restaurantes</h2>
           </div>
           <p className="text-lg text-muted-foreground">
-            Os 200 melhores restaurantes do Rio de Janeiro
+            Os 20 melhores restaurantes do Rio de Janeiro
           </p>
 
           {/* Search */}

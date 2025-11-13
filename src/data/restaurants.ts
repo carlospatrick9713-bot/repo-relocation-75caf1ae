@@ -22,193 +22,247 @@ export interface Restaurant {
 }
 
 const cuisineImages: Record<string, string> = {
-  'Brasileira': foodBrasileira,
+  'Contemporânea': foodContemporanea,
   'Italiana': foodItaliana,
   'Japonesa': foodJaponesa,
   'Francesa': foodFrancesa,
-  'Árabe': foodArabe,
   'Frutos do Mar': foodFrutosMar,
   'Churrascaria': foodChurrascaria,
-  'Contemporânea': foodContemporanea,
   'Vegetariana': foodVegetariana,
-  'Internacional': foodInternacional,
+  'Portuguesa': foodBrasileira,
 };
 
 export const cuisineTypes = [
-  'Brasileira',
+  'Contemporânea',
   'Italiana',
   'Japonesa',
   'Francesa',
-  'Árabe',
   'Frutos do Mar',
-  'Churrascaria',
-  'Contemporânea',
   'Vegetariana',
-  'Internacional'
+  'Churrascaria',
+  'Portuguesa'
 ];
 
-// Gerando 200 restaurantes diversos
+// 20 melhores restaurantes do Rio de Janeiro
 export const restaurants: Restaurant[] = [
-  // Brasileira (30 restaurantes)
   {
     id: 1,
-    name: "Confeitaria Colombo",
-    cuisine: "Brasileira",
-    description: "Tradicional confeitaria carioca desde 1894, com arquitetura Belle Époque e culinária clássica brasileira.",
-    priceRange: "R$ 80-150",
-    averagePrice: 115,
-    hours: "09:00 - 19:00",
-    image: cuisineImages['Brasileira'],
-    rating: 4.8
+    name: "Oro",
+    cuisine: "Contemporânea",
+    description: "Restaurante de alta gastronomia do chef Gustavo Bittencourt, com menu degustação focado em ingredientes brasileiros em versão refinada. Figura em rankings latino-americanos de restaurantes de destaque.",
+    priceRange: "R$ 400-800",
+    averagePrice: 600,
+    hours: "19:00 - 23:00",
+    image: cuisineImages['Contemporânea'],
+    rating: 4.9
   },
   {
     id: 2,
-    name: "Casa Paladino",
-    cuisine: "Brasileira",
-    description: "Restaurante no Jardim Botânico com ambiente acolhedor e pratos tradicionais brasileiros.",
-    priceRange: "R$ 90-180",
-    averagePrice: 135,
-    hours: "12:00 - 23:00",
-    image: cuisineImages['Brasileira'],
-    rating: 4.7
+    name: "Lasai",
+    cuisine: "Contemporânea",
+    description: "Destaque da cena gastronômica carioca, com proposta moderna e criativa, buscando excelência e valorização de ingredientes locais. Aparece em listas de melhores restaurantes da América Latina.",
+    priceRange: "R$ 350-700",
+    averagePrice: 525,
+    hours: "19:00 - 23:30",
+    image: cuisineImages['Contemporânea'],
+    rating: 4.9
   },
   {
     id: 3,
-    name: "Aprazível",
-    cuisine: "Brasileira",
-    description: "Em Santa Teresa, oferece vista panorâmica e cozinha brasileira contemporânea.",
-    priceRange: "R$ 120-220",
-    averagePrice: 170,
-    hours: "12:00 - 00:00",
-    image: cuisineImages['Brasileira'],
-    rating: 4.9
-  },
-  ...Array.from({ length: 27 }, (_, i) => ({
-    id: i + 4,
-    name: `Restaurante Brasileiro ${i + 1}`,
-    cuisine: "Brasileira",
-    description: "Autêntica culinária brasileira com ingredientes locais e receitas tradicionais.",
-    priceRange: "R$ 70-160",
-    averagePrice: 100 + Math.floor(Math.random() * 60),
-    hours: "11:30 - 23:00",
-    image: cuisineImages['Brasileira'],
-    rating: 4.3 + Math.random() * 0.6
-  })),
-
-  // Italiana (25 restaurantes)
-  ...Array.from({ length: 25 }, (_, i) => ({
-    id: i + 31,
-    name: `Trattoria ${i + 1}`,
+    name: "Cipriani",
     cuisine: "Italiana",
-    description: "Autêntica cozinha italiana com massas frescas e molhos artesanais.",
-    priceRange: "R$ 90-200",
-    averagePrice: 120 + Math.floor(Math.random() * 80),
+    description: "Restaurante de culinária italiana no hotel de luxo Belmond Copacabana Palace, indicado por guias de alta gastronomia. Presença em rankings para o Rio.",
+    priceRange: "R$ 300-600",
+    averagePrice: 450,
     hours: "12:00 - 23:30",
     image: cuisineImages['Italiana'],
-    rating: 4.4 + Math.random() * 0.5
-  })),
-
-  // Japonesa (25 restaurantes)
-  ...Array.from({ length: 25 }, (_, i) => ({
-    id: i + 56,
-    name: `Sushi ${i + 1}`,
-    cuisine: "Japonesa",
-    description: "Culinária japonesa refinada com ingredientes frescos e apresentação impecável.",
-    priceRange: "R$ 100-250",
-    averagePrice: 140 + Math.floor(Math.random() * 110),
-    hours: "12:00 - 23:00",
-    image: cuisineImages['Japonesa'],
-    rating: 4.5 + Math.random() * 0.4
-  })),
-
-  // Francesa (20 restaurantes)
-  ...Array.from({ length: 20 }, (_, i) => ({
-    id: i + 81,
-    name: `Bistro ${i + 1}`,
+    rating: 4.8
+  },
+  {
+    id: 4,
+    name: "Chez Claude",
     cuisine: "Francesa",
-    description: "Elegante culinária francesa com técnicas clássicas e vinhos selecionados.",
-    priceRange: "R$ 150-350",
-    averagePrice: 220 + Math.floor(Math.random() * 130),
-    hours: "19:00 - 23:30",
+    description: "Brasserie francesa com toque sofisticado, uma boa escolha para quem quer jantar em estilo europeu no coração da Zona Sul.",
+    priceRange: "R$ 250-500",
+    averagePrice: 375,
+    hours: "12:00 - 00:00",
     image: cuisineImages['Francesa'],
-    rating: 4.6 + Math.random() * 0.3
-  })),
-
-  // Árabe (15 restaurantes)
-  ...Array.from({ length: 15 }, (_, i) => ({
-    id: i + 101,
-    name: `Restaurante Árabe ${i + 1}`,
-    cuisine: "Árabe",
-    description: "Sabores autênticos do Oriente Médio com especiarias e pratos tradicionais.",
-    priceRange: "R$ 70-140",
-    averagePrice: 95 + Math.floor(Math.random() * 45),
-    hours: "11:00 - 23:00",
-    image: cuisineImages['Árabe'],
-    rating: 4.4 + Math.random() * 0.5
-  })),
-
-  // Frutos do Mar (20 restaurantes)
-  ...Array.from({ length: 20 }, (_, i) => ({
-    id: i + 116,
-    name: `Mar & Cia ${i + 1}`,
-    cuisine: "Frutos do Mar",
-    description: "Frutos do mar frescos do dia com preparos especiais e vista para o mar.",
-    priceRange: "R$ 110-280",
-    averagePrice: 170 + Math.floor(Math.random() * 110),
-    hours: "12:00 - 22:00",
-    image: cuisineImages['Frutos do Mar'],
-    rating: 4.5 + Math.random() * 0.4
-  })),
-
-  // Churrascaria (20 restaurantes)
-  ...Array.from({ length: 20 }, (_, i) => ({
-    id: i + 136,
-    name: `Churrascaria ${i + 1}`,
-    cuisine: "Churrascaria",
-    description: "Rodízio de carnes nobres com buffet completo e atendimento premium.",
-    priceRange: "R$ 90-180",
-    averagePrice: 120 + Math.floor(Math.random() * 60),
-    hours: "11:30 - 00:00",
-    image: cuisineImages['Churrascaria'],
-    rating: 4.3 + Math.random() * 0.6
-  })),
-
-  // Contemporânea (15 restaurantes)
-  ...Array.from({ length: 15 }, (_, i) => ({
-    id: i + 156,
-    name: `Fusion ${i + 1}`,
+    rating: 4.7
+  },
+  {
+    id: 5,
+    name: "San Omakase",
+    cuisine: "Japonesa",
+    description: "Para os fãs de sushi de alta qualidade: omakase (menu fechado) que exige reserva e traz experiência privilegiada de culinária japonesa no Rio.",
+    priceRange: "R$ 400-800",
+    averagePrice: 600,
+    hours: "19:00 - 23:00",
+    image: cuisineImages['Japonesa'],
+    rating: 4.9
+  },
+  {
+    id: 6,
+    name: "Oseille",
     cuisine: "Contemporânea",
-    description: "Cozinha de autor com técnicas modernas e ingredientes selecionados.",
-    priceRange: "R$ 180-400",
-    averagePrice: 260 + Math.floor(Math.random() * 140),
+    description: "Nova estrela na cena gourmet carioca, reconhecido pelo guia Michelin Guide Rio de Janeiro como restaurante com estrela.",
+    priceRange: "R$ 350-700",
+    averagePrice: 525,
     hours: "19:00 - 23:00",
     image: cuisineImages['Contemporânea'],
-    rating: 4.7 + Math.random() * 0.2
-  })),
-
-  // Vegetariana (15 restaurantes)
-  ...Array.from({ length: 15 }, (_, i) => ({
-    id: i + 171,
-    name: `Veggie ${i + 1}`,
+    rating: 4.9
+  },
+  {
+    id: 7,
+    name: "Toto Restaurante",
+    cuisine: "Contemporânea",
+    description: "Listagem recente entre os 'melhores restaurantes do Rio' segundo ranking da revista Exame.",
+    priceRange: "R$ 300-600",
+    averagePrice: 450,
+    hours: "19:00 - 23:30",
+    image: cuisineImages['Contemporânea'],
+    rating: 4.8
+  },
+  {
+    id: 8,
+    name: "Koral",
+    cuisine: "Frutos do Mar",
+    description: "Especializado em frutos do mar, aparece no ranking dos 'melhores restaurantes do Rio' para 2024 da Exame.",
+    priceRange: "R$ 280-550",
+    averagePrice: 415,
+    hours: "12:00 - 23:00",
+    image: cuisineImages['Frutos do Mar'],
+    rating: 4.7
+  },
+  {
+    id: 9,
+    name: "Babbo Osteria",
+    cuisine: "Italiana",
+    description: "Osteria italiana bem localizada em Ipanema, boa opção para quem quer uma experiência gastronômica agradável sem ir para extremo luxo.",
+    priceRange: "R$ 180-350",
+    averagePrice: 265,
+    hours: "12:00 - 00:00",
+    image: cuisineImages['Italiana'],
+    rating: 4.6
+  },
+  {
+    id: 10,
+    name: "Gajos d' Ouro",
+    cuisine: "Portuguesa",
+    description: "Restaurante de culinária portuguesa no Rio, indicado nas listas gastronômicas para quem quer variar do contemporâneo.",
+    priceRange: "R$ 150-300",
+    averagePrice: 225,
+    hours: "12:00 - 23:00",
+    image: cuisineImages['Portuguesa'],
+    rating: 4.6
+  },
+  {
+    id: 11,
+    name: "Satyricon",
+    cuisine: "Frutos do Mar",
+    description: "Clássico restaurante de frutos do mar na Zona Sul, ótimo para uma refeição mais sofisticada com ambientação elegante.",
+    priceRange: "R$ 250-500",
+    averagePrice: 375,
+    hours: "12:00 - 00:00",
+    image: cuisineImages['Frutos do Mar'],
+    rating: 4.7
+  },
+  {
+    id: 12,
+    name: "Teva Bistro",
     cuisine: "Vegetariana",
-    description: "Culinária vegetariana e vegana criativa com ingredientes orgânicos.",
-    priceRange: "R$ 60-120",
-    averagePrice: 80 + Math.floor(Math.random() * 40),
+    description: "Para quem busca opções vegetarianas/veganas no Rio, essa é uma escolha interessante, com boa reputação entre gourmet mais consciente.",
+    priceRange: "R$ 80-160",
+    averagePrice: 120,
     hours: "11:00 - 22:00",
     image: cuisineImages['Vegetariana'],
-    rating: 4.5 + Math.random() * 0.4
-  })),
-
-  // Internacional (15 restaurantes)
-  ...Array.from({ length: 15 }, (_, i) => ({
-    id: i + 186,
-    name: `World Cuisine ${i + 1}`,
-    cuisine: "Internacional",
-    description: "Pratos de diversas partes do mundo em um menu eclético e sofisticado.",
-    priceRange: "R$ 100-220",
-    averagePrice: 150 + Math.floor(Math.random() * 70),
-    hours: "12:00 - 23:30",
-    image: cuisineImages['Internacional'],
-    rating: 4.4 + Math.random() * 0.5
-  }))
+    rating: 4.6
+  },
+  {
+    id: 13,
+    name: "Encarnado",
+    cuisine: "Contemporânea",
+    description: "Uma excelente alternativa para hambúrguer gourmet de qualidade no Rio, mencionada nas listas de 'melhores por categoria'.",
+    priceRange: "R$ 70-140",
+    averagePrice: 105,
+    hours: "18:00 - 00:00",
+    image: cuisineImages['Contemporânea'],
+    rating: 4.5
+  },
+  {
+    id: 14,
+    name: "Ferro e Farinha",
+    cuisine: "Italiana",
+    description: "Para os amantes de pizza estilo napolitana ou artesanal, essa pizzaria no Rio merece visita e aparece entre recomendações gastronômicas especializadas.",
+    priceRange: "R$ 80-150",
+    averagePrice: 115,
+    hours: "18:00 - 23:30",
+    image: cuisineImages['Italiana'],
+    rating: 4.6
+  },
+  {
+    id: 15,
+    name: "Rubaiyat",
+    cuisine: "Churrascaria",
+    description: "Restaurante sofisticado, conhecido pelas carnes e ambiente elegante — uma boa opção para jantar especial no Rio.",
+    priceRange: "R$ 200-400",
+    averagePrice: 300,
+    hours: "12:00 - 00:00",
+    image: cuisineImages['Churrascaria'],
+    rating: 4.7
+  },
+  {
+    id: 16,
+    name: "Gero Rio",
+    cuisine: "Italiana",
+    description: "Italiano refinado à beira-mar em Ipanema, para quem quer uma experiência gastronômica sofisticada com vista privilegiada.",
+    priceRange: "R$ 250-500",
+    averagePrice: 375,
+    hours: "12:00 - 00:00",
+    image: cuisineImages['Italiana'],
+    rating: 4.8
+  },
+  {
+    id: 17,
+    name: "Casa 201",
+    cuisine: "Contemporânea",
+    description: "Novo destaque da cena gastronômica carioca, recentemente reconhecido pelo guia Michelin.",
+    priceRange: "R$ 300-600",
+    averagePrice: 450,
+    hours: "19:00 - 23:00",
+    image: cuisineImages['Contemporânea'],
+    rating: 4.8
+  },
+  {
+    id: 18,
+    name: "Mocellin Steakhouse",
+    cuisine: "Churrascaria",
+    description: "Para quem ama carnes premium e busca uma experiência de steakhouse de alto nível no Rio.",
+    priceRange: "R$ 180-350",
+    averagePrice: 265,
+    hours: "12:00 - 00:00",
+    image: cuisineImages['Churrascaria'],
+    rating: 4.7
+  },
+  {
+    id: 19,
+    name: "Ella",
+    cuisine: "Italiana",
+    description: "Pizzaria gourmet localizada no bairro do Jardim Botânico com boas recomendações para ambientes mais descontraídos mas sofisticados.",
+    priceRange: "R$ 90-180",
+    averagePrice: 135,
+    hours: "18:00 - 23:30",
+    image: cuisineImages['Italiana'],
+    rating: 4.6
+  },
+  {
+    id: 20,
+    name: "Teva",
+    cuisine: "Vegetariana",
+    description: "Boa opção vegetariana/vegana para turistas que querem fugir da carne pesada — ambiente acolhedor e comida bem elaborada.",
+    priceRange: "R$ 80-160",
+    averagePrice: 120,
+    hours: "11:00 - 22:00",
+    image: cuisineImages['Vegetariana'],
+    rating: 4.6
+  }
 ];

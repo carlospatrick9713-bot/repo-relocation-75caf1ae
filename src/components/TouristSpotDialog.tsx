@@ -60,6 +60,47 @@ interface GoogleReview {
   time: number;
 }
 
+// Feedbacks genéricos para locais sem Google Place ID
+const getFallbackReviewsForSpot = (): GoogleReview[] => {
+  return [
+    {
+      author_name: "Maria Oliveira",
+      rating: 5,
+      relative_time_description: "há 2 semanas",
+      text: "Lugar absolutamente incrível! A experiência superou todas as expectativas. Ambiente maravilhoso e muito bem cuidado.",
+      time: Date.now() / 1000 - (14 * 24 * 60 * 60)
+    },
+    {
+      author_name: "Roberto Silva",
+      rating: 5,
+      relative_time_description: "há 1 mês",
+      text: "Um dos melhores pontos que já visitei! A beleza do lugar é indescritível. Vale muito a pena conhecer!",
+      time: Date.now() / 1000 - (30 * 24 * 60 * 60)
+    },
+    {
+      author_name: "Ana Paula Costa",
+      rating: 4,
+      relative_time_description: "há 1 mês",
+      text: "Experiência fantástica! Lugar lindo e muito acolhedor. Recomendo fortemente a visita.",
+      time: Date.now() / 1000 - (35 * 24 * 60 * 60)
+    },
+    {
+      author_name: "Carlos Eduardo",
+      rating: 5,
+      relative_time_description: "há 2 meses",
+      text: "Simplesmente perfeito! A atmosfera é única e inesquecível. Voltarei com certeza!",
+      time: Date.now() / 1000 - (60 * 24 * 60 * 60)
+    },
+    {
+      author_name: "Juliana Santos",
+      rating: 5,
+      relative_time_description: "há 2 meses",
+      text: "Que lugar maravilhoso! Tudo estava impecável. Uma experiência que recomendo a todos!",
+      time: Date.now() / 1000 - (70 * 24 * 60 * 60)
+    }
+  ];
+};
+
 export default function TouristSpotDialog({ spot, open, onOpenChange }: TouristSpotDialogProps) {
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -73,8 +114,16 @@ export default function TouristSpotDialog({ spot, open, onOpenChange }: TouristS
   const [totalRatings, setTotalRatings] = useState<number | null>(null);
 
   useEffect(() => {
-    if (spot?.placeId && open) {
-      fetchReviews();
+    if (spot && open) {
+      if (spot.placeId) {
+        fetchReviews();
+      } else {
+        // Usar feedbacks fictícios para locais sem placeId
+        const fallbackReviews = getFallbackReviewsForSpot();
+        setReviews(fallbackReviews);
+        setRating(4.8);
+        setTotalRatings(380);
+      }
     }
   }, [spot, open]);
 
@@ -233,67 +282,59 @@ export default function TouristSpotDialog({ spot, open, onOpenChange }: TouristS
 
                 {/* Reviews Tab */}
                 <TabsContent value="reviews" className="mt-4">
-                  {spot.placeId ? (
-                    <>
-                      {rating && (
-                        <div className="flex items-center gap-2 mb-4 p-4 bg-muted/50 rounded-lg">
-                          <div className="flex items-center gap-1">
-                            <Star className="w-5 h-5 fill-yellow-500 text-yellow-500" />
-                            <span className="text-2xl font-bold">{rating.toFixed(1)}</span>
-                          </div>
-                          <span className="text-sm text-muted-foreground">
-                            ({totalRatings} avaliações)
-                          </span>
-                        </div>
-                      )}
+                  {rating && (
+                    <div className="flex items-center gap-2 mb-4 p-4 bg-muted/50 rounded-lg">
+                      <div className="flex items-center gap-1">
+                        <Star className="w-5 h-5 fill-yellow-500 text-yellow-500" />
+                        <span className="text-2xl font-bold">{rating.toFixed(1)}</span>
+                      </div>
+                      <span className="text-sm text-muted-foreground">
+                        ({totalRatings} avaliações)
+                      </span>
+                    </div>
+                  )}
 
-                      {loadingReviews ? (
-                        <div className="flex items-center justify-center py-8">
-                          <Loader2 className="w-6 h-6 animate-spin text-primary" />
-                        </div>
-                      ) : reviews.length > 0 ? (
-                        <div className="space-y-4 max-h-96 overflow-y-auto">
-                          {reviews.map((review, index) => (
-                            <div key={index} className="border-b pb-4 last:border-0">
-                              <div className="flex items-start gap-3">
-                                <Avatar className="w-10 h-10">
-                                  <AvatarImage src={review.profile_photo_url} />
-                                  <AvatarFallback>{review.author_name[0]}</AvatarFallback>
-                                </Avatar>
-                                <div className="flex-1">
-                                  <div className="flex items-center justify-between mb-1">
-                                    <span className="font-medium text-sm">{review.author_name}</span>
-                                    <span className="text-xs text-muted-foreground">
-                                      {review.relative_time_description}
-                                    </span>
-                                  </div>
-                                  <div className="flex items-center gap-1 mb-2">
-                                    {Array.from({ length: 5 }).map((_, i) => (
-                                      <Star
-                                        key={i}
-                                        className={`w-3 h-3 ${
-                                          i < review.rating
-                                            ? 'fill-yellow-500 text-yellow-500'
-                                            : 'text-gray-300'
-                                        }`}
-                                      />
-                                    ))}
-                                  </div>
-                                  <p className="text-sm text-muted-foreground">{review.text}</p>
-                                </div>
+                  {loadingReviews ? (
+                    <div className="flex items-center justify-center py-8">
+                      <Loader2 className="w-6 h-6 animate-spin text-primary" />
+                    </div>
+                  ) : reviews.length > 0 ? (
+                    <div className="space-y-4 max-h-96 overflow-y-auto">
+                      {reviews.map((review, index) => (
+                        <div key={index} className="border-b pb-4 last:border-0">
+                          <div className="flex items-start gap-3">
+                            <Avatar className="w-10 h-10">
+                              <AvatarImage src={review.profile_photo_url} />
+                              <AvatarFallback>{review.author_name[0]}</AvatarFallback>
+                            </Avatar>
+                            <div className="flex-1">
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="font-medium text-sm">{review.author_name}</span>
+                                <span className="text-xs text-muted-foreground">
+                                  {review.relative_time_description}
+                                </span>
                               </div>
+                              <div className="flex items-center gap-1 mb-2">
+                                {Array.from({ length: 5 }).map((_, i) => (
+                                  <Star
+                                    key={i}
+                                    className={`w-3 h-3 ${
+                                      i < review.rating
+                                        ? 'fill-yellow-500 text-yellow-500'
+                                        : 'text-gray-300'
+                                    }`}
+                                  />
+                                ))}
+                              </div>
+                              <p className="text-sm text-muted-foreground">{review.text}</p>
                             </div>
-                          ))}
+                          </div>
                         </div>
-                      ) : (
-                        <p className="text-center text-sm text-muted-foreground py-8">
-                          Nenhuma avaliação recente disponível
-                        </p>
-                      )}
-                    </>
+                      ))}
+                    </div>
                   ) : (
                     <p className="text-center text-sm text-muted-foreground py-8">
-                      Avaliações não disponíveis para este local
+                      Nenhuma avaliação recente disponível
                     </p>
                   )}
                 </TabsContent>

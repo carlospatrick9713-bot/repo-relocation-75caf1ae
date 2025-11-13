@@ -7,11 +7,13 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ArrowLeft, Upload, Image as ImageIcon, Trash2, X, Crown, Lock, Camera } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { usePremium } from '@/hooks/usePremium';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { touristSpots } from '@/data/touristSpots';
 import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
 
@@ -174,6 +176,11 @@ export default function TouristGallery() {
   const visiblePhotos = isPremium 
     ? photos 
     : photos.filter(photo => photo.user_id === user?.id);
+
+  // Get sorted tourist spots for dropdown
+  const sortedTouristSpots = [...touristSpots]
+    .sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'))
+    .map(spot => spot.name);
 
   // Show loading state while auth is loading
   if (authLoading || loading) {
@@ -387,6 +394,27 @@ export default function TouristGallery() {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium mb-2">
+                    Ponto Turístico <span className="text-destructive">*</span>
+                  </label>
+                  <Select
+                    value={uploadData.location}
+                    onValueChange={(value) => setUploadData({ ...uploadData, location: value })}
+                    disabled={uploading}
+                  >
+                    <SelectTrigger className="w-full bg-background">
+                      <SelectValue placeholder="Selecione o ponto turístico..." />
+                    </SelectTrigger>
+                    <SelectContent className="max-h-[300px] bg-background z-[100]">
+                      {sortedTouristSpots.map((spotName) => (
+                        <SelectItem key={spotName} value={spotName}>
+                          {spotName}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">
                     Legenda (opcional)
                   </label>
                   <Textarea
@@ -394,17 +422,7 @@ export default function TouristGallery() {
                     value={uploadData.caption}
                     onChange={(e) => setUploadData({ ...uploadData, caption: e.target.value })}
                     disabled={uploading}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">
-                    Local (opcional)
-                  </label>
-                  <Input
-                    placeholder="Ex: Copacabana, Cristo Redentor..."
-                    value={uploadData.location}
-                    onChange={(e) => setUploadData({ ...uploadData, location: e.target.value })}
-                    disabled={uploading}
+                    rows={3}
                   />
                 </div>
               </div>
@@ -423,7 +441,7 @@ export default function TouristGallery() {
               </Button>
               <Button
                 onClick={handleUpload}
-                disabled={!uploadData.file || uploading}
+                disabled={!uploadData.file || !uploadData.location || uploading}
                 className="flex-1"
               >
                 {uploading ? 'Enviando...' : 'Enviar'}

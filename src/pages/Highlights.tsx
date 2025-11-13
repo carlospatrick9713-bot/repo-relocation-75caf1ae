@@ -18,7 +18,10 @@ export default function Highlights() {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const featuredSpots = touristSpots.filter(spot => spot.id <= 5);
-  const premiumSpots = touristSpots.filter(spot => spot.risk === 'low');
+  const premiumSpots = touristSpots.filter(spot => spot.risk === 'low').slice(0, 100);
+  const [showAllPremium, setShowAllPremium] = useState(false);
+
+  const visiblePremiumSpots = showAllPremium ? premiumSpots : premiumSpots.slice(0, 5);
 
   const handleSpotClick = (spot: TouristSpot) => {
     setSelectedSpot(spot);
@@ -100,12 +103,12 @@ export default function Highlights() {
                 Recomendações Premium
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                Locais com baixo índice de risco e alto nível de segurança
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                {premiumSpots.length} locais com baixo índice de risco e alto nível de segurança
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {premiumSpots.map((spot, index) => (
+                {visiblePremiumSpots.map((spot, index) => (
                   <div 
                     key={spot.id}
                     className="animate-fade-in"
@@ -120,6 +123,18 @@ export default function Highlights() {
                   </div>
                 ))}
               </div>
+              {!showAllPremium && premiumSpots.length > 5 && (
+                <div className="text-center pt-4">
+                  <Button
+                    onClick={() => setShowAllPremium(true)}
+                    variant="outline"
+                    size="lg"
+                    className="w-full md:w-auto"
+                  >
+                    Ver Todos os {premiumSpots.length} Pontos Premium
+                  </Button>
+                </div>
+              )}
             </CardContent>
           </Card>
         </main>

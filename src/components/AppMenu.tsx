@@ -8,7 +8,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { Menu, User, Sparkles, MapPin, Cloud, AlertTriangle, Images, LogOut, Crown } from 'lucide-react';
+import { Menu, User, Sparkles, MapPin, Cloud, AlertTriangle, Images, LogOut, Crown, Utensils } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { usePremium } from '@/hooks/usePremium';
 import { supabase } from '@/integrations/supabase/client';
@@ -44,6 +44,7 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
     const routes: Record<string, string> = {
       'highlights': '/highlights',
       'spots': '/tourist-spots',
+      'restaurants': '/restaurants',
       'weather': '/weather',
       'alerts': '/security-alerts',
       'gallery': '/gallery'
@@ -129,6 +130,18 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
             >
               <MapPin className="w-5 h-5 mr-3 text-primary" />
               Pontos Turísticos
+            </Button>
+
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-base h-12 relative"
+              onClick={() => handleMenuClick('restaurants')}
+            >
+              <Utensils className="w-5 h-5 mr-3 text-primary" />
+              Restaurantes
+              {!isPremium && (
+                <Crown className="w-4 h-4 ml-auto text-yellow-500" />
+              )}
             </Button>
 
             <Button

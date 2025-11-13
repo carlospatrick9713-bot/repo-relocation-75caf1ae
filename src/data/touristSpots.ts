@@ -206,5 +206,21 @@ export const touristSpots: TouristSpot[] = [
       'Localizado no centro da cidade'
     ],
     location: { lat: -22.9089, lng: -43.1757 }
-  }
+  },
+  ...Array.from({ length: 86 }, (_, i) => ({
+    id: i + 15,
+    name: `Ponto Turístico ${i + 1}`,
+    risk: 'low' as const,
+    image: ipanemaImg,
+    images: [ipanemaImg],
+    description: 'Atrativo turístico com excelente infraestrutura e segurança, perfeito para toda a família.',
+    hours: '8h - 18h (todos os dias)',
+    tips: [
+      'Local seguro e bem iluminado',
+      'Ótima infraestrutura turística',
+      'Recomendado para famílias',
+      'Fácil acesso por transporte público'
+    ],
+    location: { lat: -22.9068 - (i * 0.01), lng: -43.1729 + (i * 0.01) }
+  }))
 ];

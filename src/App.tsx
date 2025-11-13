@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Highlights from "./pages/Highlights";
 import TouristSpots from "./pages/TouristSpots";
+import Restaurants from "./pages/Restaurants";
 import Weather from "./pages/Weather";
 import SecurityAlerts from "./pages/SecurityAlerts";
 import Gallery from "./pages/Gallery";
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/highlights" element={<Highlights />} />
           <Route path="/tourist-spots" element={<TouristSpots />} />
+          <Route path="/restaurants" element={<Restaurants />} />
           <Route path="/weather" element={<Weather />} />
           <Route path="/security-alerts" element={<SecurityAlerts />} />
           <Route path="/gallery" element={<Gallery />} />

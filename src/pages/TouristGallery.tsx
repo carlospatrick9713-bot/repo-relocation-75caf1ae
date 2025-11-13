@@ -28,7 +28,7 @@ interface Photo {
 export default function TouristGallery() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const { isPremium } = usePremium();
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [loading, setLoading] = useState(true);
@@ -42,12 +42,15 @@ export default function TouristGallery() {
   });
 
   useEffect(() => {
+    // Wait for auth to load before checking user
+    if (authLoading) return;
+    
     if (!user) {
       navigate('/auth');
       return;
     }
     fetchPhotos();
-  }, [user, navigate]);
+  }, [user, authLoading, navigate]);
 
   const fetchPhotos = async () => {
     if (!user) return;
@@ -171,6 +174,18 @@ export default function TouristGallery() {
   const visiblePhotos = isPremium 
     ? photos 
     : photos.filter(photo => photo.user_id === user?.id);
+
+  // Show loading state while auth is loading
+  if (authLoading || loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+          <p className="text-muted-foreground">Carregando galeria...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -297,11 +312,7 @@ export default function TouristGallery() {
           </div>
 
           {/* Photos Grid */}
-          {loading ? (
-            <div className="text-center py-12">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-            </div>
-          ) : visiblePhotos.length === 0 ? (
+          {visiblePhotos.length === 0 ? (
             <Card>
               <CardContent className="py-12 text-center">
                 <ImageIcon className="w-16 h-16 mx-auto text-muted-foreground mb-4" />

@@ -39,7 +39,20 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
 
   const handleMenuClick = (section: string) => {
     setOpen(false);
-    if (onNavigate) {
+    
+    // Navigate to specific pages
+    const routes: Record<string, string> = {
+      'highlights': '/highlights',
+      'spots': '/tourist-spots',
+      'weather': '/weather',
+      'alerts': '/security-alerts',
+      'gallery': '/gallery'
+    };
+    
+    const route = routes[section];
+    if (route) {
+      navigate(route);
+    } else if (onNavigate) {
       onNavigate(section);
     }
   };

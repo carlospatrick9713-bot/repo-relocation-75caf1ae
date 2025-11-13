@@ -11,6 +11,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
+import PremiumCard from '@/components/PremiumCard';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -166,6 +167,13 @@ export default function Profile() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Premium Card for Non-Premium Users */}
+          {!isPremium && (
+            <div className="animate-fade-in">
+              <PremiumCard />
+            </div>
+          )}
 
           {/* Actions Card */}
           <Card className="animate-fade-in">

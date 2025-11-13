@@ -4,7 +4,8 @@
   },
   "hero": {
     "title": "Explore o Rio com Segurança",
-    "subtitle": "Navegue pela Cidade Maravilhosa com informações em tempo real sobre zonas de risco e pontos turísticos"
+    "subtitle": "Navegue pela Cidade Maravilhosa com informações em tempo real sobre zonas de risco e pontos turísticos",
+    "exploreButton": "Comece a Explorar"
   },
   "sidebar": {
     "alerts": "Alertas de Segurança",

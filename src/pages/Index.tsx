@@ -80,7 +80,7 @@ const Index = () => {
                   className="bg-primary hover:bg-primary/90 text-white shadow-2xl hover-scale text-lg px-8 py-6"
                 >
                   <img src={logo} alt="" className="w-6 h-6 mr-2 drop-shadow-lg" />
-                  {t('hero.title').includes('Explora') || t('hero.title').includes('Explore') || t('hero.title').includes('Erkunde') ? 'Explorar Mapa' : 'Explorar Mapa'}
+                  {t('hero.exploreButton')}
                 </Button>
               </div>
             </div>

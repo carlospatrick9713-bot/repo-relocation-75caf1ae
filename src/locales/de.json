@@ -4,7 +4,8 @@
   },
   "hero": {
     "title": "Erkunde Rio sicher",
-    "subtitle": "Navigieren Sie durch die wunderbare Stadt mit Echtzeitinformationen über Risikozonen und Touristenattraktionen"
+    "subtitle": "Navigieren Sie durch die wunderbare Stadt mit Echtzeitinformationen über Risikozonen und Touristenattraktionen",
+    "exploreButton": "Beginne zu Erkunden"
   },
   "sidebar": {
     "alerts": "Sicherheitswarnungen",

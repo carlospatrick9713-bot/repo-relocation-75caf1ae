@@ -4,7 +4,8 @@
   },
   "hero": {
     "title": "Explore Rio Safely",
-    "subtitle": "Navigate the Marvelous City with real-time information about risk zones and tourist attractions"
+    "subtitle": "Navigate the Marvelous City with real-time information about risk zones and tourist attractions",
+    "exploreButton": "Start Exploring"
   },
   "sidebar": {
     "alerts": "Safety Alerts",

@@ -4,7 +4,8 @@
   },
   "hero": {
     "title": "Explora Río con Seguridad",
-    "subtitle": "Navega por la Ciudad Maravillosa con información en tiempo real sobre zonas de riesgo y atracciones turísticas"
+    "subtitle": "Navega por la Ciudad Maravillosa con información en tiempo real sobre zonas de riesgo y atracciones turísticas",
+    "exploreButton": "Comienza a Explorar"
   },
   "sidebar": {
     "alerts": "Alertas de Seguridad",

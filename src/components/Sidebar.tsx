@@ -131,7 +131,7 @@ export default function Sidebar() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                {touristSpots.map((spot, index) => (
+                {touristSpots.filter(spot => spot.featured).slice(0, 10).map((spot, index) => (
                   <div 
                     key={spot.id}
                     className="animate-fade-in"

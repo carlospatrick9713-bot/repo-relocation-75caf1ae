@@ -6,13 +6,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, MapPin, Search } from 'lucide-react';
+import { ArrowLeft, MapPin, Search, Crown } from 'lucide-react';
 import { touristSpots, regions, TouristSpot } from '@/data/touristSpots';
 import TouristSpotCard from '@/components/TouristSpotCard';
 import TouristSpotDialog from '@/components/TouristSpotDialog';
 import RiskBadge from '@/components/RiskBadge';
 import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
+import { usePremium } from '@/hooks/usePremium';
+import { useToast } from '@/hooks/use-toast';
 
 export default function TouristSpots() {
   const navigate = useNavigate();
@@ -20,10 +22,25 @@ export default function TouristSpots() {
   const [selectedSpot, setSelectedSpot] = useState<TouristSpot | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showAllPremium, setShowAllPremium] = useState(false);
+  const { isPremium } = usePremium();
+  const { toast } = useToast();
 
   const handleSpotClick = (spot: TouristSpot) => {
     setSelectedSpot(spot);
     setDialogOpen(true);
+  };
+
+  const handleShowAllPremium = () => {
+    if (!isPremium) {
+      toast({
+        title: "Recurso Premium",
+        description: "Assine o plano Premium para ver todos os 100 pontos turísticos.",
+        variant: "destructive",
+      });
+      return;
+    }
+    setShowAllPremium(true);
   };
 
   const filteredSpots = touristSpots.filter(spot =>

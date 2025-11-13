@@ -8,7 +8,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { Menu, User, Sparkles, MapPin, Cloud, AlertTriangle, Images, LogOut, Crown, Utensils } from 'lucide-react';
+import { Menu, User, Sparkles, MapPin, Cloud, AlertTriangle, Images, LogOut, Crown, Utensils, Shield } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { usePremium } from '@/hooks/usePremium';
 import { supabase } from '@/integrations/supabase/client';
@@ -46,7 +46,7 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
       'spots': '/tourist-spots',
       'restaurants': '/restaurants',
       'weather': '/weather',
-      'alerts': '/security-alerts',
+      'security-alerts': '/security-alerts',
       'gallery': '/gallery'
     };
     
@@ -155,11 +155,14 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
 
             <Button
               variant="ghost"
-              className="w-full justify-start text-base h-12"
-              onClick={() => handleMenuClick('alerts')}
+              className="w-full justify-start text-base h-12 relative"
+              onClick={() => handleMenuClick('security-alerts')}
             >
-              <AlertTriangle className="w-5 h-5 mr-3 text-primary" />
+              <Shield className="w-5 h-5 mr-3 text-primary" />
               Alertas de Segurança
+              {!isPremium && (
+                <Crown className="w-4 h-4 ml-auto text-yellow-500" />
+              )}
             </Button>
 
             <Button

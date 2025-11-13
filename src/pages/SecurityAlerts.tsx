@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, AlertTriangle, Clock, MapPin } from 'lucide-react';
+import { ArrowLeft, AlertTriangle, Clock, MapPin, Crown } from 'lucide-react';
 import { useSecurityAlerts } from '@/hooks/useSecurityAlerts';
+import { usePremium } from '@/hooks/usePremium';
 import RiskBadge from '@/components/RiskBadge';
 import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
@@ -13,6 +14,7 @@ export default function SecurityAlerts() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { alerts, lastUpdate } = useSecurityAlerts();
+  const { isPremium, isLoading } = usePremium();
 
   const formatLastUpdate = () => {
     const now = new Date();
@@ -30,6 +32,55 @@ export default function SecurityAlerts() {
     { region: 'Zona Sul', level: 'low' as const, message: 'Região com boa segurança. Mantenha atenção básica.', areas: ['Copacabana', 'Ipanema', 'Leblon'] },
     { region: 'Zona Oeste', level: 'medium' as const, message: 'Atenção em horários noturnos. Evite ostentação.', areas: ['Barra da Tijuca', 'Recreio', 'Jacarepaguá'] },
   ];
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center">
+        <p className="text-muted-foreground">Carregando...</p>
+      </div>
+    );
+  }
+
+  if (!isPremium) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
+        <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <div className="container flex h-16 items-center justify-between px-4">
+            <div className="flex items-center gap-3">
+              <Button variant="ghost" size="icon" onClick={() => navigate('/')}>
+                <ArrowLeft className="w-5 h-5" />
+              </Button>
+              <img src={logo} alt="Safe Trip" className="w-10 h-10 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => navigate('/')} />
+              <h1 className="text-xl font-bold">{t('header.title')}</h1>
+            </div>
+            <AppMenu />
+          </div>
+        </header>
+
+        <main className="container py-12 px-4">
+          <Card className="max-w-2xl mx-auto text-center p-8">
+            <Crown className="w-16 h-16 mx-auto mb-4 text-primary" />
+            <CardHeader>
+              <CardTitle className="text-2xl">Recurso Premium</CardTitle>
+              <CardDescription className="text-base">
+                Os Alertas de Segurança completos são exclusivos para assinantes Premium.
+                Na página principal, você pode ver um resumo no painel lateral.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button 
+                className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 mt-4"
+                onClick={() => navigate('/')}
+              >
+                <Crown className="w-4 h-4 mr-2" />
+                Assinar Premium
+              </Button>
+            </CardContent>
+          </Card>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">

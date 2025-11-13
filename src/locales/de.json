@@ -1,0 +1,50 @@
+{
+  "header": {
+    "title": "Safe trip Rio de Janeiro"
+  },
+  "hero": {
+    "title": "Erkunden Sie Rio sicher",
+    "subtitle": "Navigieren Sie durch die wunderbare Stadt mit Echtzeitinformationen über Risikozonen und Touristenattraktionen"
+  },
+  "sidebar": {
+    "alerts": "Sicherheitswarnungen",
+    "notifications": "Gefahrenmeldungen",
+    "noAlerts": "Derzeit keine Warnungen",
+    "noNotifications": "Keine aktuellen Benachrichtigungen",
+    "riskLevel": "Risikostufe",
+    "low": "Niedrig",
+    "medium": "Mittel",
+    "high": "Hoch",
+    "touristSpots": "Sehenswürdigkeiten",
+    "viewOnMap": "Auf Karte anzeigen",
+    "featured": "Hervorgehoben",
+    "timeAgo": {
+      "now": "Jetzt",
+      "minutes": "vor {{count}} Min.",
+      "hours": "vor {{count}}Std."
+    }
+  },
+  "premium": {
+    "badge": "Premium",
+    "title": "Premium-Funktionen freischalten",
+    "description": "Zugang zu sicheren Routen, Echtzeit-Warnungen und vielem mehr",
+    "features": {
+      "routes": "Angepasste sichere Routen",
+      "alerts": "Echtzeit-Warnungen",
+      "offline": "Offline-Karten",
+      "support": "Prioritäts-Support"
+    },
+    "cta": "Premium abonnieren",
+    "price": "R$ 19,90/Jahr",
+    "required": "Premium-exklusive Funktion"
+  },
+  "legend": {
+    "title": "Legende",
+    "safe": "Sichere Zone",
+    "moderate": "Gemäßigte Zone",
+    "danger": "Gefahrenzone"
+  },
+  "footer": {
+    "copyright": "© 2025 Safe trip Rio de Janeiro"
+  }
+}

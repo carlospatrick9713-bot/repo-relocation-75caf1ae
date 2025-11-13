@@ -33,10 +33,30 @@ export default function SecurityAlerts() {
   };
 
   const regionAlerts = [
-    { region: 'Centro', level: 'medium' as const, message: 'Atenção redobrada após 22h. Evite ruas desertas.', areas: ['Praça Mauá', 'Lapa', 'Cinelândia'] },
-    { region: 'Zona Norte', level: 'high' as const, message: 'Evitar áreas isoladas. Prefira vias principais.', areas: ['Maracanã', 'São Cristóvão', 'Tijuca'] },
-    { region: 'Zona Sul', level: 'low' as const, message: 'Região com boa segurança. Mantenha atenção básica.', areas: ['Copacabana', 'Ipanema', 'Leblon'] },
-    { region: 'Zona Oeste', level: 'medium' as const, message: 'Atenção em horários noturnos. Evite ostentação.', areas: ['Barra da Tijuca', 'Recreio', 'Jacarepaguá'] },
+    { 
+      region: t('securityAlerts.regions.centro.name'), 
+      level: 'medium' as const, 
+      message: t('securityAlerts.regions.centro.message'), 
+      areas: t('securityAlerts.regions.centro.areas', { returnObjects: true }) as string[]
+    },
+    { 
+      region: t('securityAlerts.regions.zonaNorte.name'), 
+      level: 'high' as const, 
+      message: t('securityAlerts.regions.zonaNorte.message'), 
+      areas: t('securityAlerts.regions.zonaNorte.areas', { returnObjects: true }) as string[]
+    },
+    { 
+      region: t('securityAlerts.regions.zonaSul.name'), 
+      level: 'low' as const, 
+      message: t('securityAlerts.regions.zonaSul.message'), 
+      areas: t('securityAlerts.regions.zonaSul.areas', { returnObjects: true }) as string[]
+    },
+    { 
+      region: t('securityAlerts.regions.zonaOeste.name'), 
+      level: 'medium' as const, 
+      message: t('securityAlerts.regions.zonaOeste.message'), 
+      areas: t('securityAlerts.regions.zonaOeste.areas', { returnObjects: true }) as string[]
+    },
   ];
 
   if (isLoading || authLoading) {
@@ -80,18 +100,18 @@ export default function SecurityAlerts() {
         <div className="space-y-4 animate-fade-in">
           <div className="flex items-center gap-3">
             <AlertTriangle className="w-10 h-10 text-primary" />
-            <h2 className="text-4xl font-bold">Alertas de Segurança</h2>
+            <h2 className="text-4xl font-bold">{t('securityAlerts.title')}</h2>
           </div>
           <div className="flex items-center gap-4 flex-wrap">
             <p className="text-lg text-muted-foreground">
-              Informações atualizadas sobre segurança nas diferentes regiões do Rio
+              {t('securityAlerts.subtitle')}
             </p>
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-muted-foreground" />
               <span className="text-sm text-muted-foreground">
-                Atualizado {formatLastUpdate()}
+                {t('securityAlerts.updated')} {formatLastUpdate()}
               </span>
-              <Badge variant="secondary">Atualiza a cada 5min</Badge>
+              <Badge variant="secondary">{t('securityAlerts.updatesEvery')}</Badge>
             </div>
           </div>
         </div>
@@ -101,7 +121,7 @@ export default function SecurityAlerts() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Clock className="w-5 h-5 text-primary" />
-              Alertas em Tempo Real
+              {t('securityAlerts.realTimeAlerts')}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -120,7 +140,7 @@ export default function SecurityAlerts() {
                     <p className="text-sm text-muted-foreground">{alert.message}</p>
                   </div>
                   <span className="text-xs text-muted-foreground whitespace-nowrap">
-                    {alert.time === 'now' ? 'Agora' : alert.time}
+                    {alert.time === 'now' ? t('sidebar.timeAgo.now') : alert.time}
                   </span>
                 </div>
               </div>
@@ -148,7 +168,7 @@ export default function SecurityAlerts() {
               <CardContent className="space-y-4">
                 <p className="text-sm text-muted-foreground">{alert.message}</p>
                 <div>
-                  <div className="text-sm font-medium mb-2">Principais áreas:</div>
+                  <div className="text-sm font-medium mb-2">{t('securityAlerts.mainAreas')}</div>
                   <div className="flex flex-wrap gap-2">
                     {alert.areas.map((area) => (
                       <Badge key={area} variant="secondary">

@@ -59,5 +59,59 @@
     "premiumRequired": "Alle Fotos anzeigen ist exklusiv für Premium-Abonnenten",
     "maxSize": "Maximale Größe: 10MB",
     "formats": "Formate: JPG, PNG, WEBP"
+  },
+  "securityAlerts": {
+    "title": "Sicherheitswarnungen",
+    "subtitle": "Aktualisierte Informationen über die Sicherheit in verschiedenen Regionen von Rio",
+    "realTimeAlerts": "Echtzeit-Warnungen",
+    "regionAlerts": "Regionale Warnungen",
+    "mainAreas": "Hauptbereiche:",
+    "updatesEvery": "Aktualisiert alle 5 Min.",
+    "updated": "Aktualisiert",
+    "alerts": {
+      "highRisk": {
+        "title": "Hochrisikozone erkannt",
+        "message": "Vermeiden Sie die Region Central do Brasil nach 20 Uhr"
+      },
+      "traffic": {
+        "title": "Verkehrswarnung",
+        "message": "Demonstration gemeldet auf Av. Presidente Vargas"
+      },
+      "safeSouth": {
+        "title": "Sichere Bedingungen",
+        "message": "Südzone zeigt niedrige Kriminalitätsraten zu dieser Zeit"
+      },
+      "centerAlert": {
+        "title": "Zentrum",
+        "message": "Erhöhte Aufmerksamkeit nach 22 Uhr"
+      },
+      "northAlert": {
+        "title": "Nordzone",
+        "message": "Isolierte Bereiche vermeiden"
+      }
+    },
+    "regions": {
+      "centro": {
+        "name": "Zentrum",
+        "message": "Erhöhte Aufmerksamkeit nach 22 Uhr. Vermeiden Sie verlassene Straßen.",
+        "areas": ["Praça Mauá", "Lapa", "Cinelândia"]
+      },
+      "zonaNorte": {
+        "name": "Nordzone",
+        "message": "Isolierte Bereiche vermeiden. Bevorzugen Sie Hauptstraßen.",
+        "areas": ["Maracanã", "São Cristóvão", "Tijuca"]
+      },
+      "zonaSul": {
+        "name": "Südzone",
+        "message": "Region mit guter Sicherheit. Grundlegende Aufmerksamkeit beibehalten.",
+        "areas": ["Copacabana", "Ipanema", "Leblon"]
+      },
+      "zonaOeste": {
+        "name": "Westzone",
+        "message": "Vorsicht während der Nachtzeiten. Vermeiden Sie Zurschaustellung.",
+        "areas": ["Barra da Tijuca", "Recreio", "Jacarepaguá"]
+      }
+    },
+    "understood": "Verstanden"
   }
 }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 
@@ -12,30 +13,30 @@ export interface SecurityAlert {
 }
 
 // Simulação de alertas que seriam buscados de uma API
-const generateSecurityAlerts = (): SecurityAlert[] => {
+const generateSecurityAlerts = (t: any): SecurityAlert[] => {
   const now = Date.now();
   const alerts: SecurityAlert[] = [
     {
       id: Math.random(),
-      title: 'Zona de Alto Risco Detectada',
+      title: t('securityAlerts.alerts.highRisk.title'),
       level: 'high',
-      message: 'Evite circular na região da Central do Brasil após 20h',
+      message: t('securityAlerts.alerts.highRisk.message'),
       time: 'now',
       timestamp: now
     },
     {
       id: Math.random(),
-      title: 'Alerta de Trânsito',
+      title: t('securityAlerts.alerts.traffic.title'),
       level: 'medium',
-      message: 'Manifestação reportada na Av. Presidente Vargas',
+      message: t('securityAlerts.alerts.traffic.message'),
       time: 'now',
       timestamp: now
     },
     {
       id: Math.random(),
-      title: 'Condições Seguras',
+      title: t('securityAlerts.alerts.safeSouth.title'),
       level: 'low',
-      message: 'Zona Sul apresenta baixos índices neste horário',
+      message: t('securityAlerts.alerts.safeSouth.message'),
       time: 'now',
       timestamp: now
     }
@@ -45,11 +46,12 @@ const generateSecurityAlerts = (): SecurityAlert[] => {
 };
 
 export const useSecurityAlerts = () => {
+  const { t } = useTranslation();
   const [alerts, setAlerts] = useState<SecurityAlert[]>([]);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
 
   const updateAlerts = () => {
-    const newAlerts = generateSecurityAlerts();
+    const newAlerts = generateSecurityAlerts(t);
     setAlerts(newAlerts);
     setLastUpdate(new Date());
 
@@ -73,7 +75,7 @@ export const useSecurityAlerts = () => {
                 variant="secondary"
                 className="w-full mt-2"
               >
-                Entendi
+                {t('securityAlerts.understood')}
               </Button>
             </div>
           </div>
@@ -96,7 +98,7 @@ export const useSecurityAlerts = () => {
     }, 300000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [t]);
 
   return { alerts, lastUpdate };
 };

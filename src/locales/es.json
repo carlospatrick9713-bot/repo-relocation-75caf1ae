@@ -46,5 +46,59 @@
   },
   "footer": {
     "copyright": "© 2025 Safe trip Rio de Janeiro"
+  },
+  "securityAlerts": {
+    "title": "Alertas de Seguridad",
+    "subtitle": "Información actualizada sobre seguridad en diferentes regiones de Río",
+    "realTimeAlerts": "Alertas en Tiempo Real",
+    "regionAlerts": "Alertas Regionales",
+    "mainAreas": "Áreas principales:",
+    "updatesEvery": "Actualiza cada 5min",
+    "updated": "Actualizado",
+    "alerts": {
+      "highRisk": {
+        "title": "Zona de Alto Riesgo Detectada",
+        "message": "Evite circular en la región de Central do Brasil después de las 20h"
+      },
+      "traffic": {
+        "title": "Alerta de Tráfico",
+        "message": "Manifestación reportada en Av. Presidente Vargas"
+      },
+      "safeSouth": {
+        "title": "Condiciones Seguras",
+        "message": "Zona Sur presenta bajos índices en este horario"
+      },
+      "centerAlert": {
+        "title": "Centro",
+        "message": "Atención reforzada después de las 22h"
+      },
+      "northAlert": {
+        "title": "Zona Norte",
+        "message": "Evitar áreas aisladas"
+      }
+    },
+    "regions": {
+      "centro": {
+        "name": "Centro",
+        "message": "Atención reforzada después de las 22h. Evite calles desiertas.",
+        "areas": ["Praça Mauá", "Lapa", "Cinelândia"]
+      },
+      "zonaNorte": {
+        "name": "Zona Norte",
+        "message": "Evitar áreas aisladas. Prefiera vías principales.",
+        "areas": ["Maracanã", "São Cristóvão", "Tijuca"]
+      },
+      "zonaSul": {
+        "name": "Zona Sur",
+        "message": "Región con buena seguridad. Mantenga atención básica.",
+        "areas": ["Copacabana", "Ipanema", "Leblon"]
+      },
+      "zonaOeste": {
+        "name": "Zona Oeste",
+        "message": "Atención en horarios nocturnos. Evite ostentación.",
+        "areas": ["Barra da Tijuca", "Recreio", "Jacarepaguá"]
+      }
+    },
+    "understood": "Entendido"
   }
 }

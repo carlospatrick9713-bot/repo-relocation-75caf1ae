@@ -46,5 +46,59 @@
   },
   "footer": {
     "copyright": "© 2025 Safe trip Rio de Janeiro"
+  },
+  "securityAlerts": {
+    "title": "Security Alerts",
+    "subtitle": "Updated information about safety in different areas of Rio",
+    "realTimeAlerts": "Real-Time Alerts",
+    "regionAlerts": "Regional Alerts",
+    "mainAreas": "Main areas:",
+    "updatesEvery": "Updates every 5min",
+    "updated": "Updated",
+    "alerts": {
+      "highRisk": {
+        "title": "High Risk Zone Detected",
+        "message": "Avoid Central do Brasil area after 8 PM"
+      },
+      "traffic": {
+        "title": "Traffic Alert",
+        "message": "Protest reported on Av. Presidente Vargas"
+      },
+      "safeSouth": {
+        "title": "Safe Conditions",
+        "message": "South Zone shows low crime rates at this time"
+      },
+      "centerAlert": {
+        "title": "Downtown",
+        "message": "Extra attention after 10 PM"
+      },
+      "northAlert": {
+        "title": "North Zone",
+        "message": "Avoid isolated areas"
+      }
+    },
+    "regions": {
+      "centro": {
+        "name": "Downtown",
+        "message": "Extra attention after 10 PM. Avoid deserted streets.",
+        "areas": ["Praça Mauá", "Lapa", "Cinelândia"]
+      },
+      "zonaNorte": {
+        "name": "North Zone",
+        "message": "Avoid isolated areas. Prefer main roads.",
+        "areas": ["Maracanã", "São Cristóvão", "Tijuca"]
+      },
+      "zonaSul": {
+        "name": "South Zone",
+        "message": "Area with good security. Maintain basic attention.",
+        "areas": ["Copacabana", "Ipanema", "Leblon"]
+      },
+      "zonaOeste": {
+        "name": "West Zone",
+        "message": "Caution during nighttime. Avoid showing valuables.",
+        "areas": ["Barra da Tijuca", "Recreio", "Jacarepaguá"]
+      }
+    },
+    "understood": "Understood"
   }
 }

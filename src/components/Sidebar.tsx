@@ -12,16 +12,16 @@ import RiskBadge from './RiskBadge';
 import { touristSpots, TouristSpot } from '@/data/touristSpots';
 import { useSecurityAlerts } from '@/hooks/useSecurityAlerts';
 
-const alerts = [
-  { id: 1, title: 'Centro', level: 'medium' as const, message: 'Atenção redobrada após 22h' },
-  { id: 2, title: 'Zona Norte', level: 'high' as const, message: 'Evitar áreas isoladas' }
-];
-
 export default function Sidebar() {
   const { t } = useTranslation();
   const { alerts: securityAlerts, lastUpdate } = useSecurityAlerts();
   const [selectedSpot, setSelectedSpot] = useState<TouristSpot | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const alerts = [
+    { id: 1, title: t('securityAlerts.alerts.centerAlert.title'), level: 'medium' as const, message: t('securityAlerts.alerts.centerAlert.message') },
+    { id: 2, title: t('securityAlerts.alerts.northAlert.title'), level: 'high' as const, message: t('securityAlerts.alerts.northAlert.message') }
+  ];
 
   const handleSpotClick = (spot: TouristSpot) => {
     setSelectedSpot(spot);
@@ -53,10 +53,10 @@ export default function Sidebar() {
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                       <Clock className="w-3 h-3" />
-                      <span>Atualizado {formatLastUpdate()}</span>
+                      <span>{t('securityAlerts.updated')} {formatLastUpdate()}</span>
                     </div>
                     <Badge variant="secondary" className="text-xs">
-                      Atualiza a cada 5min
+                      {t('securityAlerts.updatesEvery')}
                     </Badge>
                   </div>
                   <TabsList className="grid w-full grid-cols-2">

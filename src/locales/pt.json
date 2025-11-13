@@ -46,5 +46,59 @@
   },
   "footer": {
     "copyright": "© 2025 Safe Trip RJ"
+  },
+  "securityAlerts": {
+    "title": "Alertas de Segurança",
+    "subtitle": "Informações atualizadas sobre segurança nas diferentes regiões do Rio",
+    "realTimeAlerts": "Alertas em Tempo Real",
+    "regionAlerts": "Alertas Regionais",
+    "mainAreas": "Principais áreas:",
+    "updatesEvery": "Atualiza a cada 5min",
+    "updated": "Atualizado",
+    "alerts": {
+      "highRisk": {
+        "title": "Zona de Alto Risco Detectada",
+        "message": "Evite circular na região da Central do Brasil após 20h"
+      },
+      "traffic": {
+        "title": "Alerta de Trânsito",
+        "message": "Manifestação reportada na Av. Presidente Vargas"
+      },
+      "safeSouth": {
+        "title": "Condições Seguras",
+        "message": "Zona Sul apresenta baixos índices neste horário"
+      },
+      "centerAlert": {
+        "title": "Centro",
+        "message": "Atenção redobrada após 22h"
+      },
+      "northAlert": {
+        "title": "Zona Norte",
+        "message": "Evitar áreas isoladas"
+      }
+    },
+    "regions": {
+      "centro": {
+        "name": "Centro",
+        "message": "Atenção redobrada após 22h. Evite ruas desertas.",
+        "areas": ["Praça Mauá", "Lapa", "Cinelândia"]
+      },
+      "zonaNorte": {
+        "name": "Zona Norte",
+        "message": "Evitar áreas isoladas. Prefira vias principais.",
+        "areas": ["Maracanã", "São Cristóvão", "Tijuca"]
+      },
+      "zonaSul": {
+        "name": "Zona Sul",
+        "message": "Região com boa segurança. Mantenha atenção básica.",
+        "areas": ["Copacabana", "Ipanema", "Leblon"]
+      },
+      "zonaOeste": {
+        "name": "Zona Oeste",
+        "message": "Atenção em horários noturnos. Evite ostentação.",
+        "areas": ["Barra da Tijuca", "Recreio", "Jacarepaguá"]
+      }
+    },
+    "understood": "Entendi"
   }
 }

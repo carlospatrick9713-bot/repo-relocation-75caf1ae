@@ -15,6 +15,8 @@ import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
 import { usePremium } from '@/hooks/usePremium';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/hooks/useAuth';
+import PremiumCard from '@/components/PremiumCard';
 
 export default function TouristSpots() {
   const navigate = useNavigate();
@@ -23,8 +25,10 @@ export default function TouristSpots() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showAllPremium, setShowAllPremium] = useState(false);
+  const [showPremiumCard, setShowPremiumCard] = useState(false);
   const { isPremium } = usePremium();
   const { toast } = useToast();
+  const { user } = useAuth();
 
   const handleSpotClick = (spot: TouristSpot) => {
     setSelectedSpot(spot);
@@ -33,11 +37,7 @@ export default function TouristSpots() {
 
   const handleShowAllPremium = () => {
     if (!isPremium) {
-      toast({
-        title: "Recurso Premium",
-        description: "Assine o plano Premium para ver todos os 100 pontos turísticos.",
-        variant: "destructive",
-      });
+      setShowPremiumCard(true);
       return;
     }
     setShowAllPremium(true);
@@ -61,6 +61,27 @@ export default function TouristSpots() {
 
   return (
     <>
+      {showPremiumCard && (
+        <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-start justify-center overflow-auto">
+          <div className="container max-w-4xl py-8 px-4">
+            <div className="mb-4">
+              <Button variant="ghost" onClick={() => setShowPremiumCard(false)}>
+                <ArrowLeft className="w-5 h-5 mr-2" />
+                Voltar
+              </Button>
+            </div>
+            {!user ? (
+              <Card className="p-8 text-center space-y-4">
+                <h2 className="text-2xl font-bold">Faça Login para Continuar</h2>
+                <p className="text-muted-foreground">Você precisa estar logado para acessar o plano premium.</p>
+                <Button onClick={() => navigate('/auth')}>Fazer Login / Cadastro</Button>
+              </Card>
+            ) : (
+              <PremiumCard />
+            )}
+          </div>
+        </div>
+      )}
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
         <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="container flex h-16 items-center justify-between px-4">

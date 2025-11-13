@@ -69,7 +69,12 @@ const Index = () => {
           {/* Header */}
           <header className="p-6 flex items-center justify-between">
             <div className="flex items-center gap-3 text-white animate-fade-in">
-              <img src={logo} alt="Safe Trip" className="w-16 h-16 drop-shadow-2xl" />
+              <img 
+                src={logo} 
+                alt="Safe Trip" 
+                className="w-16 h-16 drop-shadow-2xl cursor-pointer hover:opacity-80 transition-opacity" 
+                onClick={() => window.location.href = '/'}
+              />
               <h1 className="text-xl font-bold drop-shadow-md">{t('header.title')}</h1>
             </div>
             <div className="flex items-center gap-3">
@@ -172,7 +177,12 @@ const Index = () => {
         {/* Header */}
         <header className="h-16 border-b bg-background/80 backdrop-blur-md flex items-center justify-between px-6 shadow-sm">
           <div className="flex items-center gap-3">
-            <img src={logo} alt="Safe Trip" className="w-12 h-12" />
+            <img 
+              src={logo} 
+              alt="Safe Trip" 
+              className="w-12 h-12 cursor-pointer hover:opacity-80 transition-opacity" 
+              onClick={() => window.location.href = '/'}
+            />
             <h1 className="text-xl font-bold">{t('header.title')}</h1>
           </div>
           <div className="flex items-center gap-3">

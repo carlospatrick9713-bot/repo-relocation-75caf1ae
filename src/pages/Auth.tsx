@@ -162,7 +162,12 @@ export default function Auth() {
         <div className="w-full max-w-md space-y-6 animate-fade-in">
           {/* Logo and Title */}
           <div className="text-center space-y-4">
-            <img src={logo} alt="Safe Trip" className="w-20 h-20 mx-auto" />
+            <img 
+              src={logo} 
+              alt="Safe Trip" 
+              className="w-20 h-20 mx-auto cursor-pointer hover:opacity-80 transition-opacity" 
+              onClick={() => navigate('/')}
+            />
             <h1 className="text-3xl font-bold text-white">Safe Trip Rio</h1>
           </div>
 

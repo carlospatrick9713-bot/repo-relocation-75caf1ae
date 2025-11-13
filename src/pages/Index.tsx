@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import MapView from '@/components/MapView';
 import Sidebar from '@/components/Sidebar';
 import HeroCarousel from '@/components/HeroCarousel';
+import AppMenu from '@/components/AppMenu';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -11,18 +12,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Globe, LogOut, User, Crown } from 'lucide-react';
+import { Globe, Crown } from 'lucide-react';
 import rioBackground from '@/assets/rio-background.jpg';
 import logo from '@/assets/logo-transparent.png';
 import { useAuth } from '@/hooks/useAuth';
 import { usePremium } from '@/hooks/usePremium';
-import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
 import '@/lib/i18n';
 
 const Index = () => {
   const { t, i18n } = useTranslation();
-  const navigate = useNavigate();
   const { user } = useAuth();
   const { isPremium } = usePremium();
   const [lang, setLang] = useState(i18n.language || 'pt');
@@ -37,10 +35,9 @@ const Index = () => {
     setShowHero(false);
   };
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    toast.success('Logout realizado com sucesso!');
-    navigate('/auth');
+  const handleMenuNavigation = (section: string) => {
+    console.log('Navegando para:', section);
+    // Implementar navegação para seções específicas
   };
 
   const getLangLabel = (code: string) => {
@@ -107,27 +104,9 @@ const Index = () => {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              {user ? (
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={handleLogout}
-                  className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20"
-                >
-                  <LogOut className="w-4 h-4 mr-2" />
-                  Sair
-                </Button>
-              ) : (
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => navigate('/auth')}
-                  className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20"
-                >
-                  <User className="w-4 h-4 mr-2" />
-                  Login
-                </Button>
-              )}
+              <div className="animate-fade-in">
+                <AppMenu onNavigate={handleMenuNavigation} />
+              </div>
             </div>
           </header>
 
@@ -211,25 +190,7 @@ const Index = () => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            {user ? (
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={handleLogout}
-              >
-                <LogOut className="w-4 h-4 mr-2" />
-                Sair
-              </Button>
-            ) : (
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => navigate('/auth')}
-              >
-                <User className="w-4 h-4 mr-2" />
-                Login
-              </Button>
-            )}
+            <AppMenu onNavigate={handleMenuNavigation} />
           </div>
         </header>
 

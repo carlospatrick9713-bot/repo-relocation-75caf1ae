@@ -13,10 +13,13 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import ConfirmExitDialog from '@/components/ConfirmExitDialog';
 import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
+import { usePremium } from '@/hooks/usePremium';
+import PremiumCard from '@/components/PremiumCard';
 
 export default function Restaurants() {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { isPremium, isLoading } = usePremium();
   const [searchQuery, setSearchQuery] = useState('');
   const [showExitDialog, setShowExitDialog] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
@@ -83,7 +86,7 @@ export default function Restaurants() {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 relative">
       {/* Header */}
       <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between px-4">
@@ -108,7 +111,7 @@ export default function Restaurants() {
       </header>
 
       {/* Main Content */}
-      <main className="container py-8 px-4 space-y-8">
+      <main className={`container py-8 px-4 space-y-8 ${!isPremium && !isLoading ? 'blur-md pointer-events-none' : ''}`}>
         {/* Hero Section */}
         <div className="space-y-4 animate-fade-in">
           <div className="flex items-center gap-3">
@@ -203,6 +206,15 @@ export default function Restaurants() {
           ))}
         </Tabs>
       </main>
+
+      {/* Premium Overlay */}
+      {!isPremium && !isLoading && (
+        <div className="fixed inset-0 z-40 flex items-center justify-center p-4 bg-background/20">
+          <div className="w-full max-w-md animate-fade-in">
+            <PremiumCard />
+          </div>
+        </div>
+      )}
     </div>
 
     <Dialog open={!!selectedRestaurant} onOpenChange={() => setSelectedRestaurant(null)}>

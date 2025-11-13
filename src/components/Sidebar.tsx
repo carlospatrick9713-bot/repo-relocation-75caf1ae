@@ -8,6 +8,9 @@ import TouristSpotCard from './TouristSpotCard';
 import RiskBadge from './RiskBadge';
 import copacabanaImg from '@/assets/copacabana.jpg';
 import paoDeAcucarImg from '@/assets/pao-de-acucar.jpg';
+import cristoRedentorImg from '@/assets/cristo-redentor.jpg';
+import ipanemaImg from '@/assets/ipanema.jpg';
+import maracanaImg from '@/assets/maracana.jpg';
 
 const alerts = [
   { id: 1, title: 'Centro', level: 'medium' as const, message: 'Atenção redobrada após 22h' },
@@ -39,11 +42,11 @@ const notifications = [
 ];
 
 const touristSpots = [
-  { id: 1, name: 'Cristo Redentor', risk: 'low' as const },
+  { id: 1, name: 'Cristo Redentor', risk: 'low' as const, image: cristoRedentorImg },
   { id: 2, name: 'Pão de Açúcar', risk: 'low' as const, image: paoDeAcucarImg },
   { id: 3, name: 'Copacabana', risk: 'medium' as const, image: copacabanaImg },
-  { id: 4, name: 'Ipanema', risk: 'low' as const },
-  { id: 5, name: 'Maracanã', risk: 'medium' as const }
+  { id: 4, name: 'Ipanema', risk: 'low' as const, image: ipanemaImg },
+  { id: 5, name: 'Maracanã', risk: 'medium' as const, image: maracanaImg }
 ];
 
 export default function Sidebar() {

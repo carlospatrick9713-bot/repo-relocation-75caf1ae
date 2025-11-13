@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import MapView from '@/components/MapView';
 import Sidebar from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
-import { Shield } from 'lucide-react';
 import rioHero from '@/assets/rio-hero.jpg';
+import logo from '@/assets/logo.png';
 import '@/lib/i18n';
 
 const Index = () => {
@@ -37,8 +37,8 @@ const Index = () => {
         <div className="relative z-10 h-full flex flex-col">
           {/* Header */}
           <header className="p-6 flex items-center justify-between">
-            <div className="flex items-center gap-2 text-white animate-fade-in">
-              <Shield className="w-8 h-8" />
+            <div className="flex items-center gap-3 text-white animate-fade-in">
+              <img src={logo} alt="Safe Trip" className="w-10 h-10" />
               <h1 className="text-xl font-bold">{t('header.title')}</h1>
             </div>
             <Button 
@@ -66,7 +66,7 @@ const Index = () => {
                   size="lg"
                   className="bg-primary hover:bg-primary/90 text-white shadow-2xl hover-scale text-lg px-8 py-6"
                 >
-                  <Shield className="w-5 h-5 mr-2" />
+                  <img src={logo} alt="" className="w-5 h-5 mr-2" />
                   Explorar Mapa
                 </Button>
               </div>
@@ -86,8 +86,8 @@ const Index = () => {
     <div className="flex flex-col h-screen bg-background animate-fade-in">
       {/* Header */}
       <header className="h-16 border-b bg-background/95 backdrop-blur-sm flex items-center justify-between px-6 shadow-sm">
-        <div className="flex items-center gap-2">
-          <Shield className="w-6 h-6 text-primary" />
+        <div className="flex items-center gap-3">
+          <img src={logo} alt="Safe Trip" className="w-8 h-8" />
           <h1 className="text-xl font-bold">{t('header.title')}</h1>
         </div>
         <Button onClick={toggleLang} variant="outline" size="sm">

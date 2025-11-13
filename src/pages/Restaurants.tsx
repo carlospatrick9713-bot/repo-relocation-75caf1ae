@@ -259,11 +259,19 @@ export default function Restaurants() {
             </div>
           )}
 
-          {!apiKey && (
-            <div className="h-[400px] rounded-lg bg-muted flex items-center justify-center">
-              <p className="text-sm text-muted-foreground">
-                Google Maps não configurado
-              </p>
+          {!apiKey && selectedRestaurant && (
+            <div className="h-[400px] rounded-lg overflow-hidden border relative">
+              <iframe
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                scrolling="no"
+                src={`https://www.openstreetmap.org/export/embed.html?bbox=${selectedRestaurant.lng - 0.01},${selectedRestaurant.lat - 0.01},${selectedRestaurant.lng + 0.01},${selectedRestaurant.lat + 0.01}&layer=mapnik&marker=${selectedRestaurant.lat},${selectedRestaurant.lng}`}
+                style={{ border: 0 }}
+              />
+              <div className="absolute top-2 left-2 bg-background/90 backdrop-blur px-3 py-1.5 rounded-md text-xs">
+                Prévia do Mapa
+              </div>
             </div>
           )}
 

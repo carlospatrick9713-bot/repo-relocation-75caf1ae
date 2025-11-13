@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ArrowLeft, Upload, Image as ImageIcon, Trash2, X, Crown, Lock, Camera } from 'lucide-react';
+import { ArrowLeft, Upload, Image as ImageIcon, Trash2, X, Crown, Lock, Camera, Play, Pause, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { usePremium } from '@/hooks/usePremium';
 import { supabase } from '@/integrations/supabase/client';
@@ -42,6 +42,8 @@ export default function TouristGallery() {
     caption: '',
     location: ''
   });
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   useEffect(() => {
     // Wait for auth to load before checking user
@@ -53,6 +55,35 @@ export default function TouristGallery() {
     }
     fetchPhotos();
   }, [user, authLoading, navigate]);
+
+  // Filter photos based on user plan
+  const visiblePhotos = isPremium 
+    ? photos 
+    : photos.filter(photo => photo.user_id === user?.id);
+
+  // Get sorted tourist spots for dropdown
+  const sortedTouristSpots = [...touristSpots]
+    .sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'))
+    .map(spot => spot.name);
+
+  // Auto-play carousel
+  useEffect(() => {
+    if (!isAutoPlaying || visiblePhotos.length === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % visiblePhotos.length);
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, visiblePhotos.length]);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % visiblePhotos.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + visiblePhotos.length) % visiblePhotos.length);
+  };
 
   const fetchPhotos = async () => {
     if (!user) return;
@@ -171,16 +202,6 @@ export default function TouristGallery() {
       toast.error('Erro ao deletar foto');
     }
   };
-
-  // Filter photos based on user plan
-  const visiblePhotos = isPremium 
-    ? photos 
-    : photos.filter(photo => photo.user_id === user?.id);
-
-  // Get sorted tourist spots for dropdown
-  const sortedTouristSpots = [...touristSpots]
-    .sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'))
-    .map(spot => spot.name);
 
   // Show loading state while auth is loading
   if (authLoading || loading) {
@@ -334,40 +355,134 @@ export default function TouristGallery() {
               </CardContent>
             </Card>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {visiblePhotos.map((photo, index) => (
-                <Card
-                  key={photo.id}
-                  className="group cursor-pointer overflow-hidden hover:shadow-lg transition-all duration-300 animate-fade-in"
-                  style={{ animationDelay: `${index * 0.02}s` }}
-                  onClick={() => setSelectedPhoto(photo)}
-                >
-                  <CardContent className="p-0 relative">
-                    <div className="aspect-square overflow-hidden">
-                      <img
-                        src={photo.url}
-                        alt={photo.caption || 'Foto do turista'}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                      />
-                    </div>
-                    {photo.caption && (
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="absolute bottom-0 left-0 right-0 p-4">
-                          <p className="text-sm text-white line-clamp-2">
-                            {photo.caption}
-                          </p>
+            <>
+              {/* Animated Carousel */}
+              <Card className="overflow-hidden">
+                <CardContent className="p-0 relative">
+                  <div className="relative w-full aspect-[16/9] bg-black overflow-hidden">
+                    {visiblePhotos.map((photo, index) => (
+                      <div
+                        key={photo.id}
+                        className={`absolute inset-0 transition-opacity duration-1000 ${
+                          index === currentSlide ? 'opacity-100' : 'opacity-0'
+                        }`}
+                      >
+                        <img
+                          src={photo.url}
+                          alt={photo.caption || 'Foto do turista'}
+                          className="w-full h-full object-cover animate-zoom"
+                          style={{
+                            animation: index === currentSlide ? 'kenBurns 5s ease-out' : 'none'
+                          }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                          {photo.location && (
+                            <div className="flex items-center gap-2 mb-2">
+                              <MapPin className="w-4 h-4" />
+                              <span className="text-lg font-semibold">{photo.location}</span>
+                            </div>
+                          )}
+                          {photo.caption && (
+                            <p className="text-sm opacity-90 line-clamp-2">{photo.caption}</p>
+                          )}
                         </div>
+                        {photo.user_id === user?.id && (
+                          <Badge className="absolute top-4 right-4 bg-primary/90">
+                            Sua foto
+                          </Badge>
+                        )}
                       </div>
-                    )}
-                    {photo.user_id === user?.id && (
-                      <Badge className="absolute top-2 right-2 bg-primary/90">
-                        Sua foto
-                      </Badge>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                    ))}
+                    
+                    {/* Carousel Controls */}
+                    <div className="absolute inset-0 flex items-center justify-between p-4 pointer-events-none">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="pointer-events-auto bg-black/50 hover:bg-black/70 text-white rounded-full"
+                        onClick={prevSlide}
+                      >
+                        <ChevronLeft className="w-6 h-6" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="pointer-events-auto bg-black/50 hover:bg-black/70 text-white rounded-full"
+                        onClick={nextSlide}
+                      >
+                        <ChevronRight className="w-6 h-6" />
+                      </Button>
+                    </div>
+
+                    {/* Play/Pause Button */}
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="absolute top-4 left-4 bg-black/50 hover:bg-black/70 text-white rounded-full z-10"
+                      onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+                    >
+                      {isAutoPlaying ? (
+                        <Pause className="w-5 h-5" />
+                      ) : (
+                        <Play className="w-5 h-5" />
+                      )}
+                    </Button>
+
+                    {/* Slide Indicators */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                      {visiblePhotos.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentSlide(index)}
+                          className={`w-2 h-2 rounded-full transition-all ${
+                            index === currentSlide 
+                              ? 'bg-white w-8' 
+                              : 'bg-white/50 hover:bg-white/75'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Photo Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {visiblePhotos.map((photo, index) => (
+                  <Card
+                    key={photo.id}
+                    className="group cursor-pointer overflow-hidden hover:shadow-lg transition-all duration-300 animate-fade-in"
+                    style={{ animationDelay: `${index * 0.02}s` }}
+                    onClick={() => setSelectedPhoto(photo)}
+                  >
+                    <CardContent className="p-0 relative">
+                      <div className="aspect-square overflow-hidden">
+                        <img
+                          src={photo.url}
+                          alt={photo.caption || 'Foto do turista'}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        />
+                      </div>
+                      {photo.caption && (
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <div className="absolute bottom-0 left-0 right-0 p-4">
+                            <p className="text-sm text-white line-clamp-2">
+                              {photo.caption}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                      {photo.user_id === user?.id && (
+                        <Badge className="absolute top-2 right-2 bg-primary/90">
+                          Sua foto
+                        </Badge>
+                      )}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </>
           )}
         </main>
       </div>

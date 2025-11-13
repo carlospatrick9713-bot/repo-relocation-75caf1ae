@@ -12,6 +12,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { z } from 'zod';
 import logo from '@/assets/logo-transparent.png';
 import rioBackground from '@/assets/rio-background.jpg';
+import PlanWelcomeDialog from '@/components/PlanWelcomeDialog';
 
 const authSchema = z.object({
   email: z.string().email('Email inválido').max(255),
@@ -24,6 +25,7 @@ export default function Auth() {
   const navigate = useNavigate();
   const { user, loading } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(false);
 
   // Redirect if already logged in
   useEffect(() => {
@@ -65,9 +67,8 @@ export default function Auth() {
           toast.error('Erro ao criar conta', { description: error.message });
         }
       } else {
-        toast.success('Conta criada com sucesso!', {
-          description: 'Você já pode fazer login.',
-        });
+        toast.success('Conta criada com sucesso!');
+        setShowWelcome(true);
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -125,8 +126,29 @@ export default function Auth() {
     );
   }
 
+  const handleUpgradeToPremium = () => {
+    setShowWelcome(false);
+    toast.info('Funcionalidade de pagamento em breve!', {
+      description: 'Em breve você poderá assinar o plano Premium.',
+    });
+    navigate('/');
+  };
+
+  const handleContinueFree = () => {
+    setShowWelcome(false);
+    navigate('/');
+  };
+
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <>
+      <PlanWelcomeDialog
+        open={showWelcome}
+        onOpenChange={setShowWelcome}
+        onUpgrade={handleUpgradeToPremium}
+        onContinueFree={handleContinueFree}
+      />
+      
+      <div className="min-h-screen relative overflow-hidden">
       {/* Background */}
       <div 
         className="fixed inset-0 bg-cover bg-center"
@@ -252,6 +274,7 @@ export default function Auth() {
           </Card>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

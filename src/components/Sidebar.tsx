@@ -1,52 +1,41 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { AlertCircle, Sparkles, Bell } from 'lucide-react';
+import { AlertCircle, Sparkles, Bell, Clock } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
 import PremiumCard from './PremiumCard';
 import TouristSpotCard from './TouristSpotCard';
 import TouristSpotDialog from './TouristSpotDialog';
 import RiskBadge from './RiskBadge';
 import { touristSpots, TouristSpot } from '@/data/touristSpots';
+import { useSecurityAlerts } from '@/hooks/useSecurityAlerts';
 
 const alerts = [
   { id: 1, title: 'Centro', level: 'medium' as const, message: 'Atenção redobrada após 22h' },
   { id: 2, title: 'Zona Norte', level: 'high' as const, message: 'Evitar áreas isoladas' }
 ];
 
-const notifications = [
-  { 
-    id: 1, 
-    title: 'Zona de Alto Risco Detectada', 
-    level: 'high' as const, 
-    message: 'Você está se aproximando de uma área com alto índice de criminalidade',
-    time: 'now'
-  },
-  { 
-    id: 2, 
-    title: 'Alerta de Trânsito', 
-    level: 'medium' as const, 
-    message: 'Manifestação reportada na Av. Rio Branco',
-    time: '15m'
-  },
-  { 
-    id: 3, 
-    title: 'Condições Seguras', 
-    level: 'low' as const, 
-    message: 'Zona Sul apresenta baixos índices neste horário',
-    time: '1h'
-  }
-];
-
 export default function Sidebar() {
   const { t } = useTranslation();
+  const { alerts: securityAlerts, lastUpdate } = useSecurityAlerts();
   const [selectedSpot, setSelectedSpot] = useState<TouristSpot | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleSpotClick = (spot: TouristSpot) => {
     setSelectedSpot(spot);
     setDialogOpen(true);
+  };
+
+  const formatLastUpdate = () => {
+    const now = new Date();
+    const diff = Math.floor((now.getTime() - lastUpdate.getTime()) / 1000 / 60);
+    
+    if (diff < 1) return t('sidebar.timeAgo.now');
+    if (diff < 60) return t('sidebar.timeAgo.minutes', { count: diff });
+    const hours = Math.floor(diff / 60);
+    return t('sidebar.timeAgo.hours', { count: hours });
   };
 
   return (
@@ -61,6 +50,15 @@ export default function Sidebar() {
             <Card className="animate-fade-in">
               <Tabs defaultValue="alerts" className="w-full">
                 <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <Clock className="w-3 h-3" />
+                      <span>Atualizado {formatLastUpdate()}</span>
+                    </div>
+                    <Badge variant="secondary" className="text-xs">
+                      Atualiza a cada 5min
+                    </Badge>
+                  </div>
                   <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="alerts" className="text-xs">
                       <AlertCircle className="w-3 h-3 mr-1" />
@@ -97,12 +95,12 @@ export default function Sidebar() {
                   </TabsContent>
 
                   <TabsContent value="notifications" className="mt-0 space-y-3">
-                    {notifications.length === 0 ? (
+                    {securityAlerts.length === 0 ? (
                       <p className="text-sm text-muted-foreground text-center py-4">
                         {t('sidebar.noNotifications')}
                       </p>
                     ) : (
-                      notifications.map((notification, index) => (
+                      securityAlerts.map((notification, index) => (
                         <div 
                           key={notification.id} 
                           className="space-y-2 pb-3 border-b last:border-0 last:pb-0 animate-fade-in hover:bg-muted/30 p-2 rounded-lg transition-colors"

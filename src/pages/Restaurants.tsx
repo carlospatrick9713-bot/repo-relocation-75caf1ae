@@ -135,16 +135,25 @@ export default function Restaurants() {
 
             {/* Premium Card - sticky sidebar */}
             <div className="lg:col-span-1">
-              <div className="sticky top-24">
+              <div className="sticky top-24 space-y-4">
                 <PremiumCard />
-                {!user && (
+                <div className="flex flex-col gap-2">
+                  {!user && (
+                    <Button 
+                      className="w-full bg-secondary hover:bg-secondary/90"
+                      onClick={() => navigate('/auth')}
+                    >
+                      Fazer Login / Cadastro
+                    </Button>
+                  )}
                   <Button 
-                    className="w-full mt-4 bg-secondary hover:bg-secondary/90"
-                    onClick={() => navigate('/auth')}
+                    variant="outline"
+                    className="w-full"
+                    onClick={() => navigate('/')}
                   >
-                    Fazer Login / Cadastro
+                    Voltar ao Início
                   </Button>
-                )}
+                </div>
               </div>
             </div>
           </div>

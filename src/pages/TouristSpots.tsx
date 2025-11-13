@@ -75,17 +75,23 @@ export default function TouristSpots() {
       {showPremiumCard && (
         <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-start justify-center overflow-auto">
           <div className="container max-w-4xl py-8 px-4">
-            <div className="mb-4">
+            <div className="mb-4 flex items-center justify-between">
               <Button variant="ghost" onClick={() => setShowPremiumCard(false)}>
                 <ArrowLeft className="w-5 h-5 mr-2" />
                 Voltar
+              </Button>
+              <Button variant="outline" onClick={() => navigate('/')}>
+                Ir para Tela Principal
               </Button>
             </div>
             {!user ? (
               <Card className="p-8 text-center space-y-4">
                 <h2 className="text-2xl font-bold">Faça Login para Continuar</h2>
                 <p className="text-muted-foreground">Você precisa estar logado para acessar o plano premium.</p>
-                <Button onClick={() => navigate('/auth')}>Fazer Login / Cadastro</Button>
+                <div className="flex gap-3 justify-center">
+                  <Button onClick={() => navigate('/auth')}>Fazer Login / Cadastro</Button>
+                  <Button variant="outline" onClick={() => navigate('/')}>Voltar ao Início</Button>
+                </div>
               </Card>
             ) : (
               <PremiumCard />

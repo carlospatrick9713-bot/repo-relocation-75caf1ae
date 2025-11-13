@@ -1,13 +1,23 @@
-import foodBrasileira from '@/assets/food-brasileira.jpg';
-import foodItaliana from '@/assets/food-italiana.jpg';
-import foodJaponesa from '@/assets/food-japonesa.jpg';
-import foodFrancesa from '@/assets/food-francesa.jpg';
-import foodArabe from '@/assets/food-arabe.jpg';
-import foodFrutosMar from '@/assets/food-frutos-mar.jpg';
-import foodChurrascaria from '@/assets/food-churrascaria.jpg';
-import foodContemporanea from '@/assets/food-contemporanea.jpg';
-import foodVegetariana from '@/assets/food-vegetariana.jpg';
-import foodInternacional from '@/assets/food-internacional.jpg';
+import imgOro from '@/assets/restaurant-oro.jpg';
+import imgLasai from '@/assets/restaurant-lasai.jpg';
+import imgCipriani from '@/assets/restaurant-cipriani.jpg';
+import imgChezClaude from '@/assets/restaurant-chez-claude.jpg';
+import imgSanOmakase from '@/assets/restaurant-san-omakase.jpg';
+import imgOseille from '@/assets/restaurant-oseille.jpg';
+import imgToto from '@/assets/restaurant-toto.jpg';
+import imgKoral from '@/assets/restaurant-koral.jpg';
+import imgBabbo from '@/assets/restaurant-babbo.jpg';
+import imgGajos from '@/assets/restaurant-gajos.jpg';
+import imgSatyricon from '@/assets/restaurant-satyricon.jpg';
+import imgTevaBistro from '@/assets/restaurant-teva-bistro.jpg';
+import imgEncarnado from '@/assets/restaurant-encarnado.jpg';
+import imgFerro from '@/assets/restaurant-ferro.jpg';
+import imgRubaiyat from '@/assets/restaurant-rubaiyat.jpg';
+import imgGero from '@/assets/restaurant-gero.jpg';
+import imgCasa201 from '@/assets/restaurant-casa201.jpg';
+import imgMocellin from '@/assets/restaurant-mocellin.jpg';
+import imgElla from '@/assets/restaurant-ella.jpg';
+import imgTeva from '@/assets/restaurant-teva.jpg';
 
 export interface Restaurant {
   id: number;
@@ -22,17 +32,6 @@ export interface Restaurant {
   lat: number;
   lng: number;
 }
-
-const cuisineImages: Record<string, string> = {
-  'Contemporânea': foodContemporanea,
-  'Italiana': foodItaliana,
-  'Japonesa': foodJaponesa,
-  'Francesa': foodFrancesa,
-  'Frutos do Mar': foodFrutosMar,
-  'Churrascaria': foodChurrascaria,
-  'Vegetariana': foodVegetariana,
-  'Portuguesa': foodBrasileira,
-};
 
 export const cuisineTypes = [
   'Contemporânea',
@@ -55,7 +54,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 400-800",
     averagePrice: 600,
     hours: "19:00 - 23:00",
-    image: cuisineImages['Contemporânea'],
+    image: imgOro,
     rating: 4.9,
     lat: -22.9843,
     lng: -43.1964
@@ -68,7 +67,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 350-700",
     averagePrice: 525,
     hours: "19:00 - 23:30",
-    image: cuisineImages['Contemporânea'],
+    image: imgLasai,
     rating: 4.9,
     lat: -22.9522,
     lng: -43.1936
@@ -81,7 +80,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 300-600",
     averagePrice: 450,
     hours: "12:00 - 23:30",
-    image: cuisineImages['Italiana'],
+    image: imgCipriani,
     rating: 4.8,
     lat: -22.9703,
     lng: -43.1777
@@ -94,7 +93,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 250-500",
     averagePrice: 375,
     hours: "12:00 - 00:00",
-    image: cuisineImages['Francesa'],
+    image: imgChezClaude,
     rating: 4.7,
     lat: -22.9847,
     lng: -43.1973
@@ -107,7 +106,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 400-800",
     averagePrice: 600,
     hours: "19:00 - 23:00",
-    image: cuisineImages['Japonesa'],
+    image: imgSanOmakase,
     rating: 4.9,
     lat: -22.9838,
     lng: -43.2044
@@ -120,7 +119,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 350-700",
     averagePrice: 525,
     hours: "19:00 - 23:00",
-    image: cuisineImages['Contemporânea'],
+    image: imgOseille,
     rating: 4.9,
     lat: -22.9710,
     lng: -43.1825
@@ -133,7 +132,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 300-600",
     averagePrice: 450,
     hours: "19:00 - 23:30",
-    image: cuisineImages['Contemporânea'],
+    image: imgToto,
     rating: 4.8,
     lat: -22.9751,
     lng: -43.1855
@@ -146,7 +145,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 280-550",
     averagePrice: 415,
     hours: "12:00 - 23:00",
-    image: cuisineImages['Frutos do Mar'],
+    image: imgKoral,
     rating: 4.7,
     lat: -22.9835,
     lng: -43.2049
@@ -159,7 +158,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 180-350",
     averagePrice: 265,
     hours: "12:00 - 00:00",
-    image: cuisineImages['Italiana'],
+    image: imgBabbo,
     rating: 4.6,
     lat: -22.9843,
     lng: -43.2039
@@ -172,7 +171,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 150-300",
     averagePrice: 225,
     hours: "12:00 - 23:00",
-    image: cuisineImages['Portuguesa'],
+    image: imgGajos,
     rating: 4.6,
     lat: -22.9849,
     lng: -43.2056
@@ -185,7 +184,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 250-500",
     averagePrice: 375,
     hours: "12:00 - 00:00",
-    image: cuisineImages['Frutos do Mar'],
+    image: imgSatyricon,
     rating: 4.7,
     lat: -22.9840,
     lng: -43.2047
@@ -198,7 +197,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 80-160",
     averagePrice: 120,
     hours: "11:00 - 22:00",
-    image: cuisineImages['Vegetariana'],
+    image: imgTevaBistro,
     rating: 4.6,
     lat: -22.9798,
     lng: -43.1892
@@ -211,7 +210,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 70-140",
     averagePrice: 105,
     hours: "18:00 - 00:00",
-    image: cuisineImages['Contemporânea'],
+    image: imgEncarnado,
     rating: 4.5,
     lat: -22.9855,
     lng: -43.2071
@@ -224,7 +223,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 80-150",
     averagePrice: 115,
     hours: "18:00 - 23:30",
-    image: cuisineImages['Italiana'],
+    image: imgFerro,
     rating: 4.6,
     lat: -22.9845,
     lng: -43.2062
@@ -237,7 +236,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 200-400",
     averagePrice: 300,
     hours: "12:00 - 00:00",
-    image: cuisineImages['Churrascaria'],
+    image: imgRubaiyat,
     rating: 4.7,
     lat: -22.9776,
     lng: -43.1868
@@ -250,7 +249,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 250-500",
     averagePrice: 375,
     hours: "12:00 - 00:00",
-    image: cuisineImages['Italiana'],
+    image: imgGero,
     rating: 4.8,
     lat: -22.9844,
     lng: -43.2050
@@ -263,7 +262,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 300-600",
     averagePrice: 450,
     hours: "19:00 - 23:00",
-    image: cuisineImages['Contemporânea'],
+    image: imgCasa201,
     rating: 4.8,
     lat: -22.9660,
     lng: -43.1817
@@ -276,7 +275,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 180-350",
     averagePrice: 265,
     hours: "12:00 - 00:00",
-    image: cuisineImages['Churrascaria'],
+    image: imgMocellin,
     rating: 4.7,
     lat: -22.9720,
     lng: -43.1834
@@ -289,7 +288,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 90-180",
     averagePrice: 135,
     hours: "18:00 - 23:30",
-    image: cuisineImages['Italiana'],
+    image: imgElla,
     rating: 4.6,
     lat: -22.9664,
     lng: -43.2242
@@ -302,7 +301,7 @@ export const restaurants: Restaurant[] = [
     priceRange: "R$ 80-160",
     averagePrice: 120,
     hours: "11:00 - 22:00",
-    image: cuisineImages['Vegetariana'],
+    image: imgTeva,
     rating: 4.6,
     lat: -22.9652,
     lng: -43.1822

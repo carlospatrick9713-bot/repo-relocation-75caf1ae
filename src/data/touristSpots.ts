@@ -5,13 +5,21 @@ import paoDeAcucarImg2 from '@/assets/pao-de-acucar-2.jpg';
 import copacabanaImg from '@/assets/copacabana.jpg';
 import copacabanaImg2 from '@/assets/copacabana-2.jpg';
 import ipanemaImg from '@/assets/ipanema.jpg';
+import ipanemaBeachImg from '@/assets/ipanema-beach.jpg';
 import maracanaImg from '@/assets/maracana.jpg';
+import maracanaStadiumImg from '@/assets/maracana-stadium.jpg';
 import jardimBotanicoImg from '@/assets/jardim-botanico.jpg';
+import jardimBotanicoPalmsImg from '@/assets/jardim-botanico-palms.jpg';
 import santaTeresaImg from '@/assets/santa-teresa.jpg';
+import santaTeresaTramImg from '@/assets/santa-teresa-tram.jpg';
 import lapaImg from '@/assets/lapa.jpg';
+import lapaArchesImg from '@/assets/lapa-arches.jpg';
 import parqueLageImg from '@/assets/parque-lage.jpg';
 import lagoaImg from '@/assets/lagoa.jpg';
+import lagoaRodrigoImg from '@/assets/lagoa-rodrigo.jpg';
 import theatroMunicipalImg from '@/assets/theatro-municipal.jpg';
+import selaronStepsImg from '@/assets/selaron-steps.jpg';
+import arpoadorSunsetImg from '@/assets/arpoador-sunset.jpg';
 
 export interface TouristSpot {
   id: number;
@@ -113,8 +121,8 @@ export const touristSpots: TouristSpot[] = [
     name: 'Praia de Ipanema',
     region: 'Rio de Janeiro Capital',
     risk: 'low',
-    image: ipanemaImg,
-    images: Array(7).fill(ipanemaImg),
+    image: ipanemaBeachImg,
+    images: [ipanemaBeachImg, ipanemaImg, ipanemaBeachImg, ipanemaImg, ipanemaBeachImg, ipanemaImg, ipanemaBeachImg],
     description: 'Imortalizada pela música "Garota de Ipanema" de Tom Jobim e Vinícius de Moraes, Ipanema é considerada uma das praias mais bonitas e sofisticadas do mundo. Com areia dourada e mar de águas cristalinas, a praia é dividida em "tribos": Posto 8 (LGBT+), Posto 9 (jovens e surfistas) e Posto 10 (famílias). O bairro é conhecido por suas lojas de grife, galerias de arte, bares e restaurantes refinados. A vista para o Morro Dois Irmãos é espetacular. O pôr do sol visto da praia é considerado um dos mais bonitos do Rio. Frequentada por artistas, intelectuais e turistas, Ipanema tem uma atmosfera mais descolada e cosmopolita que Copacabana.',
     hours: '24 horas (praia pública)',
     tips: [
@@ -155,8 +163,8 @@ export const touristSpots: TouristSpot[] = [
     name: 'Jardim Botânico',
     region: 'Rio de Janeiro Capital',
     risk: 'low',
-    image: jardimBotanicoImg,
-    images: Array(7).fill(jardimBotanicoImg),
+    image: jardimBotanicoPalmsImg,
+    images: [jardimBotanicoPalmsImg, jardimBotanicoImg, jardimBotanicoPalmsImg, jardimBotanicoImg, jardimBotanicoPalmsImg, jardimBotanicoImg, jardimBotanicoPalmsImg],
     description: 'Fundado em 1808 por D. João VI, o Jardim Botânico é um dos mais importantes do mundo. Com 54 hectares, abriga mais de 6.500 espécies de plantas brasileiras e estrangeiras, muitas ameaçadas de extinção. Destaque para a Alameda das Palmeiras Imperiais, um dos cartões-postais mais fotografados, com 134 metros de comprimento. O jardim possui lago com vitórias-régias, orquidário, bromélias, cactos, jardim sensorial, parque infantil e Centro de Visitantes. As trilhas sombreadas são perfeitas para caminhadas em meio à natureza. O local também é um centro de pesquisa botânica. Abriga o Instituto de Pesquisas Jardim Botânico do Rio de Janeiro. É considerado Reserva da Biosfera pela UNESCO.',
     hours: '8h - 17h (segunda-feira das 12h; terça a domingo desde 8h)',
     tips: [
@@ -176,8 +184,8 @@ export const touristSpots: TouristSpot[] = [
     name: 'Lagoa Rodrigo de Freitas',
     region: 'Rio de Janeiro Capital',
     risk: 'low',
-    image: lagoaImg,
-    images: Array(7).fill(lagoaImg),
+    image: lagoaRodrigoImg,
+    images: [lagoaRodrigoImg, lagoaImg, lagoaRodrigoImg, lagoaImg, lagoaRodrigoImg, lagoaImg, lagoaRodrigoImg],
     description: 'A Lagoa Rodrigo de Freitas é uma laguna natural que se tornou um dos principais cartões-postais do Rio. Com 7,5 km de ciclovia ao redor, é point de esportistas, famílias e turistas. A vista combina águas calmas, vegetação, Cristo Redentor e morros ao fundo. Ao redor da lagoa há quiosques, parque infantil, quadras esportivas e área para piquenique. No Natal, recebe a maior árvore de Natal flutuante do mundo. A lagoa também é palco de competições de remo e canoagem. No Parque dos Patins há aluguel de bicicletas, pedalinhos e caiaques. A região ao redor concentra bairros nobres como Lagoa, Jardim Botânico, Ipanema e Leblon.',
     hours: '24 horas (parque público)',
     tips: [
@@ -197,8 +205,8 @@ export const touristSpots: TouristSpot[] = [
     name: 'Arpoador',
     region: 'Rio de Janeiro Capital',
     risk: 'low',
-    image: ipanemaImg,
-    images: Array(7).fill(ipanemaImg),
+    image: arpoadorSunsetImg,
+    images: [arpoadorSunsetImg, ipanemaImg, arpoadorSunsetImg, ipanemaImg, arpoadorSunsetImg, ipanemaImg, arpoadorSunsetImg],
     description: 'O Arpoador é uma pequena península rochosa que separa as praias de Copacabana e Ipanema. É mundialmente famoso por oferecer o pôr do sol mais espetacular e aplaudido do Rio de Janeiro. Todas as tardes, centenas de pessoas se reúnem nas pedras para assistir ao espetáculo da natureza, aplaudindo quando o sol desaparece no horizonte. É também um dos melhores points de surf da cidade, com ondas consistentes e campeonatos frequentes. Do mirante no alto das pedras, tem-se vista privilegiada das duas praias e do Morro Dois Irmãos. O local tem uma atmosfera única, misturando surfistas, fotógrafos, casais românticos e turistas do mundo inteiro.',
     hours: '24 horas (ponto público)',
     tips: [
@@ -218,8 +226,8 @@ export const touristSpots: TouristSpot[] = [
     name: 'Maracanã',
     region: 'Rio de Janeiro Capital',
     risk: 'medium',
-    image: maracanaImg,
-    images: Array(7).fill(maracanaImg),
+    image: maracanaStadiumImg,
+    images: [maracanaStadiumImg, maracanaImg, maracanaStadiumImg, maracanaImg, maracanaStadiumImg, maracanaImg, maracanaStadiumImg],
     description: 'O Estádio Jornalista Mário Filho, popularmente conhecido como Maracanã, é um dos maiores e mais famosos estádios de futebol do mundo. Inaugurado em 1950 para a Copa do Mundo, já recebeu jogos históricos, como a final da Copa de 2014 e as Olimpíadas de 2016. Com capacidade para 78 mil pessoas, o estádio é palco dos principais jogos de Flamengo e Fluminense. O tour guiado permite conhecer vestiários, sala de troféus, campo e arquibancadas. O museu do futebol brasileiro mostra a história do esporte no país. A arquitetura modernista do estádio é impressionante. É símbolo da paixão brasileira pelo futebol.',
     hours: 'Tours: 9h - 17h (dias sem jogos)',
     tips: [
@@ -239,8 +247,8 @@ export const touristSpots: TouristSpot[] = [
     name: 'Lapa',
     region: 'Rio de Janeiro Capital',
     risk: 'high',
-    image: lapaImg,
-    images: Array(7).fill(lapaImg),
+    image: lapaArchesImg,
+    images: [lapaArchesImg, lapaImg, lapaArchesImg, lapaImg, lapaArchesImg, lapaImg, lapaArchesImg],
     description: 'A Lapa é o bairro boêmio mais famoso do Rio de Janeiro, conhecido por sua vida noturna agitada, samba, choro e forró. Os Arcos da Lapa, aqueduto do século XVIII, são o principal cartão-postal do bairro. Às sextas e sábados, as ruas ficam lotadas de pessoas curtindo música ao vivo nos bares tradicionais como Carioca da Gema e Rio Scenarium. A Escadaria Selarón, com seus azulejos coloridos, fica próxima. O bairro preserva casarões históricos e tem forte vida cultural. Durante o dia, é mais tranquilo e permite conhecer a arquitetura colonial. À noite, vira point de jovens e boêmios de todas as idades.',
     hours: '24 horas (bairro público - boemia noturna)',
     tips: [
@@ -322,8 +330,8 @@ export const touristSpots: TouristSpot[] = [
     name: 'Escadaria Selarón',
     region: 'Rio de Janeiro Capital',
     risk: 'medium',
-    image: ipanemaImg,
-    images: Array(7).fill(ipanemaImg),
+    image: selaronStepsImg,
+    images: [selaronStepsImg, selaronStepsImg, selaronStepsImg, selaronStepsImg, selaronStepsImg, selaronStepsImg, selaronStepsImg],
     description: 'Escadaria colorida criada pelo artista chileno Jorge Selarón, com mais de 2.000 azulejos de 60 países diferentes. Liga os bairros da Lapa e Santa Teresa. É um dos pontos mais fotografados do Rio e obra de arte a céu aberto.',
     hours: '24 horas (espaço público)',
     tips: [
@@ -342,8 +350,8 @@ export const touristSpots: TouristSpot[] = [
     name: 'Santa Teresa',
     region: 'Rio de Janeiro Capital',
     risk: 'medium',
-    image: santaTeresaImg,
-    images: Array(7).fill(santaTeresaImg),
+    image: santaTeresaTramImg,
+    images: [santaTeresaTramImg, santaTeresaImg, santaTeresaTramImg, santaTeresaImg, santaTeresaTramImg, santaTeresaImg, santaTeresaTramImg],
     description: 'Bairro histórico e boêmio, preserva casarões coloniais, ateliês de artistas e charmosos bares e restaurantes. Os tradicionais bondinhos amarelos circulam pelas ruas estreitas. O bairro tem atmosfera única, misturando história, arte e cultura alternativa.',
     hours: '24 horas (bairro residencial)',
     tips: [

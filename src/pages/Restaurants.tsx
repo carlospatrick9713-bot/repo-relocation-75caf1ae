@@ -101,9 +101,11 @@ export default function Restaurants() {
           </div>
         </header>
 
-        {/* Blurred content in background */}
-        <div className="blur-md pointer-events-none">
-          <main className="container py-8 px-4 space-y-8">
+        {/* Content wrapper with blurred main content */}
+        <div className="container py-8 px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Main content - blurred */}
+            <div className="lg:col-span-2 blur-md pointer-events-none space-y-8">
             <div className="space-y-4 animate-fade-in">
               <div className="flex items-center gap-3">
                 <Utensils className="w-10 h-10 text-primary" />
@@ -129,21 +131,22 @@ export default function Restaurants() {
                 <RestaurantCard key={restaurant.id} restaurant={restaurant} />
               ))}
             </div>
-          </main>
-        </div>
+            </div>
 
-        {/* Premium Card overlay */}
-        <div className="absolute inset-0 flex items-center justify-center p-4 pointer-events-none">
-          <div className="max-w-md w-full pointer-events-auto mt-20">
-            <PremiumCard />
-            {!user && (
-              <Button 
-                className="w-full mt-4 bg-secondary hover:bg-secondary/90"
-                onClick={() => navigate('/auth')}
-              >
-                Fazer Login / Cadastro
-              </Button>
-            )}
+            {/* Premium Card - sticky sidebar */}
+            <div className="lg:col-span-1">
+              <div className="sticky top-24">
+                <PremiumCard />
+                {!user && (
+                  <Button 
+                    className="w-full mt-4 bg-secondary hover:bg-secondary/90"
+                    onClick={() => navigate('/auth')}
+                  >
+                    Fazer Login / Cadastro
+                  </Button>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>

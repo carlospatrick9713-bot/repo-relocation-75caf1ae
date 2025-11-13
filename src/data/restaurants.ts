@@ -19,6 +19,8 @@ export interface Restaurant {
   hours: string;
   image: string;
   rating: number;
+  lat: number;
+  lng: number;
 }
 
 const cuisineImages: Record<string, string> = {
@@ -54,7 +56,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 600,
     hours: "19:00 - 23:00",
     image: cuisineImages['Contemporânea'],
-    rating: 4.9
+    rating: 4.9,
+    lat: -22.9843,
+    lng: -43.1964
   },
   {
     id: 2,
@@ -65,7 +69,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 525,
     hours: "19:00 - 23:30",
     image: cuisineImages['Contemporânea'],
-    rating: 4.9
+    rating: 4.9,
+    lat: -22.9522,
+    lng: -43.1936
   },
   {
     id: 3,
@@ -76,7 +82,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 450,
     hours: "12:00 - 23:30",
     image: cuisineImages['Italiana'],
-    rating: 4.8
+    rating: 4.8,
+    lat: -22.9703,
+    lng: -43.1777
   },
   {
     id: 4,
@@ -87,7 +95,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 375,
     hours: "12:00 - 00:00",
     image: cuisineImages['Francesa'],
-    rating: 4.7
+    rating: 4.7,
+    lat: -22.9847,
+    lng: -43.1973
   },
   {
     id: 5,
@@ -98,7 +108,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 600,
     hours: "19:00 - 23:00",
     image: cuisineImages['Japonesa'],
-    rating: 4.9
+    rating: 4.9,
+    lat: -22.9838,
+    lng: -43.2044
   },
   {
     id: 6,
@@ -109,7 +121,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 525,
     hours: "19:00 - 23:00",
     image: cuisineImages['Contemporânea'],
-    rating: 4.9
+    rating: 4.9,
+    lat: -22.9710,
+    lng: -43.1825
   },
   {
     id: 7,
@@ -120,7 +134,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 450,
     hours: "19:00 - 23:30",
     image: cuisineImages['Contemporânea'],
-    rating: 4.8
+    rating: 4.8,
+    lat: -22.9751,
+    lng: -43.1855
   },
   {
     id: 8,
@@ -131,7 +147,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 415,
     hours: "12:00 - 23:00",
     image: cuisineImages['Frutos do Mar'],
-    rating: 4.7
+    rating: 4.7,
+    lat: -22.9835,
+    lng: -43.2049
   },
   {
     id: 9,
@@ -142,7 +160,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 265,
     hours: "12:00 - 00:00",
     image: cuisineImages['Italiana'],
-    rating: 4.6
+    rating: 4.6,
+    lat: -22.9843,
+    lng: -43.2039
   },
   {
     id: 10,
@@ -153,7 +173,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 225,
     hours: "12:00 - 23:00",
     image: cuisineImages['Portuguesa'],
-    rating: 4.6
+    rating: 4.6,
+    lat: -22.9849,
+    lng: -43.2056
   },
   {
     id: 11,
@@ -164,7 +186,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 375,
     hours: "12:00 - 00:00",
     image: cuisineImages['Frutos do Mar'],
-    rating: 4.7
+    rating: 4.7,
+    lat: -22.9840,
+    lng: -43.2047
   },
   {
     id: 12,
@@ -175,7 +199,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 120,
     hours: "11:00 - 22:00",
     image: cuisineImages['Vegetariana'],
-    rating: 4.6
+    rating: 4.6,
+    lat: -22.9798,
+    lng: -43.1892
   },
   {
     id: 13,
@@ -186,7 +212,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 105,
     hours: "18:00 - 00:00",
     image: cuisineImages['Contemporânea'],
-    rating: 4.5
+    rating: 4.5,
+    lat: -22.9855,
+    lng: -43.2071
   },
   {
     id: 14,
@@ -197,7 +225,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 115,
     hours: "18:00 - 23:30",
     image: cuisineImages['Italiana'],
-    rating: 4.6
+    rating: 4.6,
+    lat: -22.9845,
+    lng: -43.2062
   },
   {
     id: 15,
@@ -208,7 +238,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 300,
     hours: "12:00 - 00:00",
     image: cuisineImages['Churrascaria'],
-    rating: 4.7
+    rating: 4.7,
+    lat: -22.9776,
+    lng: -43.1868
   },
   {
     id: 16,
@@ -219,7 +251,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 375,
     hours: "12:00 - 00:00",
     image: cuisineImages['Italiana'],
-    rating: 4.8
+    rating: 4.8,
+    lat: -22.9844,
+    lng: -43.2050
   },
   {
     id: 17,
@@ -230,7 +264,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 450,
     hours: "19:00 - 23:00",
     image: cuisineImages['Contemporânea'],
-    rating: 4.8
+    rating: 4.8,
+    lat: -22.9660,
+    lng: -43.1817
   },
   {
     id: 18,
@@ -241,7 +277,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 265,
     hours: "12:00 - 00:00",
     image: cuisineImages['Churrascaria'],
-    rating: 4.7
+    rating: 4.7,
+    lat: -22.9720,
+    lng: -43.1834
   },
   {
     id: 19,
@@ -252,7 +290,9 @@ export const restaurants: Restaurant[] = [
     averagePrice: 135,
     hours: "18:00 - 23:30",
     image: cuisineImages['Italiana'],
-    rating: 4.6
+    rating: 4.6,
+    lat: -22.9664,
+    lng: -43.2242
   },
   {
     id: 20,
@@ -263,6 +303,8 @@ export const restaurants: Restaurant[] = [
     averagePrice: 120,
     hours: "11:00 - 22:00",
     image: cuisineImages['Vegetariana'],
-    rating: 4.6
+    rating: 4.6,
+    lat: -22.9652,
+    lng: -43.1822
   }
 ];

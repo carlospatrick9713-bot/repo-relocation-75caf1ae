@@ -35,19 +35,28 @@ export default function Profile() {
   const handleDeleteAccount = async () => {
     setIsDeleting(true);
     try {
-      // Delete user account using Supabase Admin API would be needed here
-      // For now, we'll sign out the user and show a message
-      const { error } = await supabase.auth.signOut();
-      
-      if (error) throw error;
+      if (!user) return;
+
+      // Delete the user profile (this will trigger the cascade delete of photos)
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .delete()
+        .eq('id', user.id);
+
+      if (profileError) throw profileError;
+
+      // Sign out the user
+      const { error: signOutError } = await supabase.auth.signOut();
+      if (signOutError) throw signOutError;
 
       toast({
-        title: "Solicitação enviada",
-        description: "Entre em contato com o suporte para concluir a exclusão da sua conta.",
+        title: "Conta deletada",
+        description: "Sua conta e todas as suas fotos foram removidas permanentemente.",
       });
       
       navigate('/');
     } catch (error: any) {
+      console.error('Error deleting account:', error);
       toast({
         title: "Erro ao deletar conta",
         description: error.message,

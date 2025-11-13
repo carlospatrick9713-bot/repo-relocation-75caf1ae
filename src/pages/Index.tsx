@@ -3,7 +3,15 @@ import { useTranslation } from 'react-i18next';
 import MapView from '@/components/MapView';
 import Sidebar from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Globe } from 'lucide-react';
 import rioHero from '@/assets/rio-hero.jpg';
+import rioBackground from '@/assets/rio-background.jpg';
 import logo from '@/assets/logo.png';
 import '@/lib/i18n';
 
@@ -12,14 +20,22 @@ const Index = () => {
   const [lang, setLang] = useState(i18n.language || 'pt');
   const [showHero, setShowHero] = useState(true);
 
-  const toggleLang = () => {
-    const next = i18n.language?.startsWith('pt') ? 'en' : 'pt';
-    i18n.changeLanguage(next);
-    setLang(next);
+  const changeLang = (newLang: string) => {
+    i18n.changeLanguage(newLang);
+    setLang(newLang);
   };
 
   const handleExplore = () => {
     setShowHero(false);
+  };
+
+  const getLangLabel = (code: string) => {
+    const labels: Record<string, string> = {
+      pt: '🇧🇷 Português',
+      en: '🇺🇸 English',
+      es: '🇪🇸 Español'
+    };
+    return labels[code] || code;
   };
 
   if (showHero) {
@@ -38,17 +54,32 @@ const Index = () => {
           {/* Header */}
           <header className="p-6 flex items-center justify-between">
             <div className="flex items-center gap-3 text-white animate-fade-in">
-              <img src={logo} alt="Safe Trip" className="w-10 h-10" />
+              <img src={logo} alt="Safe Trip" className="w-14 h-14" />
               <h1 className="text-xl font-bold">{t('header.title')}</h1>
             </div>
-            <Button 
-              onClick={toggleLang} 
-              variant="outline" 
-              size="sm"
-              className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 animate-fade-in"
-            >
-              {lang === 'pt' ? '🇧🇷 PT' : '🇺🇸 EN'}
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 animate-fade-in"
+                >
+                  <Globe className="w-4 h-4 mr-2" />
+                  {getLangLabel(lang).split(' ')[0]}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="bg-background/95 backdrop-blur-sm">
+                <DropdownMenuItem onClick={() => changeLang('pt')} className="cursor-pointer">
+                  🇧🇷 Português
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => changeLang('en')} className="cursor-pointer">
+                  🇺🇸 English
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => changeLang('es')} className="cursor-pointer">
+                  🇪🇸 Español
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </header>
 
           {/* Hero Text */}
@@ -67,7 +98,7 @@ const Index = () => {
                   className="bg-primary hover:bg-primary/90 text-white shadow-2xl hover-scale text-lg px-8 py-6"
                 >
                   <img src={logo} alt="" className="w-5 h-5 mr-2" />
-                  Explorar Mapa
+                  {lang === 'es' ? 'Explorar Mapa' : lang === 'en' ? 'Explore Map' : 'Explorar Mapa'}
                 </Button>
               </div>
             </div>
@@ -83,28 +114,55 @@ const Index = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-background animate-fade-in">
-      {/* Header */}
-      <header className="h-16 border-b bg-background/95 backdrop-blur-sm flex items-center justify-between px-6 shadow-sm">
-        <div className="flex items-center gap-3">
-          <img src={logo} alt="Safe Trip" className="w-8 h-8" />
-          <h1 className="text-xl font-bold">{t('header.title')}</h1>
-        </div>
-        <Button onClick={toggleLang} variant="outline" size="sm">
-          {lang === 'pt' ? '🇧🇷 PT' : '🇺🇸 EN'}
-        </Button>
-      </header>
+    <div className="flex flex-col h-screen relative overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div 
+        className="fixed inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${rioBackground})` }}
+      >
+        <div className="absolute inset-0 bg-background/90 backdrop-blur-sm" />
+      </div>
 
-      {/* Main Content */}
-      <main className="flex-1 flex overflow-hidden">
-        <Sidebar />
-        <MapView />
-      </main>
+      {/* Content */}
+      <div className="relative z-10 flex flex-col h-screen bg-transparent animate-fade-in">
+        {/* Header */}
+        <header className="h-16 border-b bg-background/80 backdrop-blur-md flex items-center justify-between px-6 shadow-sm">
+          <div className="flex items-center gap-3">
+            <img src={logo} alt="Safe Trip" className="w-10 h-10" />
+            <h1 className="text-xl font-bold">{t('header.title')}</h1>
+          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm">
+                <Globe className="w-4 h-4 mr-2" />
+                {getLangLabel(lang).split(' ')[0]}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="bg-background/95 backdrop-blur-sm">
+              <DropdownMenuItem onClick={() => changeLang('pt')} className="cursor-pointer">
+                🇧🇷 Português
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => changeLang('en')} className="cursor-pointer">
+                🇺🇸 English
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => changeLang('es')} className="cursor-pointer">
+                🇪🇸 Español
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </header>
 
-      {/* Footer */}
-      <footer className="h-11 border-t bg-background flex items-center justify-center">
-        <p className="text-sm text-muted-foreground">{t('footer.copyright')}</p>
-      </footer>
+        {/* Main Content */}
+        <main className="flex-1 flex overflow-hidden">
+          <Sidebar />
+          <MapView />
+        </main>
+
+        {/* Footer */}
+        <footer className="h-11 border-t bg-background/80 backdrop-blur-md flex items-center justify-center">
+          <p className="text-sm text-muted-foreground">{t('footer.copyright')}</p>
+        </footer>
+      </div>
     </div>
   );
 };

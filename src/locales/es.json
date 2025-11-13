@@ -1,0 +1,49 @@
+{
+  "header": {
+    "title": "Safe trip Rio de Janeiro"
+  },
+  "hero": {
+    "title": "Explora Río con Seguridad",
+    "subtitle": "Navega por la Ciudad Maravillosa con información en tiempo real sobre zonas de riesgo y atracciones turísticas"
+  },
+  "sidebar": {
+    "alerts": "Alertas de Seguridad",
+    "notifications": "Notificaciones de Peligro",
+    "noAlerts": "No hay alertas en este momento",
+    "noNotifications": "No hay notificaciones recientes",
+    "riskLevel": "Nivel de Riesgo",
+    "low": "Bajo",
+    "medium": "Medio",
+    "high": "Alto",
+    "touristSpots": "Puntos Turísticos",
+    "viewOnMap": "Ver en el Mapa",
+    "featured": "Destacados",
+    "timeAgo": {
+      "now": "Ahora",
+      "minutes": "hace {{count}} min",
+      "hours": "hace {{count}}h"
+    }
+  },
+  "premium": {
+    "badge": "Premium",
+    "title": "Desbloquea Funciones Premium",
+    "description": "Acceso a rutas seguras, alertas en tiempo real y mucho más",
+    "features": {
+      "routes": "Rutas seguras personalizadas",
+      "alerts": "Alertas en tiempo real",
+      "offline": "Mapas sin conexión",
+      "support": "Soporte prioritario"
+    },
+    "cta": "Suscribirse Premium",
+    "price": "$4.99/mes"
+  },
+  "legend": {
+    "title": "Leyenda",
+    "safe": "Zona Segura",
+    "moderate": "Zona Moderada",
+    "danger": "Zona de Peligro"
+  },
+  "footer": {
+    "copyright": "© 2025 Safe trip Rio de Janeiro"
+  }
+}

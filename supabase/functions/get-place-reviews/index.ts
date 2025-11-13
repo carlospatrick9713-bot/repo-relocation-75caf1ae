@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
-const GOOGLE_MAPS_API_KEY = Deno.env.get('VITE_GOOGLE_MAPS_KEY');
+const GOOGLE_PLACES_API_KEY = Deno.env.get('GOOGLE_PLACES_API_KEY');
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -32,15 +32,18 @@ serve(async (req) => {
       );
     }
 
-    if (!GOOGLE_MAPS_API_KEY) {
+    if (!GOOGLE_PLACES_API_KEY) {
+      console.error('GOOGLE_PLACES_API_KEY not configured');
       return new Response(
-        JSON.stringify({ error: 'Google Maps API key not configured' }),
+        JSON.stringify({ error: 'Google Places API key not configured' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
+    console.log('Fetching reviews for placeId:', placeId);
+
     // Fetch place details with reviews
-    const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews,rating,user_ratings_total&key=${GOOGLE_MAPS_API_KEY}&language=pt-BR`;
+    const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews,rating,user_ratings_total&key=${GOOGLE_PLACES_API_KEY}&language=pt-BR`;
     
     const response = await fetch(url);
     const data = await response.json();

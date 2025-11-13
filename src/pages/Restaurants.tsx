@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,32 +6,20 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Utensils, Search, Clock, DollarSign, Star, Crown, Lock } from 'lucide-react';
+import { ArrowLeft, Utensils, Search, Clock, DollarSign, Star, Crown } from 'lucide-react';
 import { restaurants, cuisineTypes, Restaurant } from '@/data/restaurants';
 import { useAuth } from '@/hooks/useAuth';
 import { usePremium } from '@/hooks/usePremium';
+import PremiumCard from '@/components/PremiumCard';
 import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 
 export default function Restaurants() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { user } = useAuth();
-  const { isPremium } = usePremium();
+  const { user, loading: authLoading } = useAuth();
+  const { isPremium, isLoading } = usePremium();
   const [searchQuery, setSearchQuery] = useState('');
-  const [showPremiumAlert, setShowPremiumAlert] = useState(false);
-
-  useEffect(() => {
-    if (!user) {
-      navigate('/auth');
-      return;
-    }
-    
-    if (!isPremium) {
-      setShowPremiumAlert(true);
-    }
-  }, [user, isPremium, navigate]);
 
   const filteredRestaurants = restaurants.filter(restaurant =>
     restaurant.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -89,56 +77,76 @@ export default function Restaurants() {
     </Card>
   );
 
+  if (isLoading || authLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center">
+        <p className="text-muted-foreground">Carregando...</p>
+      </div>
+    );
+  }
+
   if (!isPremium) {
     return (
-      <>
-        <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center p-4">
-          <Card className="max-w-md w-full">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Lock className="w-5 h-5 text-primary" />
-                Conteúdo Premium
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-muted-foreground">
-                A seção de restaurantes é exclusiva para assinantes Premium.
-              </p>
-              <Button
-                onClick={() => navigate('/')}
-                className="w-full"
-              >
-                Voltar ao Início
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 relative">
+        <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <div className="container flex h-16 items-center justify-between px-4">
+            <div className="flex items-center gap-3">
+              <Button variant="ghost" size="icon" onClick={() => navigate('/')}>
+                <ArrowLeft className="w-5 h-5" />
               </Button>
-            </CardContent>
-          </Card>
+              <img src={logo} alt="Safe Trip" className="w-10 h-10 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => navigate('/')} />
+              <h1 className="text-xl font-bold">{t('header.title')}</h1>
+            </div>
+            <AppMenu />
+          </div>
+        </header>
+
+        {/* Blurred content in background */}
+        <div className="blur-md pointer-events-none">
+          <main className="container py-8 px-4 space-y-8">
+            <div className="space-y-4 animate-fade-in">
+              <div className="flex items-center gap-3">
+                <Utensils className="w-10 h-10 text-primary" />
+                <h2 className="text-4xl font-bold">Restaurantes Premium</h2>
+              </div>
+              <p className="text-lg text-muted-foreground">
+                Os 200 melhores restaurantes do Rio de Janeiro
+              </p>
+              <div className="relative max-w-md">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <Input placeholder="Buscar restaurantes..." className="pl-10" />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Card><CardContent className="pt-6"><div className="text-center space-y-2"><div className="text-4xl font-bold">{restaurants.length}</div><div className="text-sm text-muted-foreground">Restaurantes</div></div></CardContent></Card>
+              <Card><CardContent className="pt-6"><div className="text-center space-y-2"><div className="text-4xl font-bold">{cuisineTypes.length}</div><div className="text-sm text-muted-foreground">Tipos de Culinária</div></div></CardContent></Card>
+              <Card><CardContent className="pt-6"><div className="text-center space-y-2"><div className="text-4xl font-bold">4.6</div><div className="text-sm text-muted-foreground">Avaliação Média</div></div></CardContent></Card>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {restaurants.slice(0, 8).map((restaurant) => (
+                <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+              ))}
+            </div>
+          </main>
         </div>
 
-        <AlertDialog open={showPremiumAlert} onOpenChange={setShowPremiumAlert}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle className="flex items-center gap-2">
-                <Crown className="w-5 h-5 text-yellow-500" />
-                {t('premium.required')}
-              </AlertDialogTitle>
-              <AlertDialogDescription className="space-y-4">
-                <p>Esta funcionalidade é exclusiva para assinantes Premium.</p>
-                <div className="bg-muted/50 p-4 rounded-lg space-y-2">
-                  <p className="font-semibold text-foreground">{t('premium.title')}</p>
-                  <p className="text-sm">{t('premium.price')}</p>
-                </div>
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel onClick={() => navigate('/')}>Voltar</AlertDialogCancel>
-              <AlertDialogAction className="bg-gradient-to-r from-yellow-500 to-primary">
-                <Crown className="w-4 h-4 mr-2" />
-                {t('premium.cta')}
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      </>
+        {/* Premium Card overlay */}
+        <div className="absolute inset-0 flex items-center justify-center p-4 pointer-events-none">
+          <div className="max-w-md w-full pointer-events-auto mt-20">
+            <PremiumCard />
+            {!user && (
+              <Button 
+                className="w-full mt-4 bg-secondary hover:bg-secondary/90"
+                onClick={() => navigate('/auth')}
+              >
+                Fazer Login / Cadastro
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
     );
   }
 

@@ -8,14 +8,21 @@
   },
   "sidebar": {
     "alerts": "Alertas de Segurança",
+    "notifications": "Notificações de Perigo",
     "noAlerts": "Nenhum alerta no momento",
+    "noNotifications": "Nenhuma notificação recente",
     "riskLevel": "Nível de Risco",
     "low": "Baixo",
     "medium": "Médio",
     "high": "Alto",
     "touristSpots": "Pontos Turísticos",
     "viewOnMap": "Ver no Mapa",
-    "featured": "Em Destaque"
+    "featured": "Em Destaque",
+    "timeAgo": {
+      "now": "Agora",
+      "minutes": "há {{count}} min",
+      "hours": "há {{count}}h"
+    }
   },
   "premium": {
     "badge": "Premium",

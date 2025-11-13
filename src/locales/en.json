@@ -8,14 +8,21 @@
   },
   "sidebar": {
     "alerts": "Safety Alerts",
+    "notifications": "Danger Notifications",
     "noAlerts": "No alerts at this time",
+    "noNotifications": "No recent notifications",
     "riskLevel": "Risk Level",
     "low": "Low",
     "medium": "Medium",
     "high": "High",
     "touristSpots": "Tourist Spots",
     "viewOnMap": "View on Map",
-    "featured": "Featured"
+    "featured": "Featured",
+    "timeAgo": {
+      "now": "Now",
+      "minutes": "{{count}}m ago",
+      "hours": "{{count}}h ago"
+    }
   },
   "premium": {
     "badge": "Premium",

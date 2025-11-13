@@ -47,138 +47,10 @@ export default function SecurityAlerts() {
     );
   }
 
-  if (!isPremium) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 relative">
-        <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="container flex h-16 items-center justify-between px-4">
-            <div className="flex items-center gap-3">
-              <Button variant="ghost" size="icon" onClick={() => navigate('/')}>
-                <ArrowLeft className="w-5 h-5" />
-              </Button>
-              <img src={logo} alt="Safe Trip" className="w-10 h-10 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => navigate('/')} />
-              <h1 className="text-xl font-bold">{t('header.title')}</h1>
-            </div>
-            <AppMenu />
-          </div>
-        </header>
-
-        {/* Content wrapper with blurred main content */}
-        <div className="container py-8 px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Main content - blurred */}
-            <div className="lg:col-span-2 blur-md pointer-events-none space-y-8">
-            <div className="space-y-4 animate-fade-in">
-              <div className="flex items-center gap-3">
-                <AlertTriangle className="w-10 h-10 text-primary" />
-                <h2 className="text-4xl font-bold">Alertas de Segurança</h2>
-              </div>
-              <div className="flex items-center gap-4 flex-wrap">
-                <p className="text-lg text-muted-foreground">
-                  Informações atualizadas sobre segurança nas diferentes regiões do Rio
-                </p>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-sm text-muted-foreground">
-                    Atualizado {formatLastUpdate()}
-                  </span>
-                  <Badge variant="secondary">Atualiza a cada 5min</Badge>
-                </div>
-              </div>
-            </div>
-
-            <Card className="animate-fade-in border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-primary" />
-                  Alertas em Tempo Real
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {alerts.map((alert, index) => (
-                  <div key={alert.id} className="p-4 border rounded-lg bg-background/50">
-                    <div className="flex items-start justify-between gap-4 mb-2">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="font-semibold">{alert.title}</h3>
-                          <RiskBadge level={alert.level} />
-                        </div>
-                        <p className="text-sm text-muted-foreground">{alert.message}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {regionAlerts.map((alert) => (
-                <Card key={alert.region}>
-                  <CardHeader>
-                    <CardTitle className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <MapPin className="w-5 h-5 text-primary" />
-                        {alert.region}
-                      </div>
-                      <RiskBadge level={alert.level} />
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-sm text-muted-foreground">{alert.message}</p>
-                    <div>
-                      <div className="text-sm font-medium mb-2">Principais áreas:</div>
-                      <div className="flex flex-wrap gap-2">
-                        {alert.areas.map((area) => (
-                          <Badge key={area} variant="secondary">
-                            {area}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-            </div>
-
-            {/* Premium Card - sticky sidebar */}
-            <div className="lg:col-span-1">
-              <div className="sticky top-24 space-y-4">
-                <PremiumCard />
-                <div className="flex flex-col gap-2">
-                  {!user && (
-                    <Button 
-                      className="w-full bg-secondary hover:bg-secondary/90"
-                      onClick={() => navigate('/auth')}
-                    >
-                      Fazer Login / Cadastro
-                    </Button>
-                  )}
-                  <Button 
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => setShowExitDialog(true)}
-                  >
-                    Voltar ao Início
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <ConfirmExitDialog 
-          open={showExitDialog} 
-          onOpenChange={setShowExitDialog}
-          onConfirm={() => navigate('/')}
-        />
-      </div>
-    );
-  }
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 relative">
       {/* Header */}
       <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between px-4">
@@ -203,7 +75,7 @@ export default function SecurityAlerts() {
       </header>
 
       {/* Main Content */}
-      <main className="container py-8 px-4 space-y-8">
+      <main className={`container py-8 px-4 space-y-8 ${!isPremium && !isLoading ? 'blur-md pointer-events-none' : ''}`}>
         {/* Hero Section */}
         <div className="space-y-4 animate-fade-in">
           <div className="flex items-center gap-3">
@@ -290,6 +162,15 @@ export default function SecurityAlerts() {
           ))}
         </div>
       </main>
+
+      {/* Premium Overlay */}
+      {!isPremium && !isLoading && (
+        <div className="fixed inset-0 z-40 flex items-center justify-center p-4 bg-background/20">
+          <div className="w-full max-w-md animate-fade-in">
+            <PremiumCard />
+          </div>
+        </div>
+      )}
     </div>
 
     <ConfirmExitDialog 

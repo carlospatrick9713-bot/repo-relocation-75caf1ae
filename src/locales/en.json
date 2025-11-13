@@ -35,7 +35,8 @@
       "support": "Priority support"
     },
     "cta": "Subscribe Premium",
-    "price": "$4.99/month"
+    "price": "$2.99/month",
+    "required": "Premium exclusive feature"
   },
   "legend": {
     "title": "Legend",

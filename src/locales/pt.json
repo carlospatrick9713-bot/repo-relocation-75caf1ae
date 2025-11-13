@@ -35,7 +35,8 @@
       "support": "Suporte prioritário"
     },
     "cta": "Assinar Premium",
-    "price": "R$ 19,90/mês"
+    "price": "R$ 10/mês",
+    "required": "Funcionalidade exclusiva Premium"
   },
   "legend": {
     "title": "Legenda",

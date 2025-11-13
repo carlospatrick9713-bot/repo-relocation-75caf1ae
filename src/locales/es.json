@@ -35,7 +35,8 @@
       "support": "Soporte prioritario"
     },
     "cta": "Suscribirse Premium",
-    "price": "$4.99/mes"
+    "price": "$2.99/mes",
+    "required": "Función exclusiva Premium"
   },
   "legend": {
     "title": "Leyenda",

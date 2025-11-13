@@ -168,7 +168,7 @@ export default function Auth() {
               className="w-20 h-20 mx-auto cursor-pointer hover:opacity-80 transition-opacity" 
               onClick={() => navigate('/')}
             />
-            <h1 className="text-3xl font-bold text-white">Safe Trip Rio</h1>
+            <h1 className="text-3xl font-bold text-white">Safe Trip RJ</h1>
           </div>
 
           {/* Auth Card */}

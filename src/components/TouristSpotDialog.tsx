@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Dialog,
@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,6 +21,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { 
   MapPin, 
   Clock, 
@@ -29,8 +31,12 @@ import {
   ChevronRight,
   X,
   Crown,
-  Lock
+  Lock,
+  Star,
+  MessageCircle,
+  Loader2
 } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 import RiskBadge from './RiskBadge';
 import { TouristSpot } from '@/data/touristSpots';
 import { toast } from 'sonner';
@@ -44,6 +50,16 @@ interface TouristSpotDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
+interface GoogleReview {
+  author_name: string;
+  author_url?: string;
+  profile_photo_url?: string;
+  rating: number;
+  relative_time_description: string;
+  text: string;
+  time: number;
+}
+
 export default function TouristSpotDialog({ spot, open, onOpenChange }: TouristSpotDialogProps) {
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -51,6 +67,38 @@ export default function TouristSpotDialog({ spot, open, onOpenChange }: TouristS
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showPremiumAlert, setShowPremiumAlert] = useState(false);
+  const [reviews, setReviews] = useState<GoogleReview[]>([]);
+  const [loadingReviews, setLoadingReviews] = useState(false);
+  const [rating, setRating] = useState<number | null>(null);
+  const [totalRatings, setTotalRatings] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (spot?.placeId && open) {
+      fetchReviews();
+    }
+  }, [spot, open]);
+
+  const fetchReviews = async () => {
+    if (!spot?.placeId) return;
+    
+    setLoadingReviews(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('get-place-reviews', {
+        body: { placeId: spot.placeId }
+      });
+
+      if (error) throw error;
+
+      setReviews(data.reviews || []);
+      setRating(data.rating);
+      setTotalRatings(data.total_ratings);
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+      toast.error('Erro ao carregar avaliações');
+    } finally {
+      setLoadingReviews(false);
+    }
+  };
 
   if (!spot) return null;
 
@@ -86,7 +134,7 @@ export default function TouristSpotDialog({ spot, open, onOpenChange }: TouristS
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-3xl max-h-[90vh] p-0 overflow-hidden">
+        <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden">
           <ScrollArea className="max-h-[90vh]">
             {/* Image Gallery */}
             <div className="relative w-full h-64 md:h-96 bg-muted">
@@ -143,32 +191,113 @@ export default function TouristSpotDialog({ spot, open, onOpenChange }: TouristS
 
               <Separator />
 
-              {/* Hours */}
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm font-medium">
-                  <Clock className="w-4 h-4 text-primary" />
-                  Horário de Funcionamento
-                </div>
-                <p className="text-sm text-muted-foreground pl-6">{spot.hours}</p>
-              </div>
+              {/* Tabs for Info and Reviews */}
+              <Tabs defaultValue="info" className="w-full">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="info">Informações</TabsTrigger>
+                  <TabsTrigger value="reviews">
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Feedback dos Turistas
+                  </TabsTrigger>
+                </TabsList>
 
-              <Separator />
+                {/* Info Tab */}
+                <TabsContent value="info" className="space-y-6 mt-4">
+                  {/* Hours */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm font-medium">
+                      <Clock className="w-4 h-4 text-primary" />
+                      Horário de Funcionamento
+                    </div>
+                    <p className="text-sm text-muted-foreground pl-6">{spot.hours}</p>
+                  </div>
 
-              {/* Tips */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 text-sm font-medium">
-                  <Lightbulb className="w-4 h-4 text-primary" />
-                  Dicas Importantes
-                </div>
-                <ul className="space-y-2 pl-6">
-                  {spot.tips.map((tip, index) => (
-                    <li key={index} className="text-sm text-muted-foreground flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span>{tip}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                  <Separator />
+
+                  {/* Tips */}
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2 text-sm font-medium">
+                      <Lightbulb className="w-4 h-4 text-primary" />
+                      Dicas Importantes
+                    </div>
+                    <ul className="space-y-2 pl-6">
+                      {spot.tips.map((tip, index) => (
+                        <li key={index} className="text-sm text-muted-foreground flex items-start gap-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span>{tip}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </TabsContent>
+
+                {/* Reviews Tab */}
+                <TabsContent value="reviews" className="mt-4">
+                  {spot.placeId ? (
+                    <>
+                      {rating && (
+                        <div className="flex items-center gap-2 mb-4 p-4 bg-muted/50 rounded-lg">
+                          <div className="flex items-center gap-1">
+                            <Star className="w-5 h-5 fill-yellow-500 text-yellow-500" />
+                            <span className="text-2xl font-bold">{rating.toFixed(1)}</span>
+                          </div>
+                          <span className="text-sm text-muted-foreground">
+                            ({totalRatings} avaliações)
+                          </span>
+                        </div>
+                      )}
+
+                      {loadingReviews ? (
+                        <div className="flex items-center justify-center py-8">
+                          <Loader2 className="w-6 h-6 animate-spin text-primary" />
+                        </div>
+                      ) : reviews.length > 0 ? (
+                        <div className="space-y-4 max-h-96 overflow-y-auto">
+                          {reviews.map((review, index) => (
+                            <div key={index} className="border-b pb-4 last:border-0">
+                              <div className="flex items-start gap-3">
+                                <Avatar className="w-10 h-10">
+                                  <AvatarImage src={review.profile_photo_url} />
+                                  <AvatarFallback>{review.author_name[0]}</AvatarFallback>
+                                </Avatar>
+                                <div className="flex-1">
+                                  <div className="flex items-center justify-between mb-1">
+                                    <span className="font-medium text-sm">{review.author_name}</span>
+                                    <span className="text-xs text-muted-foreground">
+                                      {review.relative_time_description}
+                                    </span>
+                                  </div>
+                                  <div className="flex items-center gap-1 mb-2">
+                                    {Array.from({ length: 5 }).map((_, i) => (
+                                      <Star
+                                        key={i}
+                                        className={`w-3 h-3 ${
+                                          i < review.rating
+                                            ? 'fill-yellow-500 text-yellow-500'
+                                            : 'text-gray-300'
+                                        }`}
+                                      />
+                                    ))}
+                                  </div>
+                                  <p className="text-sm text-muted-foreground">{review.text}</p>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-center text-sm text-muted-foreground py-8">
+                          Nenhuma avaliação recente disponível
+                        </p>
+                      )}
+                    </>
+                  ) : (
+                    <p className="text-center text-sm text-muted-foreground py-8">
+                      Avaliações não disponíveis para este local
+                    </p>
+                  )}
+                </TabsContent>
+              </Tabs>
 
               <Separator />
 

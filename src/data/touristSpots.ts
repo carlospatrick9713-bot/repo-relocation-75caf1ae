@@ -22,6 +22,7 @@ export interface TouristSpot {
   description: string;
   hours: string;
   tips: string[];
+  placeId?: string;
   location: {
     lat: number;
     lng: number;
@@ -37,6 +38,7 @@ export const touristSpots: TouristSpot[] = [
     images: [cristoRedentorImg, cristoRedentorImg2],
     description: 'Um dos cartões postais mais icônicos do Rio de Janeiro e uma das Sete Maravilhas do Mundo Moderno. A estátua de 38 metros de altura oferece uma vista panorâmica deslumbrante da cidade.',
     hours: '8h - 19h (todos os dias)',
+    placeId: 'ChIJAZ-a03_5mQARcPs8sN6e4Y8',
     tips: [
       'Reserve ingressos com antecedência',
       'Melhor horário: manhã cedo ou final da tarde',

@@ -3,7 +3,7 @@
     "title": "Safe trip Rio de Janeiro"
   },
   "hero": {
-    "title": "Erkunden Sie Rio sicher",
+    "title": "Erkunde Rio sicher",
     "subtitle": "Navigieren Sie durch die wunderbare Stadt mit Echtzeitinformationen über Risikozonen und Touristenattraktionen"
   },
   "sidebar": {
@@ -46,5 +46,18 @@
   },
   "footer": {
     "copyright": "© 2025 Safe trip Rio de Janeiro"
+  },
+  "gallery": {
+    "title": "Touristengalerie",
+    "uploadTitle": "Foto hochladen",
+    "uploadDescription": "Teilen Sie Ihre Erinnerungen an Rio de Janeiro",
+    "caption": "Bildunterschrift",
+    "location": "Standort",
+    "upload": "Hochladen",
+    "myPhotos": "Meine Fotos",
+    "allPhotos": "Alle Fotos (Premium)",
+    "premiumRequired": "Alle Fotos anzeigen ist exklusiv für Premium-Abonnenten",
+    "maxSize": "Maximale Größe: 10MB",
+    "formats": "Formate: JPG, PNG, WEBP"
   }
 }

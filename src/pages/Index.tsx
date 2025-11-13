@@ -5,14 +5,9 @@ import MapView from '@/components/MapView';
 import Sidebar from '@/components/Sidebar';
 import HeroCarousel from '@/components/HeroCarousel';
 import AppMenu from '@/components/AppMenu';
+import LanguageSelector from '@/components/LanguageSelector';
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Globe, Crown } from 'lucide-react';
+import { Crown } from 'lucide-react';
 import rioBackground from '@/assets/rio-background.jpg';
 import logo from '@/assets/logo-transparent.png';
 import { useAuth } from '@/hooks/useAuth';
@@ -20,16 +15,10 @@ import { usePremium } from '@/hooks/usePremium';
 import '@/lib/i18n';
 
 const Index = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { isPremium } = usePremium();
-  const [lang, setLang] = useState(i18n.language || 'pt');
   const [showHero, setShowHero] = useState(true);
-
-  const changeLang = (newLang: string) => {
-    i18n.changeLanguage(newLang);
-    setLang(newLang);
-  };
 
   const handleExplore = () => {
     setShowHero(false);
@@ -38,21 +27,6 @@ const Index = () => {
   const handleMenuNavigation = (section: string) => {
     console.log('Navegando para:', section);
     // Implementar navegação para seções específicas
-  };
-
-  const getLangLabel = (code: string) => {
-    const labels: Record<string, string> = {
-      pt: '🇧🇷 PT',
-      en: '🇺🇸 EN',
-      es: '🇪🇸 ES'
-    };
-    return labels[code] || code;
-  };
-
-  const getExploreText = () => {
-    if (lang === 'es') return 'Explorar Mapa';
-    if (lang === 'en') return 'Explore Map';
-    return 'Explorar Mapa';
   };
 
   if (showHero) {
@@ -81,29 +55,9 @@ const Index = () => {
                   <span className="text-sm font-semibold">Premium</span>
                 </div>
               )}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 animate-fade-in"
-                  >
-                    <Globe className="w-4 h-4 mr-2" />
-                    {getLangLabel(lang)}
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="bg-background/95 backdrop-blur-sm">
-                  <DropdownMenuItem onClick={() => changeLang('pt')} className="cursor-pointer">
-                    🇧🇷 Português
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => changeLang('en')} className="cursor-pointer">
-                    🇺🇸 English
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => changeLang('es')} className="cursor-pointer">
-                    🇪🇸 Español
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <div className="animate-fade-in">
+                <LanguageSelector />
+              </div>
               <div className="animate-fade-in">
                 <AppMenu onNavigate={handleMenuNavigation} />
               </div>
@@ -126,7 +80,7 @@ const Index = () => {
                   className="bg-primary hover:bg-primary/90 text-white shadow-2xl hover-scale text-lg px-8 py-6"
                 >
                   <img src={logo} alt="" className="w-6 h-6 mr-2 drop-shadow-lg" />
-                  {getExploreText()}
+                  {t('hero.title').includes('Explora') || t('hero.title').includes('Explore') || t('hero.title').includes('Erkunde') ? 'Explorar Mapa' : 'Explorar Mapa'}
                 </Button>
               </div>
             </div>
@@ -171,25 +125,7 @@ const Index = () => {
                 <span className="text-sm font-semibold">Premium</span>
               </div>
             )}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm">
-                  <Globe className="w-4 h-4 mr-2" />
-                  {getLangLabel(lang)}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="bg-background/95 backdrop-blur-sm">
-                <DropdownMenuItem onClick={() => changeLang('pt')} className="cursor-pointer">
-                  🇧🇷 Português
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => changeLang('en')} className="cursor-pointer">
-                  🇺🇸 English
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => changeLang('es')} className="cursor-pointer">
-                  🇪🇸 Español
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <LanguageSelector />
             <AppMenu onNavigate={handleMenuNavigation} />
           </div>
         </header>

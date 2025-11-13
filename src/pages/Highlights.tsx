@@ -17,11 +17,7 @@ export default function Highlights() {
   const [selectedSpot, setSelectedSpot] = useState<TouristSpot | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const featuredSpots = touristSpots.filter(spot => spot.id <= 5);
-  const premiumSpots = touristSpots.filter(spot => spot.risk === 'low').slice(0, 100);
-  const [showAllPremium, setShowAllPremium] = useState(false);
-
-  const visiblePremiumSpots = showAllPremium ? premiumSpots : premiumSpots.slice(0, 5);
+  const topTenSpots = touristSpots.slice(0, 10);
 
   const handleSpotClick = (spot: TouristSpot) => {
     setSelectedSpot(spot);
@@ -67,17 +63,17 @@ export default function Highlights() {
             </p>
           </div>
 
-          {/* Featured Spots */}
+          {/* Top 10 Most Visited */}
           <Card className="animate-fade-in">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-primary" />
-                Mais Visitados
+                Top 10 Mais Visitados
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {featuredSpots.map((spot, index) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {topTenSpots.map((spot, index) => (
                   <div 
                     key={spot.id}
                     className="animate-fade-in"
@@ -92,49 +88,6 @@ export default function Highlights() {
                   </div>
                 ))}
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Premium Recommendations */}
-          <Card className="animate-fade-in border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Crown className="w-5 h-5 text-yellow-500" />
-                Recomendações Premium
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                {premiumSpots.length} locais com baixo índice de risco e alto nível de segurança
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {visiblePremiumSpots.map((spot, index) => (
-                  <div 
-                    key={spot.id}
-                    className="animate-fade-in"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <TouristSpotCard
-                      name={spot.name}
-                      risk={spot.risk}
-                      image={spot.image}
-                      onClick={() => handleSpotClick(spot)}
-                    />
-                  </div>
-                ))}
-              </div>
-              {!showAllPremium && premiumSpots.length > 5 && (
-                <div className="text-center pt-4">
-                  <Button
-                    onClick={() => setShowAllPremium(true)}
-                    variant="outline"
-                    size="lg"
-                    className="w-full md:w-auto"
-                  >
-                    Ver Todos os {premiumSpots.length} Pontos Premium
-                  </Button>
-                </div>
-              )}
             </CardContent>
           </Card>
         </main>

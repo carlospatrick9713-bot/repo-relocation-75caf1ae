@@ -30,7 +30,12 @@ export default function TouristSpots() {
   const { toast } = useToast();
   const { user } = useAuth();
 
-  const handleSpotClick = (spot: TouristSpot) => {
+  const handleSpotClick = (spot: TouristSpot, isPremiumSpot: boolean) => {
+    // If it's a premium spot and user is not premium, show premium card
+    if (isPremiumSpot && !isPremium) {
+      setShowPremiumCard(true);
+      return;
+    }
     setSelectedSpot(spot);
     setDialogOpen(true);
   };
@@ -43,16 +48,16 @@ export default function TouristSpots() {
     setShowAllPremium(true);
   };
 
-  // Top 10 most visited spots (same as Highlights page)
-  const topTenSpots = touristSpots.slice(0, 10);
+  // Top 10 most visited spots (free for everyone)
+  const freeSpotIds = touristSpots.slice(0, 10).map(s => s.id);
   
-  // All spots available for premium users
-  const availableSpots = isPremium ? touristSpots : topTenSpots;
-
-  const filteredSpots = availableSpots.filter(spot =>
+  // Show all spots but mark premium ones
+  const filteredSpots = touristSpots.filter(spot =>
     spot.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     spot.region.toLowerCase().includes(searchQuery.toLowerCase())
   );
+  
+  const isPremiumSpot = (spotId: number) => !freeSpotIds.includes(spotId);
 
   const spotsByRegion = regions.reduce((acc, region) => {
     acc[region] = filteredSpots.filter(s => s.region === region);
@@ -126,7 +131,7 @@ export default function TouristSpots() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Card><CardContent className="pt-6"><div className="text-center space-y-1"><div className="text-3xl font-bold">{availableSpots.length}</div><div className="text-sm text-muted-foreground">Pontos {isPremium ? 'Turísticos' : 'Disponíveis'}</div></div></CardContent></Card>
+            <Card><CardContent className="pt-6"><div className="text-center space-y-1"><div className="text-3xl font-bold">{filteredSpots.length}</div><div className="text-sm text-muted-foreground">Pontos Turísticos</div></div></CardContent></Card>
             <Card><CardContent className="pt-6"><div className="text-center space-y-1"><div className="text-3xl font-bold">{regions.length}</div><div className="text-sm text-muted-foreground">Regiões</div></div></CardContent></Card>
             <Card><CardContent className="pt-6"><div className="text-center space-y-1"><div className="text-3xl font-bold">{spotsByRisk.low.length}</div><div className="text-sm text-muted-foreground">Baixo Risco</div></div></CardContent></Card>
             <Card>
@@ -143,7 +148,7 @@ export default function TouristSpots() {
                     onClick={handleShowAllPremium}
                   >
                     <Crown className="w-3 h-3 mr-1" />
-                    Ver Todos
+                    Desbloquear
                   </Button>
                 )}
               </CardContent>
@@ -162,11 +167,29 @@ export default function TouristSpots() {
 
             <TabsContent value="all" className="mt-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {filteredSpots.map((spot, index) => (
-                  <div key={spot.id} className="animate-fade-in" style={{ animationDelay: `${index * 0.02}s` }}>
-                    <TouristSpotCard name={spot.name} risk={spot.risk} image={spot.image} onClick={() => handleSpotClick(spot)} />
-                  </div>
-                ))}
+                {filteredSpots.map((spot, index) => {
+                  const isPremiumLocked = isPremiumSpot(spot.id) && !isPremium;
+                  return (
+                    <div key={spot.id} className="animate-fade-in relative group" style={{ animationDelay: `${index * 0.02}s` }}>
+                      <div className={isPremiumLocked ? 'blur-sm hover:blur-none transition-all duration-300' : ''}>
+                        <TouristSpotCard 
+                          name={spot.name} 
+                          risk={spot.risk} 
+                          image={spot.image} 
+                          onClick={() => handleSpotClick(spot, isPremiumLocked)} 
+                        />
+                      </div>
+                      {isPremiumLocked && (
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:opacity-0 transition-opacity duration-300">
+                          <div className="bg-background/95 backdrop-blur-sm px-4 py-2 rounded-lg border border-primary/20 shadow-lg flex items-center gap-2">
+                            <Crown className="w-4 h-4 text-yellow-500" />
+                            <span className="text-sm font-medium">Premium</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </TabsContent>
 
@@ -177,11 +200,29 @@ export default function TouristSpots() {
                   <p className="text-muted-foreground">{spotsByRegion[region]?.length || 0} pontos turísticos</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                  {spotsByRegion[region]?.map((spot, index) => (
-                    <div key={spot.id} className="animate-fade-in" style={{ animationDelay: `${index * 0.02}s` }}>
-                      <TouristSpotCard name={spot.name} risk={spot.risk} image={spot.image} onClick={() => handleSpotClick(spot)} />
-                    </div>
-                  ))}
+                  {spotsByRegion[region]?.map((spot, index) => {
+                    const isPremiumLocked = isPremiumSpot(spot.id) && !isPremium;
+                    return (
+                      <div key={spot.id} className="animate-fade-in relative group" style={{ animationDelay: `${index * 0.02}s` }}>
+                        <div className={isPremiumLocked ? 'blur-sm hover:blur-none transition-all duration-300' : ''}>
+                          <TouristSpotCard 
+                            name={spot.name} 
+                            risk={spot.risk} 
+                            image={spot.image} 
+                            onClick={() => handleSpotClick(spot, isPremiumLocked)} 
+                          />
+                        </div>
+                        {isPremiumLocked && (
+                          <div className="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:opacity-0 transition-opacity duration-300">
+                            <div className="bg-background/95 backdrop-blur-sm px-4 py-2 rounded-lg border border-primary/20 shadow-lg flex items-center gap-2">
+                              <Crown className="w-4 h-4 text-yellow-500" />
+                              <span className="text-sm font-medium">Premium</span>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </TabsContent>
             ))}

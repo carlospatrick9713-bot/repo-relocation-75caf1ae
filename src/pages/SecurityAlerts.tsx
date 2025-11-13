@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,6 +10,7 @@ import { usePremium } from '@/hooks/usePremium';
 import { useAuth } from '@/hooks/useAuth';
 import RiskBadge from '@/components/RiskBadge';
 import PremiumCard from '@/components/PremiumCard';
+import ConfirmExitDialog from '@/components/ConfirmExitDialog';
 import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
 
@@ -18,6 +20,7 @@ export default function SecurityAlerts() {
   const { alerts, lastUpdate } = useSecurityAlerts();
   const { isPremium, isLoading } = usePremium();
   const { user, loading: authLoading } = useAuth();
+  const [showExitDialog, setShowExitDialog] = useState(false);
 
   const formatLastUpdate = () => {
     const now = new Date();
@@ -154,7 +157,7 @@ export default function SecurityAlerts() {
                   <Button 
                     variant="outline"
                     className="w-full"
-                    onClick={() => navigate('/')}
+                    onClick={() => setShowExitDialog(true)}
                   >
                     Voltar ao Início
                   </Button>
@@ -163,12 +166,19 @@ export default function SecurityAlerts() {
             </div>
           </div>
         </div>
+
+        <ConfirmExitDialog 
+          open={showExitDialog} 
+          onOpenChange={setShowExitDialog}
+          onConfirm={() => navigate('/')}
+        />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
+    <>
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
       {/* Header */}
       <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between px-4">
@@ -281,5 +291,12 @@ export default function SecurityAlerts() {
         </div>
       </main>
     </div>
+
+    <ConfirmExitDialog 
+      open={showExitDialog} 
+      onOpenChange={setShowExitDialog}
+      onConfirm={() => navigate('/')}
+    />
+    </>
   );
 }

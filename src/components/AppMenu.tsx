@@ -74,7 +74,7 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
           {/* User Section */}
           {user ? (
             <div className="space-y-3 pb-4 border-b">
-              <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+              <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg cursor-pointer hover:bg-muted transition-colors" onClick={() => { setOpen(false); navigate('/profile'); }}>
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                   <User className="w-5 h-5 text-primary" />
                 </div>
@@ -90,6 +90,14 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
                   )}
                 </div>
               </div>
+              <Button
+                variant="outline"
+                className="w-full justify-start"
+                onClick={() => { setOpen(false); navigate('/profile'); }}
+              >
+                <User className="w-4 h-4 mr-2" />
+                Meu Perfil
+              </Button>
               <Button
                 variant="outline"
                 className="w-full justify-start"

@@ -17,6 +17,7 @@ import { usePremium } from '@/hooks/usePremium';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import PremiumCard from '@/components/PremiumCard';
+import ConfirmExitDialog from '@/components/ConfirmExitDialog';
 
 export default function TouristSpots() {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ export default function TouristSpots() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showAllPremium, setShowAllPremium] = useState(false);
   const [showPremiumCard, setShowPremiumCard] = useState(false);
+  const [showExitDialog, setShowExitDialog] = useState(false);
   const { isPremium } = usePremium();
   const { toast } = useToast();
   const { user } = useAuth();
@@ -80,7 +82,7 @@ export default function TouristSpots() {
                 <ArrowLeft className="w-5 h-5 mr-2" />
                 Voltar
               </Button>
-              <Button variant="outline" onClick={() => navigate('/')}>
+              <Button variant="outline" onClick={() => setShowExitDialog(true)}>
                 Ir para Tela Principal
               </Button>
             </div>
@@ -90,7 +92,7 @@ export default function TouristSpots() {
                 <p className="text-muted-foreground">Você precisa estar logado para acessar o plano premium.</p>
                 <div className="flex gap-3 justify-center">
                   <Button onClick={() => navigate('/auth')}>Fazer Login / Cadastro</Button>
-                  <Button variant="outline" onClick={() => navigate('/')}>Voltar ao Início</Button>
+                  <Button variant="outline" onClick={() => setShowExitDialog(true)}>Voltar ao Início</Button>
                 </div>
               </Card>
             ) : (
@@ -237,6 +239,11 @@ export default function TouristSpots() {
       </div>
 
       <TouristSpotDialog spot={selectedSpot} open={dialogOpen} onOpenChange={setDialogOpen} />
+      <ConfirmExitDialog 
+        open={showExitDialog} 
+        onOpenChange={setShowExitDialog}
+        onConfirm={() => navigate('/')}
+      />
     </>
   );
 }

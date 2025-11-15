@@ -48,25 +48,20 @@ export default function Slang() {
         throw error;
       }
 
-      if (data?.audioContent) {
-        // Convert base64 to audio and play
-        const audioBlob = new Blob(
-          [Uint8Array.from(atob(data.audioContent), c => c.charCodeAt(0))],
-          { type: 'audio/mpeg' }
-        );
-        const audioUrl = URL.createObjectURL(audioBlob);
-        const audio = new Audio(audioUrl);
-        
-        audio.onended = () => {
-          setPlayingWord(null);
-          URL.revokeObjectURL(audioUrl);
-        };
-        
-        await audio.play();
+      if (data?.pronunciationGuide) {
+        // Show pronunciation guide as a toast with longer duration
+        toast.success(data.pronunciationGuide, {
+          duration: 8000,
+          style: {
+            maxWidth: '500px',
+            whiteSpace: 'pre-wrap'
+          }
+        });
+        setPlayingWord(null);
       }
     } catch (error) {
-      console.error('Error playing pronunciation:', error);
-      toast.error('Não foi possível reproduzir o áudio');
+      console.error('Error getting pronunciation:', error);
+      toast.error('Não foi possível obter a pronúncia');
       setPlayingWord(null);
     }
   };

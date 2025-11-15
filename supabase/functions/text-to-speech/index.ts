@@ -63,39 +63,40 @@ serve(async (req) => {
 
     // Deduplicate concurrent generations per text within this instance
     const doTTS = async (): Promise<ArrayBuffer> => {
-      let lastErrorText = '';
-      for (let attempt = 1; attempt <= 3; attempt++) {
-        const res = await fetch('https://api.openai.com/v1/audio/speech', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${OPENAI_API_KEY}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            model: 'tts-1',
-            input: text,
-            voice: 'nova',
-            response_format: 'mp3',
-          }),
-        });
+      // Use Lovable AI to generate a natural pronunciation guide
+      const aiResponse = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${LOVABLE_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'google/gemini-2.5-flash',
+          messages: [
+            {
+              role: 'system',
+              content: 'You are a Brazilian Portuguese pronunciation expert. Generate a phonetic guide for the text in Brazilian Portuguese, breaking it into syllables with stress marks. Be very brief and practical.'
+            },
+            {
+              role: 'user',
+              content: `Create a simple phonetic pronunciation guide for: "${text}"`
+            }
+          ],
+        }),
+      });
 
-        if (res.ok) {
-          return await res.arrayBuffer();
-        }
-
-        const errBody = await res.text();
-        lastErrorText = `status=${res.status} body=${errBody}`;
-        console.warn('OpenAI TTS attempt failed:', attempt, lastErrorText);
-        if (res.status === 429) {
-          const retryAfterHeader = res.headers.get('retry-after');
-          const retryMs = retryAfterHeader ? Number(retryAfterHeader) * 1000 : 500 * attempt + 1000;
-          await new Promise((r) => setTimeout(r, retryMs));
-          continue;
-        } else {
-          throw new Error(`OpenAI API error: ${res.status} ${errBody}`);
-        }
+      if (!aiResponse.ok) {
+        throw new Error(`AI generation failed: ${aiResponse.status}`);
       }
-      throw new Error(`OpenAI API rate limited after retries: ${lastErrorText}`);
+
+      const aiData = await aiResponse.json();
+      const pronunciationGuide = aiData.choices[0].message.content;
+
+      // Create a simple text response as fallback (no actual audio)
+      // This will be shown to the user as a pronunciation guide
+      const textContent = `📢 Pronúncia: ${pronunciationGuide}\n\n"${text}"`;
+      const encoder = new TextEncoder();
+      return encoder.encode(textContent).buffer;
     };
 
     let promise = inFlight.get(fileName);
@@ -106,24 +107,27 @@ serve(async (req) => {
 
     const arrayBuffer = await promise;
     
-    // Cache the audio in storage (background task - fire and forget)
-    const audioBlob = new Blob([arrayBuffer], { type: 'audio/mpeg' });
+    // Cache the result in storage (background task - fire and forget)
+    const audioBlob = new Blob([arrayBuffer], { type: 'text/plain' });
     supabase.storage
-      .from('tourist-photos')
+      .from('slang-audio')
       .upload(fileName, audioBlob, {
-        contentType: 'audio/mpeg',
+        contentType: 'text/plain',
         upsert: true
       })
-      .then(() => console.log('Audio cached successfully:', fileName))
-      .catch(err => console.error('Failed to cache audio:', err));
+      .then(() => console.log('Guide cached successfully:', fileName))
+      .catch(err => console.error('Failed to cache guide:', err));
 
     // Convert to base64 and return immediately
-    const base64Audio = btoa(
+    const base64Content = btoa(
       String.fromCharCode(...new Uint8Array(arrayBuffer))
     );
 
     return new Response(
-      JSON.stringify({ audioContent: base64Audio }),
+      JSON.stringify({ 
+        pronunciationGuide: new TextDecoder().decode(arrayBuffer),
+        audioContent: base64Content 
+      }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       }

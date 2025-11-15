@@ -25,15 +25,15 @@ const fetchRealSecurityData = async (): Promise<SecurityData[]> => {
       level: "low",
       incidents: 45,
       crimeTypes: [
-        { type: "Roubo de celular", count: 18 },
-        { type: "Furto em veículo", count: 15 },
-        { type: "Roubo a transeunte", count: 12 }
+        { type: "crimeTypes.cellPhoneTheft", count: 18 },
+        { type: "crimeTypes.vehicleTheft", count: 15 },
+        { type: "crimeTypes.streetRobbery", count: 12 }
       ],
       dangerousHours: ["22:00 - 02:00", "05:00 - 07:00"],
       safetyTips: [
-        "Evite usar celular na rua, principalmente em áreas vazias",
-        "Prefira táxis e aplicativos de transporte à noite",
-        "Mantenha objetos de valor escondidos"
+        "safetyTips.avoidPhoneOnStreet",
+        "safetyTips.preferTaxis",
+        "safetyTips.hideValuables"
       ]
     },
     {
@@ -41,16 +41,16 @@ const fetchRealSecurityData = async (): Promise<SecurityData[]> => {
       level: "medium",
       incidents: 89,
       crimeTypes: [
-        { type: "Roubo de celular", count: 35 },
-        { type: "Roubo a transeunte", count: 28 },
-        { type: "Furto em transporte", count: 26 }
+        { type: "crimeTypes.cellPhoneTheft", count: 35 },
+        { type: "crimeTypes.streetRobbery", count: 28 },
+        { type: "crimeTypes.transitTheft", count: 26 }
       ],
       dangerousHours: ["18:00 - 22:00", "00:00 - 06:00"],
       safetyTips: [
-        "Evite ruas desertas, principalmente após 18h",
-        "Use transporte coletivo apenas em horários de movimento",
-        "Ande em grupo sempre que possível",
-        "Não ostente objetos de valor"
+        "safetyTips.avoidDesertedStreets",
+        "safetyTips.publicTransportPeakHours",
+        "safetyTips.walkInGroups",
+        "safetyTips.dontShowValuables"
       ]
     },
     {
@@ -58,18 +58,18 @@ const fetchRealSecurityData = async (): Promise<SecurityData[]> => {
       level: "high",
       incidents: 156,
       crimeTypes: [
-        { type: "Roubo de veículo", count: 48 },
-        { type: "Roubo a transeunte", count: 42 },
-        { type: "Roubo de celular", count: 38 },
-        { type: "Assalto a comércio", count: 28 }
+        { type: "crimeTypes.vehicleTheft", count: 48 },
+        { type: "crimeTypes.streetRobbery", count: 42 },
+        { type: "crimeTypes.cellPhoneTheft", count: 38 },
+        { type: "crimeTypes.businessRobbery", count: 28 }
       ],
       dangerousHours: ["19:00 - 23:00", "00:00 - 06:00"],
       safetyTips: [
-        "Evite circular à noite sem necessidade",
-        "Prefira avenidas principais e iluminadas",
-        "Mantenha vidros fechados e portas travadas no trânsito",
-        "Evite parar em sinais isolados à noite",
-        "Não reaja a assaltos"
+        "safetyTips.avoidNightCirculation",
+        "safetyTips.preferMainAvenues",
+        "safetyTips.keepWindowsClosed",
+        "safetyTips.avoidIsolatedSignals",
+        "safetyTips.dontReact"
       ]
     },
     {
@@ -77,16 +77,16 @@ const fetchRealSecurityData = async (): Promise<SecurityData[]> => {
       level: "medium",
       incidents: 72,
       crimeTypes: [
-        { type: "Roubo de veículo", count: 28 },
-        { type: "Furto em residência", count: 22 },
-        { type: "Roubo de celular", count: 22 }
+        { type: "crimeTypes.vehicleTheft", count: 28 },
+        { type: "crimeTypes.homeTheft", count: 22 },
+        { type: "crimeTypes.cellPhoneTheft", count: 22 }
       ],
       dangerousHours: ["20:00 - 01:00", "05:00 - 07:00"],
       safetyTips: [
-        "Evite ruas pouco movimentadas",
-        "Instale sistemas de segurança em residências",
-        "Fique atento a movimentações suspeitas",
-        "Prefira áreas com policiamento"
+        "safetyTips.avoidQuietStreets",
+        "safetyTips.installSecurity",
+        "safetyTips.watchSuspicious",
+        "safetyTips.preferPoliced"
       ]
     }
   ];

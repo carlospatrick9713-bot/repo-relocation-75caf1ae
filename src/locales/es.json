@@ -96,17 +96,17 @@
       "zonaNorte": {
         "name": "Zona Norte",
         "message": "Evitar áreas aisladas. Prefiera vías principales.",
-        "areas": ["Maracanã", "São Cristóvão", "Tijuca"]
+        "areas": ["Maracanã", "São Cristóvão", "Tijuca", "Vila Isabel", "Grajaú", "Andaraí", "Alto da Boa Vista", "Méier", "Engenho de Dentro", "Engenho Novo", "Cachambi", "Todos os Santos", "Del Castilho", "Pilares", "Abolição", "Piedade", "Encantado", "Riachuelo", "Sampaio", "Jacaré", "Mangueira", "Benfica", "Bonsucesso", "Complexo do Alemão", "Maré", "Penha", "Vigário Geral", "Parada de Lucas", "Pavuna", "Costa Barros", "Acari", "Irajá", "Vicente de Carvalho", "Vila da Penha", "Vista Alegre", "Olaria", "Ramos", "Bonsucesso"]
       },
       "zonaSul": {
         "name": "Zona Sur",
         "message": "Región con buena seguridad. Mantenga atención básica.",
-        "areas": ["Copacabana", "Ipanema", "Leblon"]
+        "areas": ["Copacabana", "Ipanema", "Leblon", "Botafogo", "Flamengo", "Laranjeiras", "Catete", "Glória", "Leme", "Urca", "Humaitá", "Jardim Botânico", "Lagoa", "Gávea", "São Conrado", "Vidigal", "Rocinha"]
       },
       "zonaOeste": {
         "name": "Zona Oeste",
         "message": "Atención en horarios nocturnos. Evite ostentación.",
-        "areas": ["Barra da Tijuca", "Recreio", "Jacarepaguá"]
+        "areas": ["Barra da Tijuca", "Recreio dos Bandeirantes", "Jacarepaguá", "Cidade de Deus", "Taquara", "Freguesia", "Vargem Grande", "Vargem Pequena", "Camorim", "Grumari", "Guaratiba", "Campo Grande", "Santa Cruz", "Bangu", "Realengo", "Padre Miguel", "Senador Camará"]
       }
     },
     "statistics": {
@@ -154,7 +154,33 @@
     },
     "dataSource": "Datos proporcionados por",
     "lastUpdate": "Última actualización",
-    "understood": "Entendido"
+    "understood": "Entendido",
+    "crimeTypes": {
+      "cellPhoneTheft": "Robo de celular",
+      "vehicleTheft": "Robo de vehículo",
+      "streetRobbery": "Robo a transeúnte",
+      "transitTheft": "Hurto en transporte",
+      "businessRobbery": "Asalto a comercio",
+      "homeTheft": "Hurto en residencia"
+    },
+    "safetyTips": {
+      "avoidPhoneOnStreet": "Evite usar el celular en la calle, principalmente en áreas vacías",
+      "preferTaxis": "Prefiera taxis y aplicaciones de transporte por la noche",
+      "hideValuables": "Mantenga objetos de valor escondidos",
+      "avoidDesertedStreets": "Evite calles desiertas, principalmente después de las 18h",
+      "publicTransportPeakHours": "Use transporte público solo en horarios de movimiento",
+      "walkInGroups": "Camine en grupo siempre que sea posible",
+      "dontShowValuables": "No ostente objetos de valor",
+      "avoidNightCirculation": "Evite circular por la noche sin necesidad",
+      "preferMainAvenues": "Prefiera avenidas principales e iluminadas",
+      "keepWindowsClosed": "Mantenga ventanas cerradas y puertas trabadas en el tránsito",
+      "avoidIsolatedSignals": "Evite parar en señales aisladas por la noche",
+      "dontReact": "No reaccione a asaltos",
+      "avoidQuietStreets": "Evite calles poco transitadas",
+      "installSecurity": "Instale sistemas de seguridad en residencias",
+      "watchSuspicious": "Esté atento a movimientos sospechosos",
+      "preferPoliced": "Prefiera áreas con vigilancia policial"
+    }
   },
   "slang": {
     "title": "Jerga Carioca",

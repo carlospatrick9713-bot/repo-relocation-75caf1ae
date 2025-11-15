@@ -98,17 +98,17 @@
       "zonaNorte": {
         "name": "Zona Norte",
         "message": "Evitar áreas isoladas. Prefira vias principais.",
-        "areas": ["Maracanã", "São Cristóvão", "Tijuca"]
+        "areas": ["Maracanã", "São Cristóvão", "Tijuca", "Vila Isabel", "Grajaú", "Andaraí", "Alto da Boa Vista", "Méier", "Engenho de Dentro", "Engenho Novo", "Cachambi", "Todos os Santos", "Del Castilho", "Pilares", "Abolição", "Piedade", "Encantado", "Riachuelo", "Sampaio", "Jacaré", "Mangueira", "Benfica", "Bonsucesso", "Complexo do Alemão", "Maré", "Penha", "Vigário Geral", "Parada de Lucas", "Pavuna", "Costa Barros", "Acari", "Irajá", "Vicente de Carvalho", "Vila da Penha", "Vista Alegre", "Olaria", "Ramos", "Bonsucesso"]
       },
       "zonaSul": {
         "name": "Zona Sul",
         "message": "Região com boa segurança. Mantenha atenção básica.",
-        "areas": ["Copacabana", "Ipanema", "Leblon"]
+        "areas": ["Copacabana", "Ipanema", "Leblon", "Botafogo", "Flamengo", "Laranjeiras", "Catete", "Glória", "Leme", "Urca", "Humaitá", "Jardim Botânico", "Lagoa", "Gávea", "São Conrado", "Vidigal", "Rocinha"]
       },
       "zonaOeste": {
         "name": "Zona Oeste",
         "message": "Atenção em horários noturnos. Evite ostentação.",
-        "areas": ["Barra da Tijuca", "Recreio", "Jacarepaguá"]
+        "areas": ["Barra da Tijuca", "Recreio dos Bandeirantes", "Jacarepaguá", "Cidade de Deus", "Taquara", "Freguesia", "Vargem Grande", "Vargem Pequena", "Camorim", "Grumari", "Guaratiba", "Campo Grande", "Santa Cruz", "Bangu", "Realengo", "Padre Miguel", "Senador Camará"]
       }
     },
     "statistics": {
@@ -156,7 +156,33 @@
     },
     "dataSource": "Dados fornecidos por",
     "lastUpdate": "Última atualização",
-    "understood": "Entendi"
+    "understood": "Entendi",
+    "crimeTypes": {
+      "cellPhoneTheft": "Roubo de celular",
+      "vehicleTheft": "Roubo de veículo",
+      "streetRobbery": "Roubo a transeunte",
+      "transitTheft": "Furto em transporte",
+      "businessRobbery": "Assalto a comércio",
+      "homeTheft": "Furto em residência"
+    },
+    "safetyTips": {
+      "avoidPhoneOnStreet": "Evite usar celular na rua, principalmente em áreas vazias",
+      "preferTaxis": "Prefira táxis e aplicativos de transporte à noite",
+      "hideValuables": "Mantenha objetos de valor escondidos",
+      "avoidDesertedStreets": "Evite ruas desertas, principalmente após 18h",
+      "publicTransportPeakHours": "Use transporte coletivo apenas em horários de movimento",
+      "walkInGroups": "Ande em grupo sempre que possível",
+      "dontShowValuables": "Não ostente objetos de valor",
+      "avoidNightCirculation": "Evite circular à noite sem necessidade",
+      "preferMainAvenues": "Prefira avenidas principais e iluminadas",
+      "keepWindowsClosed": "Mantenha vidros fechados e portas travadas no trânsito",
+      "avoidIsolatedSignals": "Evite parar em sinais isolados à noite",
+      "dontReact": "Não reaja a assaltos",
+      "avoidQuietStreets": "Evite ruas pouco movimentadas",
+      "installSecurity": "Instale sistemas de segurança em residências",
+      "watchSuspicious": "Fique atento a movimentações suspeitas",
+      "preferPoliced": "Prefira áreas com policiamento"
+    }
   },
   "slang": {
     "title": "Gírias Cariocas",

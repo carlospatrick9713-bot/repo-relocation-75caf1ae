@@ -15,6 +15,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Separator } from '@/components/ui/separator';
 import { useTranslation } from 'react-i18next';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { useQuery } from '@tanstack/react-query';
 
 interface AppMenuProps {
   onNavigate?: (section: string) => void;
@@ -26,6 +28,21 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
   const { user } = useAuth();
   const { isPremium } = usePremium();
   const [open, setOpen] = useState(false);
+
+  const { data: profile } = useQuery({
+    queryKey: ['profile', user?.id],
+    queryFn: async () => {
+      if (!user) return null;
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('avatar_url, full_name')
+        .eq('id', user.id)
+        .maybeSingle();
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!user,
+  });
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -78,11 +95,14 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
           {user ? (
             <div className="space-y-3 pb-4 border-b">
               <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg cursor-pointer hover:bg-muted transition-colors" onClick={() => { setOpen(false); navigate('/profile'); }}>
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <User className="w-5 h-5 text-primary" />
-                </div>
+                <Avatar className="w-10 h-10">
+                  <AvatarImage src={profile?.avatar_url || undefined} alt={profile?.full_name || user.email || 'User'} />
+                  <AvatarFallback className="bg-primary/10">
+                    <User className="w-5 h-5 text-primary" />
+                  </AvatarFallback>
+                </Avatar>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">{user.email}</p>
+                  <p className="text-sm font-medium truncate">{profile?.full_name || user.email}</p>
                   {isPremium ? (
                     <div className="flex items-center gap-1 text-xs text-yellow-600 dark:text-yellow-400">
                       <Crown className="w-3 h-3" />

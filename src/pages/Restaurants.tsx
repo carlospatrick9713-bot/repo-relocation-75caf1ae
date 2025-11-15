@@ -15,6 +15,7 @@ import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
 import { usePremium } from '@/hooks/usePremium';
 import PremiumCard from '@/components/PremiumCard';
+import LanguageSelector from '@/components/LanguageSelector';
 
 export default function Restaurants() {
   const navigate = useNavigate();
@@ -106,7 +107,10 @@ export default function Restaurants() {
             />
             <h1 className="text-xl font-bold">{t('header.title')}</h1>
           </div>
-          <AppMenu />
+          <div className="flex items-center gap-3">
+            <LanguageSelector />
+            <AppMenu />
+          </div>
         </div>
       </header>
 

@@ -18,6 +18,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import PremiumCard from '@/components/PremiumCard';
 import ConfirmExitDialog from '@/components/ConfirmExitDialog';
+import LanguageSelector from '@/components/LanguageSelector';
 
 export default function TouristSpots() {
   const navigate = useNavigate();
@@ -111,7 +112,10 @@ export default function TouristSpots() {
               <img src={logo} alt="Safe Trip" className="w-10 h-10 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => navigate('/')} />
               <h1 className="text-xl font-bold">{t('header.title')}</h1>
             </div>
-            <AppMenu />
+            <div className="flex items-center gap-3">
+              <LanguageSelector />
+              <AppMenu />
+            </div>
           </div>
         </header>
 

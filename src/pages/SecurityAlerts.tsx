@@ -13,6 +13,7 @@ import PremiumCard from '@/components/PremiumCard';
 import ConfirmExitDialog from '@/components/ConfirmExitDialog';
 import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
+import LanguageSelector from '@/components/LanguageSelector';
 
 export default function SecurityAlerts() {
   const navigate = useNavigate();
@@ -90,7 +91,10 @@ export default function SecurityAlerts() {
             />
             <h1 className="text-xl font-bold">{t('header.title')}</h1>
           </div>
-          <AppMenu />
+          <div className="flex items-center gap-3">
+            <LanguageSelector />
+            <AppMenu />
+          </div>
         </div>
       </header>
 

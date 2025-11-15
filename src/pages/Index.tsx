@@ -59,19 +59,14 @@ const Index = () => {
               />
               <h1 className="text-xl font-bold drop-shadow-md">{t('header.title')}</h1>
             </div>
-            <div className="flex items-center gap-3">
-              {user && isPremium && (
-                <div className="flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm border border-yellow-500/30 text-yellow-300 px-3 py-1.5 rounded-lg animate-fade-in">
-                  <Crown className="w-4 h-4" />
-                </div>
-              )}
-              <div className="animate-fade-in">
-                <LanguageSelector />
-              </div>
-              <div className="animate-fade-in">
-                <AppMenu onNavigate={handleMenuNavigation} />
-              </div>
+          <div className="flex items-center gap-3">
+            <div className="animate-fade-in">
+              <LanguageSelector />
             </div>
+            <div className="animate-fade-in">
+              <AppMenu onNavigate={handleMenuNavigation} />
+            </div>
+          </div>
           </header>
 
           {/* Hero Text */}
@@ -129,11 +124,6 @@ const Index = () => {
             <h1 className="text-xl font-bold">{t('header.title')}</h1>
           </div>
           <div className="flex items-center gap-3">
-            {user && isPremium && (
-              <div className="flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/30 text-yellow-600 dark:text-yellow-400 px-3 py-1.5 rounded-lg">
-                <Crown className="w-4 h-4" />
-              </div>
-            )}
             <LanguageSelector />
             <AppMenu onNavigate={handleMenuNavigation} />
           </div>
@@ -141,8 +131,17 @@ const Index = () => {
 
         {/* Main Content */}
         <main className="flex-1 flex overflow-hidden">
-          <Sidebar />
-          <MapView />
+          <div className="hidden md:block">
+            <Sidebar />
+          </div>
+          <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+            <div className="flex-1 order-2 md:order-1">
+              <MapView />
+            </div>
+            <div className="md:hidden order-1 md:order-2 overflow-y-auto">
+              <Sidebar />
+            </div>
+          </div>
         </main>
 
         {/* Footer */}

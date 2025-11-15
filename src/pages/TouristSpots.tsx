@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ArrowLeft, MapPin, Search, Crown } from 'lucide-react';
 import { touristSpots, regions, TouristSpot } from '@/data/touristSpots';
-import TouristSpotCard from '@/components/TouristSpotCard';
+import TranslatedTouristSpotCard from '@/components/TranslatedTouristSpotCard';
 import TouristSpotDialog from '@/components/TouristSpotDialog';
 import RiskBadge from '@/components/RiskBadge';
 import logo from '@/assets/logo-transparent.png';
@@ -187,12 +187,29 @@ export default function TouristSpots() {
                   return (
                     <div key={spot.id} className="animate-fade-in relative group" style={{ animationDelay: `${index * 0.02}s` }}>
                       <div className={isPremiumLocked ? 'blur-sm hover:blur-none transition-all duration-300' : ''}>
-                        <TouristSpotCard 
-                          name={spot.name} 
-                          risk={spot.risk} 
-                          image={spot.image} 
-                          onClick={() => handleSpotClick(spot, isPremiumLocked)} 
-                        />
+                        <Card 
+                          className="overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group"
+                          onClick={() => handleSpotClick(spot, isPremiumLocked)}
+                        >
+                          <div className="relative h-48 overflow-hidden">
+                            <img 
+                              src={spot.image} 
+                              alt={spot.name}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                          </div>
+                          <CardContent className="p-4">
+                            <div className="flex items-start justify-between gap-2 mb-2">
+                              <h3 className="font-semibold text-lg line-clamp-1 flex-1">
+                                {spot.name}
+                              </h3>
+                              <RiskBadge level={spot.risk} />
+                            </div>
+                            <p className="text-sm text-muted-foreground line-clamp-2">
+                              {spot.description}
+                            </p>
+                          </CardContent>
+                        </Card>
                       </div>
                       {isPremiumLocked && (
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:opacity-0 transition-opacity duration-300">
@@ -220,12 +237,29 @@ export default function TouristSpots() {
                     return (
                       <div key={spot.id} className="animate-fade-in relative group" style={{ animationDelay: `${index * 0.02}s` }}>
                         <div className={isPremiumLocked ? 'blur-sm hover:blur-none transition-all duration-300' : ''}>
-                          <TouristSpotCard 
-                            name={spot.name} 
-                            risk={spot.risk} 
-                            image={spot.image} 
-                            onClick={() => handleSpotClick(spot, isPremiumLocked)} 
-                          />
+                          <Card 
+                            className="overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group"
+                            onClick={() => handleSpotClick(spot, isPremiumLocked)}
+                          >
+                            <div className="relative h-48 overflow-hidden">
+                              <img 
+                                src={spot.image} 
+                                alt={spot.name}
+                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                              />
+                            </div>
+                            <CardContent className="p-4">
+                              <div className="flex items-start justify-between gap-2 mb-2">
+                                <h3 className="font-semibold text-lg line-clamp-1 flex-1">
+                                  {spot.name}
+                                </h3>
+                                <RiskBadge level={spot.risk} />
+                              </div>
+                              <p className="text-sm text-muted-foreground line-clamp-2">
+                                {spot.description}
+                              </p>
+                            </CardContent>
+                          </Card>
                         </div>
                         {isPremiumLocked && (
                           <div className="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:opacity-0 transition-opacity duration-300">

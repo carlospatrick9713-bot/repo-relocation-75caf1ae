@@ -17,7 +17,7 @@ import { useRestaurants } from '@/hooks/useRestaurants';
 import { usePremium } from '@/hooks/usePremium';
 import { useSecurityAlerts } from '@/hooks/useSecurityAlerts';
 import RiskBadge from '@/components/RiskBadge';
-import TouristSpotCard from '@/components/TouristSpotCard';
+import TranslatedTouristSpotCard from '@/components/TranslatedTouristSpotCard';
 import TouristSpotDialog from '@/components/TouristSpotDialog';
 import PremiumCard from '@/components/PremiumCard';
 import { ZoomableMap } from '@/components/ZoomableMap';
@@ -167,29 +167,14 @@ const Index = () => {
             
             <div className="grid grid-cols-5 gap-4">
               {featuredSpots.slice(0, 10).map(spot => (
-                <Card 
+                <TranslatedTouristSpotCard
                   key={spot.id}
-                  className="cursor-pointer hover:shadow-lg transition-all overflow-hidden group"
+                  spot={spot}
                   onClick={() => {
                     setSelectedSpot(spot);
                     setDialogOpen(true);
                   }}
-                >
-                  <div className="aspect-video overflow-hidden">
-                    <img 
-                      src={spot.image} 
-                      alt={spot.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                  </div>
-                  <CardContent className="p-3">
-                    <div className="flex items-start justify-between gap-2 mb-1">
-                      <h4 className="font-semibold text-sm line-clamp-1 flex-1">{spot.name}</h4>
-                      <RiskBadge level={spot.risk_level as 'low' | 'medium' | 'high'} />
-                    </div>
-                    <p className="text-xs text-muted-foreground line-clamp-2">{spot.description}</p>
-                  </CardContent>
-                </Card>
+                />
               ))}
             </div>
 
@@ -277,29 +262,14 @@ const Index = () => {
             
             <div className="grid grid-cols-2 gap-4">
               {featuredSpots.slice(0, 6).map(spot => (
-                <Card 
+                <TranslatedTouristSpotCard
                   key={spot.id}
-                  className="cursor-pointer hover:shadow-lg transition-all overflow-hidden group"
+                  spot={spot}
                   onClick={() => {
                     setSelectedSpot(spot);
                     setDialogOpen(true);
                   }}
-                >
-                  <div className="aspect-video overflow-hidden">
-                    <img 
-                      src={spot.image} 
-                      alt={spot.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                  </div>
-                  <CardContent className="p-3">
-                    <div className="flex items-start justify-between gap-2 mb-1">
-                      <h4 className="font-semibold text-sm line-clamp-1 flex-1">{spot.name}</h4>
-                      <RiskBadge level={spot.risk_level as 'low' | 'medium' | 'high'} />
-                    </div>
-                    <p className="text-xs text-muted-foreground line-clamp-2">{spot.description}</p>
-                  </CardContent>
-                </Card>
+                />
               ))}
             </div>
 

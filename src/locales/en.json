@@ -162,12 +162,12 @@
       "description": "See which neighborhoods are part of each region of Rio de Janeiro"
     },
     "crimeTypes": {
-      "cellPhoneTheft": "Cell phone theft",
-      "vehicleTheft": "Vehicle theft",
-      "streetRobbery": "Street robbery",
-      "transitTheft": "Transit theft",
-      "businessRobbery": "Business robbery",
-      "homeTheft": "Home theft"
+      "cellPhoneTheft": "Cell Phone",
+      "vehicleTheft": "Vehicle",
+      "streetRobbery": "Pedestrian",
+      "transitTheft": "Transit",
+      "businessRobbery": "Business",
+      "homeTheft": "Residence"
     },
     "safetyTips": {
       "avoidPhoneOnStreet": "Avoid using your phone on the street, especially in empty areas",

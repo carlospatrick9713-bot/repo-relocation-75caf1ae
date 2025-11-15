@@ -173,12 +173,12 @@
       "description": "Sehen Sie, welche Stadtteile zu jeder Region von Rio de Janeiro gehören"
     },
     "crimeTypes": {
-      "cellPhoneTheft": "Handydiebstahl",
-      "vehicleTheft": "Fahrzeugdiebstahl",
-      "streetRobbery": "Straßenraub",
-      "transitTheft": "Diebstahl im Verkehr",
-      "businessRobbery": "Geschäftsraub",
-      "homeTheft": "Wohnungsdiebstahl"
+      "cellPhoneTheft": "Handy",
+      "vehicleTheft": "Fahrzeug",
+      "streetRobbery": "Fußgänger",
+      "transitTheft": "Verkehr",
+      "businessRobbery": "Geschäft",
+      "homeTheft": "Wohnung"
     },
     "safetyTips": {
       "avoidPhoneOnStreet": "Vermeiden Sie die Nutzung des Handys auf der Straße, besonders in leeren Bereichen",

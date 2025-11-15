@@ -162,12 +162,12 @@
       "description": "Veja quais bairros fazem parte de cada região do Rio de Janeiro"
     },
     "crimeTypes": {
-      "cellPhoneTheft": "Roubo de celular",
-      "vehicleTheft": "Roubo de veículo",
-      "streetRobbery": "Roubo a transeunte",
-      "transitTheft": "Furto em transporte",
-      "businessRobbery": "Assalto a comércio",
-      "homeTheft": "Furto em residência"
+      "cellPhoneTheft": "Celular",
+      "vehicleTheft": "Veículo",
+      "streetRobbery": "Transeunte",
+      "transitTheft": "Transporte",
+      "businessRobbery": "Comércio",
+      "homeTheft": "Residência"
     },
     "safetyTips": {
       "avoidPhoneOnStreet": "Evite usar celular na rua, principalmente em áreas vazias",

@@ -160,12 +160,12 @@
       "description": "Voir quels quartiers font partie de chaque région de Rio de Janeiro"
     },
     "crimeTypes": {
-      "cellPhoneTheft": "Vol de téléphone portable",
-      "vehicleTheft": "Vol de véhicule",
-      "streetRobbery": "Vol de rue",
-      "transitTheft": "Vol dans les transports",
-      "businessRobbery": "Agression de commerce",
-      "homeTheft": "Vol à domicile"
+      "cellPhoneTheft": "Téléphone",
+      "vehicleTheft": "Véhicule",
+      "streetRobbery": "Piéton",
+      "transitTheft": "Transport",
+      "businessRobbery": "Commerce",
+      "homeTheft": "Domicile"
     },
     "safetyTips": {
       "avoidPhoneOnStreet": "Évitez d'utiliser votre téléphone dans la rue, surtout dans les zones vides",

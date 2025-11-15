@@ -44,6 +44,84 @@ export type Database = {
         }
         Relationships: []
       }
+      restaurants: {
+        Row: {
+          average_price: number
+          created_at: string | null
+          cuisine: string
+          description: string
+          hours: string
+          id: string
+          image: string
+          lat: number
+          lng: number
+          name: string
+          price_range: string
+          rating: number
+          updated_at: string | null
+        }
+        Insert: {
+          average_price: number
+          created_at?: string | null
+          cuisine: string
+          description: string
+          hours: string
+          id?: string
+          image: string
+          lat: number
+          lng: number
+          name: string
+          price_range: string
+          rating: number
+          updated_at?: string | null
+        }
+        Update: {
+          average_price?: number
+          created_at?: string | null
+          cuisine?: string
+          description?: string
+          hours?: string
+          id?: string
+          image?: string
+          lat?: number
+          lng?: number
+          name?: string
+          price_range?: string
+          rating?: number
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      security_alerts: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_active: boolean | null
+          message_key: string
+          title_key: string
+          type: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          message_key: string
+          title_key: string
+          type: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          message_key?: string
+          title_key?: string
+          type?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       tourist_photos: {
         Row: {
           caption: string | null
@@ -81,6 +159,45 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      tourist_spots: {
+        Row: {
+          category: string
+          created_at: string | null
+          description: string
+          id: string
+          image: string
+          lat: number
+          lng: number
+          name: string
+          risk_level: string
+          updated_at: string | null
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          description: string
+          id?: string
+          image: string
+          lat: number
+          lng: number
+          name: string
+          risk_level: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          description?: string
+          id?: string
+          image?: string
+          lat?: number
+          lng?: number
+          name?: string
+          risk_level?: string
+          updated_at?: string | null
+        }
+        Relationships: []
       }
     }
     Views: {

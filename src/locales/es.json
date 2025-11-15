@@ -160,12 +160,12 @@
       "description": "Vea qué barrios forman parte de cada región de Río de Janeiro"
     },
     "crimeTypes": {
-      "cellPhoneTheft": "Robo de celular",
-      "vehicleTheft": "Robo de vehículo",
-      "streetRobbery": "Robo a transeúnte",
-      "transitTheft": "Hurto en transporte",
-      "businessRobbery": "Asalto a comercio",
-      "homeTheft": "Hurto en residencia"
+      "cellPhoneTheft": "Celular",
+      "vehicleTheft": "Vehículo",
+      "streetRobbery": "Transeúnte",
+      "transitTheft": "Transporte",
+      "businessRobbery": "Comercio",
+      "homeTheft": "Residencia"
     },
     "safetyTips": {
       "avoidPhoneOnStreet": "Evite usar el celular en la calle, principalmente en áreas vacías",

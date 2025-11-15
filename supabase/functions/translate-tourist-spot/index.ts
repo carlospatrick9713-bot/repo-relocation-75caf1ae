@@ -78,12 +78,13 @@ serve(async (req) => {
       de: "German",
     };
 
-    const prompt = `Translate the following tourist spot information to ${languageNames[targetLanguage]}. Keep the same tone and meaning. Return ONLY a JSON object with "name", "description", and "category" fields, no additional text.
+    const prompt = `Translate the following tourist spot information to ${languageNames[targetLanguage]}. Keep the same tone and meaning. Return ONLY a JSON object with "name", "description", "category", and "tips" (array of strings) fields, no additional text.
 
 Original (Portuguese):
 Name: ${spot.name}
 Description: ${spot.description}
-Category: ${spot.category}`;
+Category: ${spot.category}
+${spot.tips && spot.tips.length > 0 ? `Tips:\n${spot.tips.map((tip: string, i: number) => `${i + 1}. ${tip}`).join('\n')}` : 'Tips: None'}`;
 
     const aiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",

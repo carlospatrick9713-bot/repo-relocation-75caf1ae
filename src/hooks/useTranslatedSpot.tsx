@@ -7,6 +7,7 @@ interface TranslatedSpot {
   name: string;
   description: string;
   category: string;
+  tips?: string[];
 }
 
 export function useTranslatedSpot(spot: TouristSpot | null) {
@@ -28,6 +29,7 @@ export function useTranslatedSpot(spot: TouristSpot | null) {
         name: spot.name,
         description: spot.description,
         category: spot.category,
+        tips: (spot as any).tips || [],
       });
       return;
     }
@@ -42,6 +44,7 @@ export function useTranslatedSpot(spot: TouristSpot | null) {
         name: spot[nameKey] as string,
         description: spot[descKey] as string,
         category: spot[catKey] as string,
+        tips: (spot as any).tips || [],
       });
       return;
     }
@@ -58,6 +61,7 @@ export function useTranslatedSpot(spot: TouristSpot | null) {
               name: spot.name,
               description: spot.description,
               category: spot.category || '',
+              tips: (spot as any).tips || [],
             },
           },
         });
@@ -74,6 +78,7 @@ export function useTranslatedSpot(spot: TouristSpot | null) {
           name: spot.name,
           description: spot.description,
           category: spot.category,
+          tips: (spot as any).tips || [],
         });
       } finally {
         setIsTranslating(false);
@@ -88,6 +93,7 @@ export function useTranslatedSpot(spot: TouristSpot | null) {
       name: spot.name,
       description: spot.description,
       category: spot.category,
+      tips: (spot as any).tips || [],
     } : null),
     isTranslating,
   };

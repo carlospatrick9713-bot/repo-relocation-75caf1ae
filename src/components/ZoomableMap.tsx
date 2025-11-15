@@ -3,7 +3,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Maximize2, ZoomIn, ZoomOut, X } from "lucide-react";
 import { useState } from "react";
-import mapImage from "@/assets/rio-pois-map.png";
+import mapImage from "@/assets/rio-pois-map-v2.png";
 
 export function ZoomableMap() {
   const [isFullscreen, setIsFullscreen] = useState(false);

@@ -43,9 +43,24 @@ import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 interface TouristSpotDialogProps {
-  spot: TouristSpot | null;
+  spot: TouristSpot | any | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+}
+
+// Extended interface to handle both Supabase and local data types
+interface ExtendedTouristSpot {
+  id: string | number;
+  name: string;
+  description: string;
+  image: string;
+  risk_level?: 'low' | 'medium' | 'high';
+  risk?: 'low' | 'medium' | 'high';
+  lat?: number;
+  lng?: number;
+  hours?: string;
+  tips?: string[];
+  placeId?: string;
 }
 
 interface GoogleReview {
@@ -110,9 +125,13 @@ export default function TouristSpotDialog({ spot, open, onOpenChange }: TouristS
   const [rating, setRating] = useState<number | null>(null);
   const [totalRatings, setTotalRatings] = useState<number | null>(null);
 
+  // Type guard to handle both data formats
+  const spotData = spot as ExtendedTouristSpot | null;
+  const riskLevel = spotData?.risk || spotData?.risk_level || 'low';
+
   useEffect(() => {
     if (spot && open) {
-      if (spot.placeId) {
+      if (spotData?.placeId) {
         fetchReviews();
       } else {
         // Usar feedbacks fictícios para locais sem placeId
@@ -198,7 +217,7 @@ export default function TouristSpotDialog({ spot, open, onOpenChange }: TouristS
                       {spot.description}
                     </DialogDescription>
                   </div>
-                  <RiskBadge level={spot.risk} className="flex-shrink-0" />
+                  <RiskBadge level={riskLevel} className="flex-shrink-0" />
                 </div>
               </DialogHeader>
 
@@ -216,32 +235,44 @@ export default function TouristSpotDialog({ spot, open, onOpenChange }: TouristS
 
                 {/* Info Tab */}
                 <TabsContent value="info" className="space-y-6 mt-4">
-                  {/* Hours */}
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm font-medium">
-                      <Clock className="w-4 h-4 text-primary" />
-                      Horário de Funcionamento
-                    </div>
-                    <p className="text-sm text-muted-foreground pl-6">{spot.hours}</p>
-                  </div>
+                  {/* Hours - only show if available */}
+                  {spotData?.hours && (
+                    <>
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2 text-sm font-medium">
+                          <Clock className="w-4 h-4 text-primary" />
+                          Horário de Funcionamento
+                        </div>
+                        <p className="text-sm text-muted-foreground pl-6">{spotData.hours}</p>
+                      </div>
+                      <Separator />
+                    </>
+                  )}
 
-                  <Separator />
-
-                  {/* Tips */}
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2 text-sm font-medium">
-                      <Lightbulb className="w-4 h-4 text-primary" />
-                      Dicas Importantes
+                  {/* Tips - only show if available */}
+                  {spotData?.tips && spotData.tips.length > 0 && (
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2 text-sm font-medium">
+                        <Lightbulb className="w-4 h-4 text-primary" />
+                        Dicas Importantes
+                      </div>
+                      <ul className="space-y-2 pl-6">
+                        {spotData.tips.map((tip, index) => (
+                          <li key={index} className="text-sm text-muted-foreground flex items-start gap-2">
+                            <span className="text-primary mt-1">•</span>
+                            <span>{tip}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <ul className="space-y-2 pl-6">
-                      {spot.tips.map((tip, index) => (
-                        <li key={index} className="text-sm text-muted-foreground flex items-start gap-2">
-                          <span className="text-primary mt-1">•</span>
-                          <span>{tip}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  )}
+
+                  {/* Show message if no additional info */}
+                  {!spotData?.hours && (!spotData?.tips || spotData.tips.length === 0) && (
+                    <p className="text-sm text-muted-foreground text-center py-6">
+                      Informações adicionais não disponíveis no momento
+                    </p>
+                  )}
                 </TabsContent>
 
                 {/* Reviews Tab */}

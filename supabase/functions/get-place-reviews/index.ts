@@ -69,24 +69,40 @@ serve(async (req) => {
   }
 
   try {
+    // Verify authentication
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader) {
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const { placeId } = await req.json();
 
-    if (!placeId) {
+    // Validate placeId format (Google Place IDs are typically 27 characters)
+    if (!placeId || typeof placeId !== 'string') {
       return new Response(
         JSON.stringify({ error: 'placeId is required' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    if (!GOOGLE_PLACES_API_KEY) {
-      console.error('GOOGLE_PLACES_API_KEY not configured');
+    const placeIdRegex = /^[A-Za-z0-9_-]{1,100}$/;
+    if (!placeIdRegex.test(placeId)) {
       return new Response(
-        JSON.stringify({ error: 'Google Places API key not configured' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({ error: 'Invalid placeId format' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    console.log('Fetching reviews for placeId:', placeId);
+    if (!GOOGLE_PLACES_API_KEY) {
+      console.error('[INTERNAL] Google Places API key not configured');
+      return new Response(
+        JSON.stringify({ error: 'Service temporarily unavailable' }),
+        { status: 503, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
 
     // Fetch place details with reviews
     const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews,rating,user_ratings_total&key=${GOOGLE_PLACES_API_KEY}&language=pt-BR`;

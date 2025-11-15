@@ -14,10 +14,30 @@ serve(async (req) => {
   }
 
   try {
+    // Verify authentication
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader) {
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const { text } = await req.json();
 
-    if (!text) {
-      throw new Error('Text is required');
+    // Validate text input
+    if (!text || typeof text !== 'string') {
+      return new Response(
+        JSON.stringify({ error: 'Text is required' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (text.length > 500) {
+      return new Response(
+        JSON.stringify({ error: 'Text must be 500 characters or less' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
@@ -25,7 +45,11 @@ serve(async (req) => {
     const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
 
     if (!LOVABLE_API_KEY) {
-      throw new Error('Lovable API key not configured');
+      console.error('[INTERNAL] Lovable API key not configured');
+      return new Response(
+        JSON.stringify({ error: 'Service temporarily unavailable' }),
+        { status: 503, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
     // Initialize Supabase client for storage
@@ -37,15 +61,12 @@ serve(async (req) => {
       .toString(36);
     const fileName = `slang-audio/${textHash}.mp3`;
 
-    console.log('Checking cache for:', fileName);
-
     // Check if audio already exists in storage
     const { data: existingFile } = await supabase.storage
       .from('tourist-photos')
       .download(fileName);
 
     if (existingFile) {
-      console.log('Cache hit! Returning cached audio');
       const arrayBuffer = await existingFile.arrayBuffer();
       const base64Audio = btoa(
         String.fromCharCode(...new Uint8Array(arrayBuffer))
@@ -58,8 +79,6 @@ serve(async (req) => {
         }
       );
     }
-
-    console.log('Cache miss. Generating speech for:', text);
 
     // Deduplicate concurrent generations per text within this instance
     const doTTS = async (): Promise<ArrayBuffer> => {

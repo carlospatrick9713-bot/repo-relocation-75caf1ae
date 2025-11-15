@@ -11,14 +11,47 @@ serve(async (req) => {
   }
 
   try {
+    // Verify authentication
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader) {
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const { restaurantName, cuisine, description } = await req.json();
+    
+    // Validate inputs
+    if (!restaurantName || typeof restaurantName !== 'string' || restaurantName.length > 200) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid restaurant name' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    if (!cuisine || typeof cuisine !== 'string' || cuisine.length > 100) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid cuisine type' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    if (description && (typeof description !== 'string' || description.length > 500)) {
+      return new Response(
+        JSON.stringify({ error: 'Description too long' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     
     if (!LOVABLE_API_KEY) {
-      throw new Error("LOVABLE_API_KEY is not configured");
+      console.error("[INTERNAL] LOVABLE_API_KEY is not configured");
+      return new Response(
+        JSON.stringify({ error: 'Service temporarily unavailable' }),
+        { status: 503, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
-
-    console.log(`Generating image for ${restaurantName}`);
 
     const prompt = `Professional food photography of an elegant ${cuisine} dish from ${restaurantName} restaurant in Rio de Janeiro. ${description}. High-end restaurant presentation, appetizing, soft lighting, 16:9 aspect ratio, ultra high quality, gourmet plating.`;
 

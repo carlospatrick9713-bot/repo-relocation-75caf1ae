@@ -68,7 +68,7 @@ export default function PlanWelcomeDialog({
                   </span>
                 </h3>
                 <p className="text-2xl font-bold text-foreground">
-                  R$ 10<span className="text-sm font-normal">/mês</span>
+                  R$ 29,90<span className="text-sm font-normal">/ano</span>
                 </p>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-start gap-2">

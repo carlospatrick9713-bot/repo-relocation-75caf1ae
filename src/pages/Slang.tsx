@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Search, Volume2, MapPin, AlertCircle, Play, Loader2 } from 'lucide-react';
+import { Search, Volume2, MapPin, AlertCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
 import AppMenu from '@/components/AppMenu';
 import LanguageSelector from '@/components/LanguageSelector';
-import { supabase } from '@/integrations/supabase/client';
 
 interface SlangItem {
   word: string;
@@ -23,48 +21,10 @@ interface SlangItem {
 export default function Slang() {
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
-  const [playingWord, setPlayingWord] = useState<string | null>(null);
 
   const slangCategories = t('slang.categories', { returnObjects: true }) as Record<string, { name: string; items: SlangItem[] }>;
   const rioWords = t('slang.rioWords', { returnObjects: true }) as SlangItem[];
   const emergencyPhrases = t('slang.emergency', { returnObjects: true }) as SlangItem[];
-
-  const playPronunciation = async (word: string, example: string) => {
-    try {
-      setPlayingWord(word);
-      
-      // Call the text-to-speech edge function
-      const { data, error } = await supabase.functions.invoke('text-to-speech', {
-        body: { text: example }
-      });
-
-      if (error) {
-        // Check if it's a rate limit error
-        if (error.message?.includes('429') || error.message?.includes('Rate limit')) {
-          toast.error('Muitas requisições. Por favor, aguarde alguns segundos e tente novamente.');
-          setPlayingWord(null);
-          return;
-        }
-        throw error;
-      }
-
-      if (data?.pronunciationGuide) {
-        // Show pronunciation guide as a toast with longer duration
-        toast.success(data.pronunciationGuide, {
-          duration: 8000,
-          style: {
-            maxWidth: '500px',
-            whiteSpace: 'pre-wrap'
-          }
-        });
-        setPlayingWord(null);
-      }
-    } catch (error) {
-      console.error('Error getting pronunciation:', error);
-      toast.error('Não foi possível obter a pronúncia');
-      setPlayingWord(null);
-    }
-  };
 
   const filterItems = (items: SlangItem[]) => {
     if (!searchTerm) return items;
@@ -144,25 +104,10 @@ export default function Slang() {
                   {filteredItems.map((item, idx) => (
                     <Card key={idx} className="hover:shadow-lg transition-shadow border-l-4 border-l-primary">
                       <CardHeader className="pb-3">
-                        <CardTitle className="text-xl flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <span className="text-primary">{item.word}</span>
-                            <Button
-                              size="icon"
-                              variant="ghost"
-                              className="h-8 w-8"
-                              onClick={() => playPronunciation(item.word, item.example)}
-                              disabled={playingWord === item.word}
-                            >
-                              {playingWord === item.word ? (
-                                <Loader2 className="h-4 w-4 animate-spin" />
-                              ) : (
-                                <Play className="h-4 w-4" />
-                              )}
-                            </Button>
-                          </div>
+                        <CardTitle className="text-xl">
+                          <span className="text-primary">{item.word}</span>
                           {item.pronunciation && (
-                            <Badge variant="secondary" className="text-xs">
+                            <Badge variant="secondary" className="text-xs ml-2">
                               {item.pronunciation}
                             </Badge>
                           )}

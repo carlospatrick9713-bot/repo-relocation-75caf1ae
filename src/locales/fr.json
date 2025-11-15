@@ -1,0 +1,438 @@
+{
+  "header": {
+    "title": "Safe Trip RJ"
+  },
+  "hero": {
+    "title": "Explorez Rio en Toute Sécurité",
+    "subtitle": "Naviguez dans la Ville Merveilleuse avec des informations en temps réel sur les zones à risque et les sites touristiques",
+    "exploreButton": "Commencer à Explorer"
+  },
+  "sidebar": {
+    "alerts": "Alertes de Sécurité",
+    "notifications": "Notifications de Danger",
+    "noAlerts": "Aucune alerte pour le moment",
+    "noNotifications": "Aucune notification récente",
+    "riskLevel": "Niveau de Risque",
+    "low": "Faible",
+    "medium": "Moyen",
+    "high": "Élevé",
+    "touristSpots": "Sites Touristiques",
+    "viewOnMap": "Voir sur la Carte",
+    "featured": "En Vedette",
+    "timeAgo": {
+      "now": "Maintenant",
+      "minutes": "il y a {{count}} min",
+      "hours": "il y a {{count}}h"
+    }
+  },
+  "premium": {
+    "badge": "Premium",
+    "title": "Débloquez les Fonctionnalités Premium",
+    "description": "Accès aux itinéraires sûrs, alertes en temps réel et bien plus",
+    "features": {
+      "routes": "+ de 100 Sites touristiques",
+      "alerts": "Accès aux meilleurs Restaurants de votre région",
+      "offline": "Cartes Hors Ligne",
+      "support": "Alertes de Sécurité Constantes"
+    },
+    "cta": "S'abonner Premium",
+    "price": "R$ 29,90/an",
+    "required": "Fonctionnalité exclusive Premium"
+  },
+  "legend": {
+    "title": "Légende",
+    "safe": "Zone Sûre",
+    "moderate": "Zone Modérée",
+    "danger": "Zone Dangereuse"
+  },
+  "footer": {
+    "copyright": "© 2025 Safe Trip RJ"
+  },
+  "securityAlerts": {
+    "title": "Alertes de Sécurité",
+    "subtitle": "Informations à jour sur la sécurité dans les différentes régions de Rio",
+    "realTimeAlerts": "Alertes en Temps Réel",
+    "regionAlerts": "Alertes Régionales",
+    "mainAreas": "Principales zones:",
+    "updatesEvery": "Mise à jour toutes les 5min",
+    "updated": "Mis à jour",
+    "alerts": {
+      "highRisk": {
+        "title": "Zone à Haut Risque Détectée",
+        "message": "Évitez de circuler dans la région de Central do Brasil après 20h"
+      },
+      "traffic": {
+        "title": "Alerte Circulation",
+        "message": "Manifestation signalée sur Av. Presidente Vargas"
+      },
+      "safeSouth": {
+        "title": "Conditions Sûres",
+        "message": "La Zone Sud présente de faibles indices à cette heure"
+      },
+      "centerAlert": {
+        "title": "Centre",
+        "message": "Attention redoublée après 22h"
+      },
+      "northAlert": {
+        "title": "Zone Nord",
+        "message": "Éviter les zones isolées"
+      }
+    },
+    "regions": {
+      "centro": {
+        "name": "Centre",
+        "message": "Attention redoublée après 22h. Évitez les rues désertes.",
+        "areas": ["Praça Mauá", "Lapa", "Cinelândia"]
+      },
+      "zonaNorte": {
+        "name": "Zone Nord",
+        "message": "Éviter les zones isolées. Préférez les voies principales.",
+        "areas": ["Maracanã", "São Cristóvão", "Tijuca"]
+      },
+      "zonaSul": {
+        "name": "Zone Sud",
+        "message": "Région avec bonne sécurité. Gardez une attention de base.",
+        "areas": ["Copacabana", "Ipanema", "Leblon"]
+      },
+      "zonaOeste": {
+        "name": "Zone Ouest",
+        "message": "Attention aux heures nocturnes. Évitez l'ostentation.",
+        "areas": ["Barra da Tijuca", "Recreio", "Jacarepaguá"]
+      }
+    },
+    "understood": "Compris"
+  },
+  "slang": {
+    "title": "Argot Carioca",
+    "hero": {
+      "title": "Bienvenue au Guide de l'Argot Carioca",
+      "subtitle": "Apprenez comment les locaux parlent vraiment"
+    },
+    "introduction": "L'argot est une forme informelle et créative de langage utilisée au quotidien. Les Cariocas adorent utiliser des expressions uniques qui reflètent la culture vibrante et décontractée de Rio. Connaître cet argot vous aidera à mieux comprendre les conversations, à vous connecter avec les locaux et à profiter au maximum de votre expérience dans la ville!",
+    "searchPlaceholder": "Rechercher de l'argot...",
+    "categories": {
+      "greetings": {
+        "name": "Salutations & Expressions Quotidiennes",
+        "items": [
+          {
+            "word": "E aí?",
+            "translation": "Quoi de neuf?",
+            "explanation": "Salutation informelle courante, équivalent à 'Comment ça va?'",
+            "example": "E aí, tudo bem?",
+            "exampleTranslation": "Quoi de neuf, ça va?"
+          },
+          {
+            "word": "Beleza",
+            "translation": "Cool / D'accord",
+            "explanation": "Utilisé pour confirmer ou exprimer son accord",
+            "example": "Nos vemos às 8? Beleza!",
+            "exampleTranslation": "On se voit à 8h? D'accord!"
+          },
+          {
+            "word": "Firmeza",
+            "translation": "Super / Sûr",
+            "explanation": "Confirmation ou accord, similaire à 'beleza'",
+            "example": "Vamos à praia? Firmeza!",
+            "exampleTranslation": "On va à la plage? Super!"
+          },
+          {
+            "word": "Valeu",
+            "translation": "Merci / Au revoir",
+            "explanation": "Manière informelle de remercier ou de dire au revoir",
+            "example": "Obrigado pela ajuda, valeu!",
+            "exampleTranslation": "Merci pour l'aide, merci!"
+          }
+        ]
+      },
+      "expressions": {
+        "name": "Expressions & Phrases Populaires",
+        "items": [
+          {
+            "word": "Massa",
+            "translation": "Cool / Génial",
+            "explanation": "Utilisé pour décrire quelque chose de positif ou agréable",
+            "example": "Esse lugar é muito massa!",
+            "exampleTranslation": "Cet endroit est très cool!"
+          },
+          {
+            "word": "Maneiro",
+            "translation": "Cool / Super",
+            "explanation": "Semblable à 'massa', utilisé pour quelque chose de bien",
+            "example": "Que maneiro esse show!",
+            "exampleTranslation": "Ce spectacle est super!"
+          },
+          {
+            "word": "Tá ligado?",
+            "translation": "Tu comprends? / Tu vois?",
+            "explanation": "Utilisé pour vérifier si quelqu'un comprend ce que vous dites",
+            "example": "A gente vai lá amanhã, tá ligado?",
+            "exampleTranslation": "On y va demain, tu comprends?"
+          },
+          {
+            "word": "Pô",
+            "translation": "Mec / Oh",
+            "explanation": "Interjection d'étonnement ou de déception",
+            "example": "Pô, que legal!",
+            "exampleTranslation": "Mec, c'est cool!"
+          }
+        ]
+      },
+      "places": {
+        "name": "Lieux & Directions",
+        "items": [
+          {
+            "word": "Quebrada",
+            "translation": "Quartier / Zone",
+            "explanation": "Fait référence à votre quartier ou zone locale",
+            "example": "Vou dar um rolê na minha quebrada",
+            "exampleTranslation": "Je vais faire un tour dans mon quartier"
+          },
+          {
+            "word": "Rolê",
+            "translation": "Balade / Sortie",
+            "explanation": "Promenade informelle ou sortie avec des amis",
+            "example": "Bora dar um rolê?",
+            "exampleTranslation": "On va faire une balade?"
+          },
+          {
+            "word": "Morro",
+            "translation": "Favela / Colline",
+            "explanation": "Fait référence aux zones de favelas sur les collines",
+            "example": "Ele mora no morro",
+            "exampleTranslation": "Il habite dans la favela"
+          }
+        ]
+      },
+      "people": {
+        "name": "Personnes & Relations",
+        "items": [
+          {
+            "word": "Mano/Mina",
+            "translation": "Gars/Fille",
+            "explanation": "Manière informelle de faire référence aux personnes",
+            "example": "Aquele mano é legal",
+            "exampleTranslation": "Ce gars est cool"
+          },
+          {
+            "word": "Brother",
+            "translation": "Frère / Pote",
+            "explanation": "Terme amical pour un ami proche",
+            "example": "E aí, brother?",
+            "exampleTranslation": "Quoi de neuf, frère?"
+          },
+          {
+            "word": "Cara",
+            "translation": "Gars / Type",
+            "explanation": "Manière courante de se référer à quelqu'un",
+            "example": "Esse cara é da hora",
+            "exampleTranslation": "Ce gars est cool"
+          },
+          {
+            "word": "Truta",
+            "translation": "Pote / Ami",
+            "explanation": "Terme d'argot pour un ami proche",
+            "example": "Meu truta vai comigo",
+            "exampleTranslation": "Mon pote vient avec moi"
+          }
+        ]
+      }
+    },
+    "rioWords": [
+      {
+        "word": "Carioca",
+        "translation": "Personne née à Rio",
+        "explanation": "Terme officiel pour quelqu'un né à Rio de Janeiro",
+        "example": "Sou carioca de coração",
+        "exampleTranslation": "Je suis Carioca de cœur"
+      },
+      {
+        "word": "Papo",
+        "translation": "Discussion / Chat",
+        "explanation": "Conversation informelle ou discussion",
+        "example": "Vamos ter um papo?",
+        "exampleTranslation": "On discute?"
+      },
+      {
+        "word": "Sinistro",
+        "translation": "Incroyable / Sauvage",
+        "explanation": "Quelque chose d'impressionnant ou d'intense",
+        "example": "Essa festa tá sinistra!",
+        "exampleTranslation": "Cette fête est incroyable!"
+      },
+      {
+        "word": "Doidera",
+        "translation": "Fou / Fou",
+        "explanation": "Quelque chose de fou ou de difficile à croire",
+        "example": "Que doidera essa situação",
+        "exampleTranslation": "Cette situation est folle"
+      }
+    ],
+    "emergency": [
+      {
+        "word": "Socorro!",
+        "translation": "Au secours!",
+        "explanation": "Utilisé dans les situations d'urgence",
+        "example": "Socorro! Preciso de ajuda!",
+        "exampleTranslation": "Au secours! J'ai besoin d'aide!"
+      },
+      {
+        "word": "Polícia!",
+        "translation": "Police!",
+        "explanation": "Appel à la police",
+        "example": "Chame a polícia!",
+        "exampleTranslation": "Appelez la police!"
+      },
+      {
+        "word": "Me ajuda!",
+        "translation": "Aidez-moi!",
+        "explanation": "Demande d'aide",
+        "example": "Me ajuda, por favor!",
+        "exampleTranslation": "Aidez-moi, s'il vous plaît!"
+      },
+      {
+        "word": "Cuidado!",
+        "translation": "Attention!",
+        "explanation": "Avertissement de danger",
+        "example": "Cuidado com o carro!",
+        "exampleTranslation": "Attention à la voiture!"
+      }
+    ],
+    "emergencyTitle": "Phrases d'Urgence",
+    "emergencySubtitle": "Phrases importantes pour les situations d'urgence"
+  },
+  "weather": {
+    "title": "Météo à Rio",
+    "currentConditions": "Conditions Actuelles",
+    "forecast": "Prévisions",
+    "precipitation": "Précipitations",
+    "wind": "Vent",
+    "today": "Aujourd'hui",
+    "loading": "Chargement des données météo...",
+    "error": "Impossible de charger la météo",
+    "highLow": "Max/Min"
+  },
+  "touristSpots": {
+    "title": "Sites Touristiques",
+    "subtitle": "Découvrez les meilleurs endroits de Rio",
+    "searchPlaceholder": "Rechercher des sites...",
+    "viewDetails": "Voir Détails",
+    "showOnMap": "Afficher sur la Carte",
+    "categories": {
+      "all": "Tous",
+      "beaches": "Plages",
+      "landmarks": "Monuments",
+      "nature": "Nature",
+      "culture": "Culture"
+    },
+    "riskLevels": {
+      "low": "Risque Faible",
+      "medium": "Risque Moyen",
+      "high": "Risque Élevé"
+    }
+  },
+  "restaurants": {
+    "title": "Restaurants",
+    "subtitle": "Découvrez les meilleurs restaurants de Rio",
+    "searchPlaceholder": "Rechercher des restaurants...",
+    "viewDetails": "Voir Détails",
+    "showOnMap": "Afficher sur la Carte",
+    "cuisineTypes": {
+      "all": "Tous",
+      "brazilian": "Brésilienne",
+      "italian": "Italienne",
+      "japanese": "Japonaise",
+      "seafood": "Fruits de Mer",
+      "steakhouse": "Grill",
+      "french": "Française",
+      "contemporary": "Contemporaine",
+      "vegetarian": "Végétarienne",
+      "international": "Internationale",
+      "arabic": "Arabe"
+    },
+    "priceRanges": {
+      "all": "Tous Prix",
+      "budget": "Économique",
+      "moderate": "Modéré",
+      "upscale": "Haut de Gamme",
+      "luxury": "Luxe"
+    },
+    "details": {
+      "hours": "Heures d'ouverture",
+      "cuisine": "Type de Cuisine",
+      "priceRange": "Fourchette de Prix",
+      "averagePrice": "Prix Moyen",
+      "rating": "Évaluation",
+      "reviews": "Avis"
+    }
+  },
+  "profile": {
+    "title": "Profil",
+    "personalInfo": "Informations Personnelles",
+    "fullName": "Nom Complet",
+    "email": "Email",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "logout": "Déconnexion",
+    "deleteAccount": "Supprimer le Compte",
+    "deleteAccountWarning": "Cette action ne peut pas être annulée. Toutes vos données seront supprimées de manière permanente.",
+    "confirmDelete": "Confirmer la Suppression",
+    "loading": "Chargement...",
+    "success": "Profil mis à jour avec succès",
+    "error": "Impossible de mettre à jour le profil"
+  },
+  "auth": {
+    "signIn": "Se Connecter",
+    "signUp": "S'inscrire",
+    "signOut": "Déconnexion",
+    "email": "Email",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le Mot de passe",
+    "forgotPassword": "Mot de passe oublié?",
+    "noAccount": "Pas de compte?",
+    "hasAccount": "Vous avez déjà un compte?",
+    "fullName": "Nom Complet",
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "success": "Connecté avec succès"
+  },
+  "menu": {
+    "home": "Accueil",
+    "touristSpots": "Sites Touristiques",
+    "restaurants": "Restaurants",
+    "weather": "Météo",
+    "slang": "Argot",
+    "security": "Alertes de Sécurité",
+    "profile": "Profil",
+    "highlights": "Points Forts",
+    "gallery": "Galerie"
+  },
+  "highlights": {
+    "title": "Points Forts de Rio",
+    "subtitle": "Découvrez les attractions incontournables de la Ville Merveilleuse",
+    "viewOnMap": "Voir sur la Carte",
+    "getDirections": "Obtenir l'Itinéraire"
+  },
+  "gallery": {
+    "title": "Ma Galerie de Voyage",
+    "subtitle": "Partagez vos moments à Rio",
+    "uploadPhoto": "Télécharger une Photo",
+    "addCaption": "Ajouter une Légende",
+    "selectLocation": "Sélectionner l'Emplacement",
+    "upload": "Télécharger",
+    "cancel": "Annuler",
+    "loading": "Chargement...",
+    "noPhotos": "Aucune photo encore",
+    "startUploading": "Commencez à télécharger vos souvenirs de voyage!",
+    "deletePhoto": "Supprimer la Photo",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette photo?",
+    "success": "Photo téléchargée avec succès",
+    "error": "Impossible de télécharger la photo"
+  },
+  "languages": {
+    "pt": "Portugais",
+    "en": "Anglais",
+    "es": "Espagnol",
+    "de": "Allemand",
+    "fr": "Français"
+  }
+}

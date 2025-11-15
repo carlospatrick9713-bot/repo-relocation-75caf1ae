@@ -61,7 +61,10 @@ export default function Slang() {
               src={logo} 
               alt="Safe Trip Rio Logo" 
               className="h-8 w-8 object-contain cursor-pointer hover:opacity-80 transition-opacity"
-              onClick={() => navigate('/')}
+              onClick={() => {
+                localStorage.removeItem('hideHero');
+                navigate('/');
+              }}
             />
             <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 via-yellow-600 to-green-600 bg-clip-text text-transparent">
               {t('slang.title')}

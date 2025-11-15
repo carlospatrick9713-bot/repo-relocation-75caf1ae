@@ -5,6 +5,8 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+const DEBUG = Deno.env.get('DEBUG') === 'true';
+
 interface SecurityData {
   regionName: string;
   level: 'low' | 'medium' | 'high';
@@ -121,9 +123,11 @@ serve(async (req) => {
     );
 
   } catch (error) {
-    console.error('Error fetching security data:', error);
+    if (DEBUG) {
+      console.error('[INTERNAL] Error fetching security data:', error);
+    }
     return new Response(
-      JSON.stringify({ error: 'Internal server error' }),
+      JSON.stringify({ error: 'Unable to process request' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }

@@ -261,14 +261,14 @@ export default function TouristSpotDialog({ spot, open, onOpenChange }: TouristS
                   )}
 
                   {/* Tips - only show if available */}
-                  {spotData?.tips && spotData.tips.length > 0 && (
+                  {translatedData?.tips && translatedData.tips.length > 0 && (
                     <div className="space-y-3">
                       <div className="flex items-center gap-2 text-sm font-medium">
                         <Lightbulb className="w-4 h-4 text-primary" />
                         Dicas Importantes
                       </div>
                       <ul className="space-y-2 pl-6">
-                        {spotData.tips.map((tip, index) => (
+                        {translatedData.tips.map((tip, index) => (
                           <li key={index} className="text-sm text-muted-foreground flex items-start gap-2">
                             <span className="text-primary mt-1">•</span>
                             <span>{tip}</span>
@@ -279,7 +279,7 @@ export default function TouristSpotDialog({ spot, open, onOpenChange }: TouristS
                   )}
 
                   {/* Show message if no additional info */}
-                  {!spotData?.hours && (!spotData?.tips || spotData.tips.length === 0) && (
+                  {!spotData?.hours && (!translatedData?.tips || translatedData.tips.length === 0) && (
                     <p className="text-sm text-muted-foreground text-center py-6">
                       Informações adicionais não disponíveis no momento
                     </p>

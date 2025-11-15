@@ -16,12 +16,14 @@ import { useTouristSpots } from '@/hooks/useTouristSpots';
 import { useRestaurants } from '@/hooks/useRestaurants';
 import { usePremium } from '@/hooks/usePremium';
 import { useSecurityAlerts } from '@/hooks/useSecurityAlerts';
+import { useRealSecurityData } from '@/hooks/useRealSecurityData';
 import RiskBadge from '@/components/RiskBadge';
 import TranslatedTouristSpotCard from '@/components/TranslatedTouristSpotCard';
 import TouristSpotDialog from '@/components/TouristSpotDialog';
 import PremiumCard from '@/components/PremiumCard';
 import { ZoomableMap } from '@/components/ZoomableMap';
 import type { TouristSpot } from '@/hooks/useTouristSpots';
+import newMapImage from '@/assets/rio-pois-map-v3.png';
 import '@/lib/i18n';
 
 const Index = () => {
@@ -32,13 +34,14 @@ const Index = () => {
   const { data: touristSpots = [] } = useTouristSpots();
   const { data: restaurants = [] } = useRestaurants();
   const { alerts: securityAlerts } = useSecurityAlerts(isPremium);
+  const { data: securityData, isLoading: isLoadingSecurityData } = useRealSecurityData(isPremium ?? false);
   const [selectedSpot, setSelectedSpot] = useState<TouristSpot | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [showHero, setShowHero] = useState(() => {
     return localStorage.getItem('hideHero') !== 'true';
   });
 
-  const featuredSpots = touristSpots.filter(spot => spot.risk_level === 'low').slice(0, 10);
+  const featuredSpots = touristSpots.filter(spot => spot.risk_level === 'low').slice(0, 15);
   const featuredRestaurants = restaurants.slice(0, 10);
 
   const handleExplore = () => {
@@ -166,7 +169,7 @@ const Index = () => {
             </div>
             
             <div className="grid grid-cols-5 gap-4">
-              {featuredSpots.slice(0, 10).map(spot => (
+              {featuredSpots.slice(0, 15).map(spot => (
                 <TranslatedTouristSpotCard
                   key={spot.id}
                   spot={spot}
@@ -189,6 +192,78 @@ const Index = () => {
 
           {/* Illustrative Map Section */}
           <ZoomableMap />
+
+          {/* New Detailed Map */}
+          <Card className="relative overflow-hidden">
+            <img 
+              src={newMapImage} 
+              alt="Mapa detalhado do Rio de Janeiro"
+              className="w-full h-auto"
+            />
+          </Card>
+
+          {/* Premium Security Data Section */}
+          {isPremium && securityData && (
+            <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-2xl">
+                  <AlertTriangle className="w-7 h-7 text-primary" />
+                  Dados de Segurança por Região
+                </CardTitle>
+                <CardDescription>
+                  Informações detalhadas de segurança atualizadas em tempo real
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {securityData.data.map((region, index) => (
+                  <div key={index} className="p-4 border rounded-lg bg-background/50 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-semibold text-lg">{region.regionName}</h4>
+                      <RiskBadge level={region.level} />
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="text-sm">
+                        <span className="text-muted-foreground">Incidentes:</span>
+                        <span className="ml-2 font-semibold">{region.incidents}</span>
+                      </div>
+                      <div className="text-sm">
+                        <span className="text-muted-foreground">Horários críticos:</span>
+                        <span className="ml-2 font-semibold">{region.dangerousHours.join(', ')}</span>
+                      </div>
+                    </div>
+
+                    {region.crimeTypes.length > 0 && (
+                      <div className="space-y-1">
+                        <p className="text-sm font-medium text-muted-foreground">Tipos de crime:</p>
+                        <div className="flex flex-wrap gap-2">
+                          {region.crimeTypes.map((crime, i) => (
+                            <span key={i} className="text-xs bg-primary/10 px-2 py-1 rounded">
+                              {crime.type}: {crime.count}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {region.safetyTips.length > 0 && (
+                      <div className="space-y-1">
+                        <p className="text-sm font-medium text-muted-foreground">Dicas de segurança:</p>
+                        <ul className="space-y-1 pl-4">
+                          {region.safetyTips.map((tip, i) => (
+                            <li key={i} className="text-sm text-muted-foreground">• {tip}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                ))}
+                <p className="text-xs text-muted-foreground text-center">
+                  Última atualização: {new Date(securityData.lastUpdate).toLocaleString('pt-BR')}
+                </p>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Security Alerts Summary */}
           <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent relative">
@@ -261,7 +336,7 @@ const Index = () => {
             </div>
             
             <div className="grid grid-cols-2 gap-4">
-              {featuredSpots.slice(0, 6).map(spot => (
+              {featuredSpots.slice(0, 8).map(spot => (
                 <TranslatedTouristSpotCard
                   key={spot.id}
                   spot={spot}
@@ -284,6 +359,55 @@ const Index = () => {
 
           {/* Illustrative Map Section */}
           <ZoomableMap />
+
+          {/* New Detailed Map */}
+          <Card className="relative overflow-hidden">
+            <img 
+              src={newMapImage} 
+              alt="Mapa detalhado do Rio de Janeiro"
+              className="w-full h-auto"
+            />
+          </Card>
+
+          {/* Premium Security Data Section */}
+          {isPremium && securityData && (
+            <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-xl">
+                  <AlertTriangle className="w-6 h-6 text-primary" />
+                  Dados de Segurança
+                </CardTitle>
+                <CardDescription>
+                  Informações detalhadas por região
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {securityData.data.slice(0, 3).map((region, index) => (
+                  <div key={index} className="p-3 border rounded-lg bg-background/50 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-semibold text-sm">{region.regionName}</h4>
+                      <RiskBadge level={region.level} />
+                    </div>
+                    
+                    <div className="text-xs space-y-1">
+                      <p>
+                        <span className="text-muted-foreground">Incidentes:</span>
+                        <span className="ml-1 font-semibold">{region.incidents}</span>
+                      </p>
+                      {region.safetyTips.length > 0 && (
+                        <p className="text-muted-foreground line-clamp-2">
+                          • {region.safetyTips[0]}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+                <p className="text-xs text-muted-foreground text-center">
+                  Atualizado: {securityData && new Date(securityData.lastUpdate).toLocaleString('pt-BR')}
+                </p>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Security Alerts Summary */}
           <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent relative">

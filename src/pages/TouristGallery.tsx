@@ -97,16 +97,24 @@ export default function TouristGallery() {
 
       if (error) throw error;
 
-      // Get public URLs for all photos
+      // Get signed URLs for all photos (valid for 1 hour)
       const photosWithUrls = await Promise.all(
         (data || []).map(async (photo) => {
-          const { data: urlData } = supabase.storage
+          const { data: urlData, error: urlError } = await supabase.storage
             .from('tourist-photos')
-            .getPublicUrl(photo.storage_path);
+            .createSignedUrl(photo.storage_path, 3600); // 1 hour expiration
+          
+          if (urlError) {
+            console.error('Error creating signed URL:', urlError);
+            return {
+              ...photo,
+              url: ''
+            };
+          }
           
           return {
             ...photo,
-            url: urlData.publicUrl
+            url: urlData.signedUrl
           };
         })
       );
@@ -141,9 +149,10 @@ export default function TouristGallery() {
     try {
       setUploading(true);
 
-      // Upload to storage
+      // Upload to storage with random UUID filename
       const fileExt = uploadData.file.name.split('.').pop();
-      const fileName = `${user.id}/${Date.now()}.${fileExt}`;
+      const randomId = crypto.randomUUID();
+      const fileName = `${user.id}/${randomId}.${fileExt}`;
       
       const { error: uploadError } = await supabase.storage
         .from('tourist-photos')

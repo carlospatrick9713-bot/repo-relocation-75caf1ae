@@ -20,12 +20,12 @@ serve(async (req) => {
       throw new Error('Text is required');
     }
 
-    const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
+    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
     const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
 
-    if (!OPENAI_API_KEY) {
-      throw new Error('OpenAI API key not configured');
+    if (!LOVABLE_API_KEY) {
+      throw new Error('Lovable API key not configured');
     }
 
     // Initialize Supabase client for storage

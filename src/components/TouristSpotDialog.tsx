@@ -27,8 +27,6 @@ import {
   Clock, 
   Lightbulb, 
   Navigation, 
-  ChevronLeft, 
-  ChevronRight,
   X,
   Crown,
   Lock,
@@ -106,7 +104,6 @@ export default function TouristSpotDialog({ spot, open, onOpenChange }: TouristS
   const { user } = useAuth();
   const { isPremium } = usePremium();
   const navigate = useNavigate();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showPremiumAlert, setShowPremiumAlert] = useState(false);
   const [reviews, setReviews] = useState<GoogleReview[]>([]);
   const [loadingReviews, setLoadingReviews] = useState(false);
@@ -172,53 +169,20 @@ export default function TouristSpotDialog({ spot, open, onOpenChange }: TouristS
     onOpenChange(false);
   };
 
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % spot.images.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + spot.images.length) % spot.images.length);
-  };
+  // Image navigation functions removed - using single image per spot
 
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden">
           <ScrollArea className="max-h-[90vh]">
-            {/* Image Gallery */}
+            {/* Image */}
             <div className="relative w-full h-64 md:h-96 bg-muted">
               <img
-                src={spot.images[currentImageIndex]}
+                src={spot.image}
                 alt={spot.name}
                 className="w-full h-full object-cover"
               />
-              
-              {/* Gallery Controls */}
-              {spot.images.length > 1 && (
-                <>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white"
-                    onClick={prevImage}
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white"
-                    onClick={nextImage}
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </Button>
-                  
-                  {/* Image Counter */}
-                  <div className="absolute bottom-4 right-4 bg-black/60 text-white px-3 py-1 rounded-full text-sm">
-                    {currentImageIndex + 1} / {spot.images.length}
-                  </div>
-                </>
-              )}
             </div>
 
             <div className="p-6 space-y-6">

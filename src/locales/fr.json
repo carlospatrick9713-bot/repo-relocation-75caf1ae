@@ -35,7 +35,8 @@
     "features": {
       "routes": "+ de 100 Sites touristiques",
       "alerts": "Accès aux meilleurs Restaurants de votre région",
-      "offline": "Cartes Hors Ligne",
+      "slang": "Argot Carioca",
+      "tips": "Conseils de voyage, communication et interaction avec les habitants",
       "support": "Alertes de Sécurité Constantes"
     },
     "cta": "S'abonner Premium",

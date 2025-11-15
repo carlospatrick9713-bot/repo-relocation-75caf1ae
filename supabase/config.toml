@@ -1,1 +1,10 @@
 project_id = "kxqrlshnhcorekeafqws"
+
+[functions.get-place-reviews]
+verify_jwt = false
+
+[functions.generate-restaurant-image]
+verify_jwt = false
+
+[functions.text-to-speech]
+verify_jwt = false

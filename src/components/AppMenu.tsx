@@ -61,6 +61,7 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
     
     // Navigate to specific pages
     const routes: Record<string, string> = {
+      'home': '/home',
       'highlights': '/highlights',
       'spots': '/tourist-spots',
       'restaurants': '/restaurants',
@@ -148,15 +149,10 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
             <Button
               variant="ghost"
               className="w-full justify-start text-base h-12"
-              onClick={() => { 
-                setOpen(false); 
-                localStorage.setItem('hideHero', 'true');
-                navigate('/');
-                window.dispatchEvent(new Event('storage'));
-              }}
+              onClick={() => handleMenuClick('home')}
             >
               <Home className="w-5 h-5 mr-3 text-primary" />
-              {t('menu.home')}
+              {t('common.home')}
             </Button>
 
             <Button

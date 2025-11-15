@@ -3,7 +3,8 @@
     "title": "Safe Trip Rio"
   },
   "common": {
-    "loading": "Laden..."
+    "loading": "Laden...",
+    "home": "Startseite"
   },
   "hero": {
     "title": "Erkunde Rio sicher",

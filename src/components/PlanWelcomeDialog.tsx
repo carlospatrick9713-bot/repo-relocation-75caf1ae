@@ -101,7 +101,10 @@ export default function PlanWelcomeDialog({
             Continuar com Plano Free
           </AlertDialogCancel>
           <AlertDialogAction 
-            onClick={onUpgrade}
+            onClick={() => {
+              window.open('https://pay.kiwify.com.br/lBcZdOF', '_blank');
+              onUpgrade();
+            }}
             className="bg-gradient-to-r from-yellow-500 to-primary hover:from-yellow-600 hover:to-primary/90"
           >
             <Crown className="w-4 h-4 mr-2" />

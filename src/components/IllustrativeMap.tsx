@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import satelliteMap from '@/assets/rio-satellite-map.jpg';
+import touristMap from '@/assets/rio-tourist-map-illustrated.jpg';
 
 interface MapMarker {
   id: number;
@@ -27,7 +27,7 @@ export default function IllustrativeMap() {
       id: 1, 
       name: 'Cristo Redentor', 
       icon: Mountain, 
-      position: { top: '25%', left: '55%' },
+      position: { top: '28%', left: '52%' },
       color: 'text-blue-500',
       region: 'north'
     },
@@ -35,7 +35,7 @@ export default function IllustrativeMap() {
       id: 2, 
       name: 'Pão de Açúcar', 
       icon: Mountain, 
-      position: { top: '60%', left: '65%' },
+      position: { top: '45%', left: '72%' },
       color: 'text-orange-500',
       region: 'south'
     },
@@ -43,7 +43,7 @@ export default function IllustrativeMap() {
       id: 3, 
       name: 'Copacabana', 
       icon: Waves, 
-      position: { top: '70%', left: '50%' },
+      position: { top: '68%', left: '48%' },
       color: 'text-cyan-500',
       region: 'south'
     },
@@ -51,7 +51,7 @@ export default function IllustrativeMap() {
       id: 4, 
       name: 'Ipanema', 
       icon: Waves, 
-      position: { top: '75%', left: '40%' },
+      position: { top: '72%', left: '35%' },
       color: 'text-teal-500',
       region: 'south'
     },
@@ -59,7 +59,7 @@ export default function IllustrativeMap() {
       id: 5, 
       name: 'Maracanã', 
       icon: Building2, 
-      position: { top: '35%', left: '45%' },
+      position: { top: '42%', left: '38%' },
       color: 'text-green-500',
       region: 'north'
     },
@@ -67,41 +67,57 @@ export default function IllustrativeMap() {
       id: 6, 
       name: 'Jardim Botânico', 
       icon: Trees, 
-      position: { top: '50%', left: '35%' },
+      position: { top: '52%', left: '30%' },
       color: 'text-emerald-500',
       region: 'west'
     },
     { 
       id: 7, 
-      name: 'Santa Teresa', 
-      icon: Church, 
-      position: { top: '40%', left: '55%' },
-      color: 'text-purple-500',
-      region: 'center'
-    },
-    { 
-      id: 8, 
-      name: 'Lapa', 
+      name: 'Arcos da Lapa', 
       icon: Landmark, 
-      position: { top: '45%', left: '60%' },
+      position: { top: '48%', left: '45%' },
       color: 'text-yellow-500',
       region: 'center'
     },
     { 
+      id: 8, 
+      name: 'Museu do Amanhã', 
+      icon: Building2, 
+      position: { top: '55%', left: '52%' },
+      color: 'text-purple-500',
+      region: 'center'
+    },
+    { 
       id: 9, 
-      name: 'Lagoa Rodrigo de Freitas', 
-      icon: Waves, 
-      position: { top: '55%', left: '40%' },
-      color: 'text-blue-400',
+      name: 'Pedra da Gávea', 
+      icon: Mountain, 
+      position: { top: '38%', left: '18%' },
+      color: 'text-amber-500',
       region: 'west'
     },
     { 
       id: 10, 
-      name: 'Parque Lage', 
+      name: 'Floresta da Tijuca', 
       icon: Trees, 
-      position: { top: '30%', left: '50%' },
+      position: { top: '32%', left: '25%' },
       color: 'text-lime-500',
       region: 'north'
+    },
+    { 
+      id: 11, 
+      name: 'AquaRio', 
+      icon: Waves, 
+      position: { top: '58%', left: '60%' },
+      color: 'text-blue-400',
+      region: 'center'
+    },
+    { 
+      id: 12, 
+      name: 'Sambódromo', 
+      icon: Building2, 
+      position: { top: '50%', left: '48%' },
+      color: 'text-pink-500',
+      region: 'center'
     }
   ];
 
@@ -111,11 +127,11 @@ export default function IllustrativeMap() {
 
   const MapContent = ({ isFullscreenView = false }: { isFullscreenView?: boolean }) => (
     <div className={`relative w-full ${isFullscreenView ? 'h-screen' : 'aspect-[16/10]'} overflow-hidden`}>
-      {/* Imagem satélite do Rio de Janeiro */}
+      {/* Imagem do mapa turístico ilustrado */}
       <div className="absolute inset-0">
         <img 
-          src={satelliteMap} 
-          alt="Mapa Satélite do Rio de Janeiro" 
+          src={touristMap} 
+          alt="Mapa Turístico Ilustrado do Rio de Janeiro" 
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-green-500/10" />
@@ -224,7 +240,7 @@ export default function IllustrativeMap() {
               </CardDescription>
             </div>
             <Badge variant="secondary" className="bg-primary/20">
-              10 {t('touristSpots.attractions')}
+              12 {t('touristSpots.attractions')}
             </Badge>
           </div>
         </CardHeader>

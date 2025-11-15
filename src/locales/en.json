@@ -2,6 +2,9 @@
   "header": {
     "title": "Safe Trip Rio"
   },
+  "common": {
+    "loading": "Loading..."
+  },
   "hero": {
     "title": "Explore Rio Safely",
     "subtitle": "Navigate the Marvelous City with real-time information about risk zones, tourist attractions, security alerts in your area, 50+ restaurants with reviews, and a dedicated tab for Rio slang translated into your language plus live weather information",
@@ -113,8 +116,12 @@
       "dangerousHours": "Hours",
       "tips": "Tips",
       "incidentsLast24h": "incidents recorded in the last 24 hours",
-      "cases": "cases",
+      "incidentsRegistered": "{{count}} incidents recorded in the last 24 hours",
+      "cases": "{{count}} cases",
       "highRiskHours": "Highest risk hours:",
+      "safestRegion": "Safest Region",
+      "totalIncidents": "Total Incidents",
+      "averagePerRegion": "Average per Region",
       "title": "Statistics and Analysis",
       "description": "Interactive visualizations of Rio de Janeiro's security data",
       "incidentsTab": "Incidents",
@@ -132,6 +139,11 @@
       "orderedBySafety": "Regions ordered by safety level",
       "position": "position",
       "safetyNote": "The lower the number of incidents, the safer the region"
+    },
+    "tabs": {
+      "crimeTypes": "Crime Types",
+      "hours": "Hours",
+      "tips": "Tips"
     },
     "emergency": {
       "title": "Emergency Numbers",

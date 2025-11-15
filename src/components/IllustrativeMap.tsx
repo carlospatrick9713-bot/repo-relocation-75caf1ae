@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
+import satelliteMap from '@/assets/rio-satellite-map.jpg';
 
 interface MapMarker {
   id: number;
@@ -109,52 +110,43 @@ export default function IllustrativeMap() {
   };
 
   const MapContent = ({ isFullscreenView = false }: { isFullscreenView?: boolean }) => (
-    <div className={`relative w-full ${isFullscreenView ? 'h-screen' : 'aspect-[16/10]'} bg-gradient-to-br from-blue-100 via-green-50 to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 overflow-hidden`}>
-      {/* Ilustração de fundo estilo satélite */}
+    <div className={`relative w-full ${isFullscreenView ? 'h-screen' : 'aspect-[16/10]'} overflow-hidden`}>
+      {/* Imagem satélite do Rio de Janeiro */}
       <div className="absolute inset-0">
-        {/* Oceano */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-300/30 via-blue-200/20 to-cyan-300/30 dark:from-blue-900/30 dark:via-blue-800/20 dark:to-cyan-900/30" />
-        
+        <img 
+          src={satelliteMap} 
+          alt="Mapa Satélite do Rio de Janeiro" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-green-500/10" />
+      </div>
+      
+      {/* Overlay de interatividade */}
+      <div className="absolute inset-0">
         {/* Regiões interativas */}
         <div 
-          className={`absolute top-0 left-0 w-[35%] h-[50%] bg-gradient-to-br from-green-200/40 via-green-100/30 to-yellow-100/20 dark:from-green-900/40 dark:via-green-800/30 dark:to-yellow-900/20 transition-all duration-500 cursor-pointer ${hoveredRegion === 'north' ? 'scale-105 opacity-100' : 'opacity-70'}`}
+          className={`absolute top-0 left-0 w-[35%] h-[50%] bg-primary/20 transition-all duration-500 cursor-pointer ${hoveredRegion === 'north' ? 'bg-primary/40 scale-105' : ''}`}
           style={{ clipPath: 'polygon(0 0, 100% 0, 80% 100%, 0 100%)' }}
           onMouseEnter={() => setHoveredRegion('north')}
           onMouseLeave={() => setHoveredRegion(null)}
         />
         <div 
-          className={`absolute top-[35%] left-[10%] w-[30%] h-[40%] bg-gradient-to-br from-emerald-200/40 via-green-100/30 to-teal-100/20 dark:from-emerald-900/40 dark:via-green-800/30 dark:to-teal-900/20 transition-all duration-500 cursor-pointer ${hoveredRegion === 'west' ? 'scale-105 opacity-100' : 'opacity-70'}`}
+          className={`absolute top-[35%] left-[10%] w-[30%] h-[40%] bg-emerald-500/20 transition-all duration-500 cursor-pointer ${hoveredRegion === 'west' ? 'bg-emerald-500/40 scale-105' : ''}`}
           style={{ clipPath: 'polygon(0 20%, 100% 0, 90% 100%, 0 100%)' }}
           onMouseEnter={() => setHoveredRegion('west')}
           onMouseLeave={() => setHoveredRegion(null)}
         />
         <div 
-          className={`absolute top-[30%] left-[35%] w-[35%] h-[35%] bg-gradient-to-br from-yellow-200/40 via-amber-100/30 to-orange-100/20 dark:from-yellow-900/40 dark:via-amber-800/30 dark:to-orange-900/20 transition-all duration-500 cursor-pointer ${hoveredRegion === 'center' ? 'scale-105 opacity-100' : 'opacity-70'}`}
+          className={`absolute top-[30%] left-[35%] w-[35%] h-[35%] bg-yellow-500/20 transition-all duration-500 cursor-pointer ${hoveredRegion === 'center' ? 'bg-yellow-500/40 scale-105' : ''}`}
           style={{ clipPath: 'polygon(10% 0, 100% 10%, 90% 90%, 0 100%)' }}
           onMouseEnter={() => setHoveredRegion('center')}
           onMouseLeave={() => setHoveredRegion(null)}
         />
         <div 
-          className={`absolute top-[50%] left-[30%] w-[50%] h-[50%] bg-gradient-to-br from-cyan-200/40 via-blue-100/30 to-teal-100/20 dark:from-cyan-900/40 dark:via-blue-800/30 dark:to-teal-900/20 transition-all duration-500 cursor-pointer ${hoveredRegion === 'south' ? 'scale-105 opacity-100' : 'opacity-70'}`}
+          className={`absolute top-[50%] left-[30%] w-[50%] h-[50%] bg-cyan-500/20 transition-all duration-500 cursor-pointer ${hoveredRegion === 'south' ? 'bg-cyan-500/40 scale-105' : ''}`}
           style={{ clipPath: 'polygon(0 0, 100% 20%, 100% 100%, 20% 100%)' }}
           onMouseEnter={() => setHoveredRegion('south')}
           onMouseLeave={() => setHoveredRegion(null)}
-        />
-        
-        {/* Morros e montanhas (ilustrativo) */}
-        <div className="absolute top-[20%] left-[50%] w-32 h-32 rounded-full bg-gradient-radial from-green-300/50 to-transparent dark:from-green-700/50 blur-2xl" />
-        <div className="absolute top-[55%] left-[60%] w-24 h-24 rounded-full bg-gradient-radial from-green-400/40 to-transparent dark:from-green-600/40 blur-2xl" />
-        <div className="absolute top-[35%] left-[40%] w-28 h-28 rounded-full bg-gradient-radial from-emerald-300/40 to-transparent dark:from-emerald-700/40 blur-2xl" />
-        
-        {/* Lagoa */}
-        <div className="absolute top-[50%] left-[35%] w-20 h-16 rounded-full bg-gradient-radial from-blue-400/60 to-cyan-300/40 dark:from-blue-600/60 dark:to-cyan-700/40 blur-md" />
-        
-        {/* Grid decorativo */}
-        <div className="absolute inset-0 opacity-10 dark:opacity-5" 
-             style={{ 
-               backgroundImage: 'linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)',
-               backgroundSize: '50px 50px'
-             }} 
         />
       </div>
 

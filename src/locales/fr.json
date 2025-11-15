@@ -106,6 +106,42 @@
         "areas": ["Barra da Tijuca", "Recreio", "Jacarepaguá"]
       }
     },
+    "statistics": {
+      "crimeTypes": "Types de Crimes",
+      "dangerousHours": "Horaires",
+      "tips": "Conseils",
+      "incidentsLast24h": "incidents enregistrés au cours des dernières 24 heures",
+      "cases": "cas",
+      "highRiskHours": "Heures à plus haut risque:",
+      "title": "Statistiques et Analyses",
+      "description": "Visualisations interactives des données de sécurité de Rio de Janeiro",
+      "incidentsTab": "Incidents",
+      "comparisonTab": "Comparaison",
+      "trendsTab": "Tendances",
+      "rankingTab": "Classement",
+      "incidentsByRegion": "Incidents par Région (24h)",
+      "totalOccurrences": "Total des occurrences enregistrées dans chaque région",
+      "incidents": "Incidents",
+      "crimeDistribution": "Distribution des Types de Crimes",
+      "crimeProportions": "Proportion de chaque type de crime enregistré",
+      "incidentTrends": "Tendances des Incidents",
+      "temporalComparison": "Comparaison temporelle entre les régions",
+      "safetyRanking": "Classement de Sécurité",
+      "orderedBySafety": "Régions classées par niveau de sécurité",
+      "position": "position",
+      "safetyNote": "Plus le nombre d'incidents est faible, plus la région est sûre"
+    },
+    "emergency": {
+      "title": "Numéros d'Urgence",
+      "police": "Police Militaire",
+      "fireDept": "Pompiers",
+      "ambulance": "SAMU",
+      "civilDefense": "Défense Civile",
+      "tipLine": "Ligne de Dénonciation",
+      "roadPolice": "Police Routière"
+    },
+    "dataSource": "Données fournies par",
+    "lastUpdate": "Dernière mise à jour",
     "understood": "Compris"
   },
   "slang": {

@@ -252,33 +252,33 @@ export default function SecurityAlerts() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Phone className="w-5 h-5 text-destructive" />
-                  Telefones de Emergência
+                  {t('securityAlerts.emergency.title')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex items-center justify-between p-3 rounded-lg bg-background">
-                    <span className="font-medium">Polícia Militar</span>
+                    <span className="font-medium">{t('securityAlerts.emergency.police')}</span>
                     <a href="tel:190" className="text-lg font-bold text-primary hover:underline">190</a>
                   </div>
                   <div className="flex items-center justify-between p-3 rounded-lg bg-background">
-                    <span className="font-medium">Bombeiros</span>
+                    <span className="font-medium">{t('securityAlerts.emergency.fireDept')}</span>
                     <a href="tel:193" className="text-lg font-bold text-primary hover:underline">193</a>
                   </div>
                   <div className="flex items-center justify-between p-3 rounded-lg bg-background">
-                    <span className="font-medium">SAMU</span>
+                    <span className="font-medium">{t('securityAlerts.emergency.ambulance')}</span>
                     <a href="tel:192" className="text-lg font-bold text-primary hover:underline">192</a>
                   </div>
                   <div className="flex items-center justify-between p-3 rounded-lg bg-background">
-                    <span className="font-medium">Defesa Civil</span>
+                    <span className="font-medium">{t('securityAlerts.emergency.civilDefense')}</span>
                     <a href="tel:199" className="text-lg font-bold text-primary hover:underline">199</a>
                   </div>
                   <div className="flex items-center justify-between p-3 rounded-lg bg-background">
-                    <span className="font-medium">Disque Denúncia</span>
+                    <span className="font-medium">{t('securityAlerts.emergency.tipLine')}</span>
                     <a href="tel:21971997" className="text-lg font-bold text-primary hover:underline">2197-1997</a>
                   </div>
                   <div className="flex items-center justify-between p-3 rounded-lg bg-background">
-                    <span className="font-medium">Polícia Rodoviária</span>
+                    <span className="font-medium">{t('securityAlerts.emergency.roadPolice')}</span>
                     <a href="tel:191" className="text-lg font-bold text-primary hover:underline">191</a>
                   </div>
                 </div>
@@ -289,7 +289,7 @@ export default function SecurityAlerts() {
             <Card className="animate-fade-in">
               <CardContent className="py-4">
                 <p className="text-xs text-muted-foreground text-center">
-                  Dados fornecidos por: {realData.source} | Última atualização: {new Date(realData.lastUpdate).toLocaleString('pt-BR')}
+                  {t('securityAlerts.dataSource')}: {realData.source} | {t('securityAlerts.lastUpdate')}: {new Date(realData.lastUpdate).toLocaleString('pt-BR')}
                 </p>
               </CardContent>
             </Card>
@@ -299,26 +299,26 @@ export default function SecurityAlerts() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BarChart3 className="w-5 h-5 text-primary" />
-                  Estatísticas e Análises
+                  {t('securityAlerts.statistics.title')}
                 </CardTitle>
                 <CardDescription>
-                  Visualizações interativas dos dados de segurança do Rio de Janeiro
+                  {t('securityAlerts.statistics.description')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <Tabs defaultValue="incidents" className="w-full">
                   <TabsList className="grid w-full grid-cols-4">
-                    <TabsTrigger value="incidents">Incidentes</TabsTrigger>
-                    <TabsTrigger value="comparison">Comparação</TabsTrigger>
-                    <TabsTrigger value="trends">Tendências</TabsTrigger>
-                    <TabsTrigger value="ranking">Ranking</TabsTrigger>
+                    <TabsTrigger value="incidents">{t('securityAlerts.statistics.incidentsTab')}</TabsTrigger>
+                    <TabsTrigger value="comparison">{t('securityAlerts.statistics.comparisonTab')}</TabsTrigger>
+                    <TabsTrigger value="trends">{t('securityAlerts.statistics.trendsTab')}</TabsTrigger>
+                    <TabsTrigger value="ranking">{t('securityAlerts.statistics.rankingTab')}</TabsTrigger>
                   </TabsList>
 
                   {/* Incidents by Region - Bar Chart */}
                   <TabsContent value="incidents" className="space-y-4 mt-6">
                     <div className="space-y-2">
-                      <h3 className="text-lg font-semibold">Incidentes por Região (24h)</h3>
-                      <p className="text-sm text-muted-foreground">Total de ocorrências registradas em cada região</p>
+                      <h3 className="text-lg font-semibold">{t('securityAlerts.statistics.incidentsByRegion')}</h3>
+                      <p className="text-sm text-muted-foreground">{t('securityAlerts.statistics.totalOccurrences')}</p>
                     </div>
                     <ResponsiveContainer width="100%" height={400}>
                       <BarChart data={realData.data}>
@@ -330,7 +330,7 @@ export default function SecurityAlerts() {
                           labelStyle={{ color: 'hsl(var(--foreground))' }}
                         />
                         <Legend />
-                        <Bar dataKey="incidents" fill="hsl(var(--primary))" name="Incidentes" radius={[8, 8, 0, 0]} />
+                        <Bar dataKey="incidents" fill="hsl(var(--primary))" name={t('securityAlerts.statistics.incidents')} radius={[8, 8, 0, 0]} />
                       </BarChart>
                     </ResponsiveContainer>
                   </TabsContent>
@@ -338,8 +338,8 @@ export default function SecurityAlerts() {
                   {/* Crime Types Comparison - Pie Chart */}
                   <TabsContent value="comparison" className="space-y-4 mt-6">
                     <div className="space-y-2">
-                      <h3 className="text-lg font-semibold">Distribuição de Tipos de Crime</h3>
-                      <p className="text-sm text-muted-foreground">Proporção de cada tipo de crime registrado</p>
+                      <h3 className="text-lg font-semibold">{t('securityAlerts.statistics.crimeDistribution')}</h3>
+                      <p className="text-sm text-muted-foreground">{t('securityAlerts.statistics.crimeProportions')}</p>
                     </div>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                       {realData.data.slice(0, 2).map((region) => {
@@ -377,8 +377,8 @@ export default function SecurityAlerts() {
                   {/* Trends - Line Chart */}
                   <TabsContent value="trends" className="space-y-4 mt-6">
                     <div className="space-y-2">
-                      <h3 className="text-lg font-semibold">Tendência de Incidentes</h3>
-                      <p className="text-sm text-muted-foreground">Comparação temporal entre regiões</p>
+                      <h3 className="text-lg font-semibold">{t('securityAlerts.statistics.incidentTrends')}</h3>
+                      <p className="text-sm text-muted-foreground">{t('securityAlerts.statistics.temporalComparison')}</p>
                     </div>
                     <ResponsiveContainer width="100%" height={400}>
                       <LineChart data={realData.data}>
@@ -395,7 +395,7 @@ export default function SecurityAlerts() {
                           dataKey="incidents" 
                           stroke="hsl(var(--primary))" 
                           strokeWidth={3}
-                          name="Incidentes"
+                          name={t('securityAlerts.statistics.incidents')}
                           dot={{ fill: 'hsl(var(--primary))', r: 6 }}
                         />
                       </LineChart>
@@ -405,8 +405,8 @@ export default function SecurityAlerts() {
                   {/* Safety Ranking */}
                   <TabsContent value="ranking" className="space-y-4 mt-6">
                     <div className="space-y-2">
-                      <h3 className="text-lg font-semibold">Ranking de Segurança</h3>
-                      <p className="text-sm text-muted-foreground">Regiões ordenadas por nível de segurança</p>
+                      <h3 className="text-lg font-semibold">{t('securityAlerts.statistics.safetyRanking')}</h3>
+                      <p className="text-sm text-muted-foreground">{t('securityAlerts.statistics.orderedBySafety')}</p>
                     </div>
                     <div className="space-y-3">
                       {[...realData.data]
@@ -493,7 +493,7 @@ export default function SecurityAlerts() {
       </main>
 
       {/* Premium Overlay */}
-      {!isPremium && !isLoading && (
+      {(!user || !isPremium) && !isLoading && (
         <div className="fixed inset-0 z-40 flex items-center justify-center p-4 bg-background/20">
           <div className="w-full max-w-md animate-fade-in">
             <PremiumCard />

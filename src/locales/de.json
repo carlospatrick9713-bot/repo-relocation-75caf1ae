@@ -168,6 +168,10 @@
     "dataSource": "Daten bereitgestellt von",
     "lastUpdate": "Letzte Aktualisierung",
     "understood": "Verstanden",
+    "neighborhoods": {
+      "title": "Stadtteile nach Zone",
+      "description": "Sehen Sie, welche Stadtteile zu jeder Region von Rio de Janeiro gehören"
+    },
     "crimeTypes": {
       "cellPhoneTheft": "Handydiebstahl",
       "vehicleTheft": "Fahrzeugdiebstahl",

@@ -157,6 +157,10 @@
     "dataSource": "Data provided by",
     "lastUpdate": "Last update",
     "understood": "Understood",
+    "neighborhoods": {
+      "title": "Neighborhoods by Zone",
+      "description": "See which neighborhoods are part of each region of Rio de Janeiro"
+    },
     "crimeTypes": {
       "cellPhoneTheft": "Cell phone theft",
       "vehicleTheft": "Vehicle theft",

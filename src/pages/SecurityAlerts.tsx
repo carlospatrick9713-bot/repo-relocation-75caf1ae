@@ -69,7 +69,7 @@ export default function SecurityAlerts() {
   if (isLoading || authLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center">
-        <p className="text-muted-foreground">Carregando...</p>
+        <p className="text-muted-foreground">{t('common.loading')}</p>
       </div>
     );
   }
@@ -203,9 +203,9 @@ export default function SecurityAlerts() {
                   <CardContent>
                     <Tabs defaultValue="crimes" className="w-full">
                       <TabsList className="grid w-full grid-cols-3">
-                        <TabsTrigger value="crimes">Tipos de Crime</TabsTrigger>
-                        <TabsTrigger value="hours">Horários</TabsTrigger>
-                        <TabsTrigger value="tips">Dicas</TabsTrigger>
+                        <TabsTrigger value="crimes">{t('securityAlerts.tabs.crimeTypes')}</TabsTrigger>
+                        <TabsTrigger value="hours">{t('securityAlerts.tabs.hours')}</TabsTrigger>
+                        <TabsTrigger value="tips">{t('securityAlerts.tabs.tips')}</TabsTrigger>
                       </TabsList>
                       
                       <TabsContent value="crimes" className="space-y-3 mt-4">
@@ -213,7 +213,7 @@ export default function SecurityAlerts() {
                           {region.crimeTypes.map((crime, idx) => (
                             <div key={idx} className="flex items-center justify-between p-2 rounded-lg bg-muted/50">
                               <span className="text-sm">{crime.type}</span>
-                              <Badge variant="outline">{crime.count} casos</Badge>
+                              <Badge variant="outline">{t('securityAlerts.statistics.cases', { count: crime.count })}</Badge>
                             </div>
                           ))}
                         </div>
@@ -221,7 +221,7 @@ export default function SecurityAlerts() {
                       
                       <TabsContent value="hours" className="space-y-3 mt-4">
                         <div className="space-y-2">
-                          <p className="text-sm font-medium">Horários de maior risco:</p>
+                          <p className="text-sm font-medium">{t('securityAlerts.statistics.dangerousHours')}</p>
                           {region.dangerousHours.map((hour, idx) => (
                             <div key={idx} className="flex items-center gap-2 p-2 rounded-lg bg-destructive/10">
                               <Clock className="w-4 h-4 text-destructive" />
@@ -448,7 +448,7 @@ export default function SecurityAlerts() {
                         <CardContent className="pt-6">
                           <div className="flex items-center justify-between">
                             <div>
-                              <p className="text-sm text-muted-foreground">Região Mais Segura</p>
+                              <p className="text-sm text-muted-foreground">{t('securityAlerts.statistics.safestRegion')}</p>
                               <p className="text-lg font-bold text-primary">
                                 {[...realData.data].sort((a, b) => a.incidents - b.incidents)[0]?.regionName}
                               </p>
@@ -461,7 +461,7 @@ export default function SecurityAlerts() {
                         <CardContent className="pt-6">
                           <div className="flex items-center justify-between">
                             <div>
-                              <p className="text-sm text-muted-foreground">Total de Incidentes</p>
+                              <p className="text-sm text-muted-foreground">{t('securityAlerts.statistics.totalIncidents')}</p>
                               <p className="text-lg font-bold text-destructive">
                                 {realData.data.reduce((sum, r) => sum + r.incidents, 0)}
                               </p>
@@ -474,7 +474,7 @@ export default function SecurityAlerts() {
                         <CardContent className="pt-6">
                           <div className="flex items-center justify-between">
                             <div>
-                              <p className="text-sm text-muted-foreground">Média por Região</p>
+                              <p className="text-sm text-muted-foreground">{t('securityAlerts.statistics.averagePerRegion')}</p>
                               <p className="text-lg font-bold">
                                 {Math.round(realData.data.reduce((sum, r) => sum + r.incidents, 0) / realData.data.length)}
                               </p>

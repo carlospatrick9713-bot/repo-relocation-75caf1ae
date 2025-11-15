@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Search, Volume2, MapPin, AlertCircle } from 'lucide-react';
+import { Search, Volume2, MapPin, AlertCircle, Play, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 import AppMenu from '@/components/AppMenu';
 import LanguageSelector from '@/components/LanguageSelector';
+import { supabase } from '@/integrations/supabase/client';
 
 interface SlangItem {
   word: string;
@@ -20,10 +23,45 @@ interface SlangItem {
 export default function Slang() {
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
+  const [playingWord, setPlayingWord] = useState<string | null>(null);
 
   const slangCategories = t('slang.categories', { returnObjects: true }) as Record<string, { name: string; items: SlangItem[] }>;
   const rioWords = t('slang.rioWords', { returnObjects: true }) as SlangItem[];
   const emergencyPhrases = t('slang.emergency', { returnObjects: true }) as SlangItem[];
+
+  const playPronunciation = async (word: string, example: string) => {
+    try {
+      setPlayingWord(word);
+      
+      // Call the text-to-speech edge function
+      const { data, error } = await supabase.functions.invoke('text-to-speech', {
+        body: { text: example }
+      });
+
+      if (error) throw error;
+
+      if (data?.audioContent) {
+        // Convert base64 to audio and play
+        const audioBlob = new Blob(
+          [Uint8Array.from(atob(data.audioContent), c => c.charCodeAt(0))],
+          { type: 'audio/mpeg' }
+        );
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const audio = new Audio(audioUrl);
+        
+        audio.onended = () => {
+          setPlayingWord(null);
+          URL.revokeObjectURL(audioUrl);
+        };
+        
+        await audio.play();
+      }
+    } catch (error) {
+      console.error('Error playing pronunciation:', error);
+      toast.error('Não foi possível reproduzir o áudio');
+      setPlayingWord(null);
+    }
+  };
 
   const filterItems = (items: SlangItem[]) => {
     if (!searchTerm) return items;
@@ -104,7 +142,22 @@ export default function Slang() {
                     <Card key={idx} className="hover:shadow-lg transition-shadow border-l-4 border-l-primary">
                       <CardHeader className="pb-3">
                         <CardTitle className="text-xl flex items-center justify-between">
-                          <span className="text-primary">{item.word}</span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-primary">{item.word}</span>
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              className="h-8 w-8"
+                              onClick={() => playPronunciation(item.word, item.example)}
+                              disabled={playingWord === item.word}
+                            >
+                              {playingWord === item.word ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                              ) : (
+                                <Play className="h-4 w-4" />
+                              )}
+                            </Button>
+                          </div>
                           {item.pronunciation && (
                             <Badge variant="secondary" className="text-xs">
                               {item.pronunciation}

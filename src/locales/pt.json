@@ -157,6 +157,10 @@
     "dataSource": "Dados fornecidos por",
     "lastUpdate": "Última atualização",
     "understood": "Entendi",
+    "neighborhoods": {
+      "title": "Bairros por Zona",
+      "description": "Veja quais bairros fazem parte de cada região do Rio de Janeiro"
+    },
     "crimeTypes": {
       "cellPhoneTheft": "Roubo de celular",
       "vehicleTheft": "Roubo de veículo",

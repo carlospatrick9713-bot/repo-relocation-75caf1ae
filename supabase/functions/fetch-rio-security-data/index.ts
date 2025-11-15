@@ -25,15 +25,15 @@ const fetchRealSecurityData = async (): Promise<SecurityData[]> => {
       level: "low",
       incidents: 45,
       crimeTypes: [
-        { type: "crimeTypes.cellPhoneTheft", count: 18 },
-        { type: "crimeTypes.vehicleTheft", count: 15 },
-        { type: "crimeTypes.streetRobbery", count: 12 }
+        { type: "securityAlerts.crimeTypes.cellPhoneTheft", count: 18 },
+        { type: "securityAlerts.crimeTypes.vehicleTheft", count: 15 },
+        { type: "securityAlerts.crimeTypes.streetRobbery", count: 12 }
       ],
       dangerousHours: ["22:00 - 02:00", "05:00 - 07:00"],
       safetyTips: [
-        "safetyTips.avoidPhoneOnStreet",
-        "safetyTips.preferTaxis",
-        "safetyTips.hideValuables"
+        "securityAlerts.safetyTips.avoidPhoneOnStreet",
+        "securityAlerts.safetyTips.preferTaxis",
+        "securityAlerts.safetyTips.hideValuables"
       ]
     },
     {
@@ -41,16 +41,16 @@ const fetchRealSecurityData = async (): Promise<SecurityData[]> => {
       level: "medium",
       incidents: 89,
       crimeTypes: [
-        { type: "crimeTypes.cellPhoneTheft", count: 35 },
-        { type: "crimeTypes.streetRobbery", count: 28 },
-        { type: "crimeTypes.transitTheft", count: 26 }
+        { type: "securityAlerts.crimeTypes.cellPhoneTheft", count: 35 },
+        { type: "securityAlerts.crimeTypes.streetRobbery", count: 28 },
+        { type: "securityAlerts.crimeTypes.transitTheft", count: 26 }
       ],
       dangerousHours: ["18:00 - 22:00", "00:00 - 06:00"],
       safetyTips: [
-        "safetyTips.avoidDesertedStreets",
-        "safetyTips.publicTransportPeakHours",
-        "safetyTips.walkInGroups",
-        "safetyTips.dontShowValuables"
+        "securityAlerts.safetyTips.avoidDesertedStreets",
+        "securityAlerts.safetyTips.publicTransportPeakHours",
+        "securityAlerts.safetyTips.walkInGroups",
+        "securityAlerts.safetyTips.dontShowValuables"
       ]
     },
     {
@@ -58,18 +58,18 @@ const fetchRealSecurityData = async (): Promise<SecurityData[]> => {
       level: "high",
       incidents: 156,
       crimeTypes: [
-        { type: "crimeTypes.vehicleTheft", count: 48 },
-        { type: "crimeTypes.streetRobbery", count: 42 },
-        { type: "crimeTypes.cellPhoneTheft", count: 38 },
-        { type: "crimeTypes.businessRobbery", count: 28 }
+        { type: "securityAlerts.crimeTypes.vehicleTheft", count: 48 },
+        { type: "securityAlerts.crimeTypes.streetRobbery", count: 42 },
+        { type: "securityAlerts.crimeTypes.cellPhoneTheft", count: 38 },
+        { type: "securityAlerts.crimeTypes.businessRobbery", count: 28 }
       ],
       dangerousHours: ["19:00 - 23:00", "00:00 - 06:00"],
       safetyTips: [
-        "safetyTips.avoidNightCirculation",
-        "safetyTips.preferMainAvenues",
-        "safetyTips.keepWindowsClosed",
-        "safetyTips.avoidIsolatedSignals",
-        "safetyTips.dontReact"
+        "securityAlerts.safetyTips.avoidNightCirculation",
+        "securityAlerts.safetyTips.preferMainAvenues",
+        "securityAlerts.safetyTips.keepWindowsClosed",
+        "securityAlerts.safetyTips.avoidIsolatedSignals",
+        "securityAlerts.safetyTips.dontReact"
       ]
     },
     {
@@ -77,16 +77,16 @@ const fetchRealSecurityData = async (): Promise<SecurityData[]> => {
       level: "medium",
       incidents: 72,
       crimeTypes: [
-        { type: "crimeTypes.vehicleTheft", count: 28 },
-        { type: "crimeTypes.homeTheft", count: 22 },
-        { type: "crimeTypes.cellPhoneTheft", count: 22 }
+        { type: "securityAlerts.crimeTypes.vehicleTheft", count: 28 },
+        { type: "securityAlerts.crimeTypes.homeTheft", count: 22 },
+        { type: "securityAlerts.crimeTypes.cellPhoneTheft", count: 22 }
       ],
       dangerousHours: ["20:00 - 01:00", "05:00 - 07:00"],
       safetyTips: [
-        "safetyTips.avoidQuietStreets",
-        "safetyTips.installSecurity",
-        "safetyTips.watchSuspicious",
-        "safetyTips.preferPoliced"
+        "securityAlerts.safetyTips.avoidQuietStreets",
+        "securityAlerts.safetyTips.installSecurity",
+        "securityAlerts.safetyTips.watchSuspicious",
+        "securityAlerts.safetyTips.preferPoliced"
       ]
     }
   ];

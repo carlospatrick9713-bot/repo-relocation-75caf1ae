@@ -212,7 +212,7 @@ export default function SecurityAlerts() {
                         <div className="space-y-2">
                           {region.crimeTypes.map((crime, idx) => (
                             <div key={idx} className="flex items-center justify-between p-2 rounded-lg bg-muted/50">
-                              <span className="text-sm">{t(`securityAlerts.${crime.type}`)}</span>
+                              <span className="text-sm">{t(crime.type)}</span>
                               <Badge variant="outline">{t('securityAlerts.statistics.cases', { count: crime.count })}</Badge>
                             </div>
                           ))}
@@ -236,7 +236,7 @@ export default function SecurityAlerts() {
                           {region.safetyTips.map((tip, idx) => (
                             <div key={idx} className="flex items-start gap-2 p-2 rounded-lg bg-primary/5">
                               <Info className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                              <span className="text-sm">{t(`securityAlerts.${tip}`)}</span>
+                              <span className="text-sm">{t(tip)}</span>
                             </div>
                           ))}
                         </div>
@@ -486,6 +486,82 @@ export default function SecurityAlerts() {
                     </div>
                   </TabsContent>
                 </Tabs>
+              </CardContent>
+            </Card>
+
+            {/* Neighborhoods by Zone */}
+            <Card className="animate-fade-in">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <MapPin className="w-5 h-5 text-primary" />
+                  {t('securityAlerts.neighborhoods.title')}
+                </CardTitle>
+                <CardDescription>
+                  {t('securityAlerts.neighborhoods.description')}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Zona Sul */}
+                  <Card className="border-2 border-green-500/20 bg-green-500/5">
+                    <CardHeader>
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Badge variant="outline" className="bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/30">
+                          {t('securityAlerts.regions.zonaSul.name')}
+                        </Badge>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex flex-wrap gap-2">
+                        {(t('securityAlerts.regions.zonaSul.areas', { returnObjects: true }) as string[]).map((area, idx) => (
+                          <Badge key={idx} variant="secondary" className="bg-background/50">
+                            {area}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Zona Norte */}
+                  <Card className="border-2 border-red-500/20 bg-red-500/5">
+                    <CardHeader>
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Badge variant="outline" className="bg-red-500/10 text-red-700 dark:text-red-400 border-red-500/30">
+                          {t('securityAlerts.regions.zonaNorte.name')}
+                        </Badge>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex flex-wrap gap-2">
+                        {(t('securityAlerts.regions.zonaNorte.areas', { returnObjects: true }) as string[]).map((area, idx) => (
+                          <Badge key={idx} variant="secondary" className="bg-background/50">
+                            {area}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Zona Oeste */}
+                  <Card className="border-2 border-yellow-500/20 bg-yellow-500/5">
+                    <CardHeader>
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Badge variant="outline" className="bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border-yellow-500/30">
+                          {t('securityAlerts.regions.zonaOeste.name')}
+                        </Badge>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex flex-wrap gap-2">
+                        {(t('securityAlerts.regions.zonaOeste.areas', { returnObjects: true }) as string[]).map((area, idx) => (
+                          <Badge key={idx} variant="secondary" className="bg-background/50">
+                            {area}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
               </CardContent>
             </Card>
           </>

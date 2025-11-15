@@ -155,6 +155,10 @@
     "dataSource": "Datos proporcionados por",
     "lastUpdate": "Última actualización",
     "understood": "Entendido",
+    "neighborhoods": {
+      "title": "Barrios por Zona",
+      "description": "Vea qué barrios forman parte de cada región de Río de Janeiro"
+    },
     "crimeTypes": {
       "cellPhoneTheft": "Robo de celular",
       "vehicleTheft": "Robo de vehículo",

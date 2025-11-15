@@ -661,5 +661,16 @@
         "Em situações formais, evite usar gírias demais"
       ]
     }
+  },
+  "menu": {
+    "home": "Página Inicial",
+    "highlights": "Destaques",
+    "touristSpots": "Pontos Turísticos",
+    "restaurants": "Restaurantes",
+    "weather": "Clima",
+    "securityAlerts": "Alertas de Segurança",
+    "gallery": "Galeria de Fotos",
+    "slang": "Gírias Cariocas",
+    "profile": "Perfil"
   }
 }

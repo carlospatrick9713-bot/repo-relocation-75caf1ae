@@ -6,7 +6,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Languages } from 'lucide-react';
+import { Languages, Crown } from 'lucide-react';
+import { usePremium } from '@/hooks/usePremium';
 
 const languages = [
   { code: 'pt', name: 'Português', flag: '🇧🇷' },
@@ -18,6 +19,7 @@ const languages = [
 
 export default function LanguageSelector() {
   const { i18n } = useTranslation();
+  const { isPremium } = usePremium();
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
 
@@ -26,13 +28,17 @@ export default function LanguageSelector() {
   };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="gap-2">
-          <Languages className="h-4 w-4" />
-          <span className="text-sm">{currentLanguage.flag}</span>
-        </Button>
-      </DropdownMenuTrigger>
+    <div className="flex items-center gap-1">
+      {isPremium && (
+        <Crown className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+      )}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="sm" className="gap-2">
+            <Languages className="h-4 w-4" />
+            <span className="text-sm">{currentLanguage.flag}</span>
+          </Button>
+        </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {languages.map((language) => (
           <DropdownMenuItem
@@ -49,5 +55,6 @@ export default function LanguageSelector() {
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
+    </div>
   );
 }

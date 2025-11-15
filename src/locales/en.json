@@ -98,17 +98,17 @@
       "zonaNorte": {
         "name": "North Zone",
         "message": "Avoid isolated areas. Prefer main roads.",
-        "areas": ["Maracanã", "São Cristóvão", "Tijuca"]
+        "areas": ["Maracanã", "São Cristóvão", "Tijuca", "Vila Isabel", "Grajaú", "Andaraí", "Alto da Boa Vista", "Méier", "Engenho de Dentro", "Engenho Novo", "Cachambi", "Todos os Santos", "Del Castilho", "Pilares", "Abolição", "Piedade", "Encantado", "Riachuelo", "Sampaio", "Jacaré", "Mangueira", "Benfica", "Bonsucesso", "Complexo do Alemão", "Maré", "Penha", "Vigário Geral", "Parada de Lucas", "Pavuna", "Costa Barros", "Acari", "Irajá", "Vicente de Carvalho", "Vila da Penha", "Vista Alegre", "Olaria", "Ramos", "Bonsucesso"]
       },
       "zonaSul": {
         "name": "South Zone",
         "message": "Area with good security. Maintain basic attention.",
-        "areas": ["Copacabana", "Ipanema", "Leblon"]
+        "areas": ["Copacabana", "Ipanema", "Leblon", "Botafogo", "Flamengo", "Laranjeiras", "Catete", "Glória", "Leme", "Urca", "Humaitá", "Jardim Botânico", "Lagoa", "Gávea", "São Conrado", "Vidigal", "Rocinha"]
       },
       "zonaOeste": {
         "name": "West Zone",
         "message": "Caution during nighttime. Avoid showing valuables.",
-        "areas": ["Barra da Tijuca", "Recreio", "Jacarepaguá"]
+        "areas": ["Barra da Tijuca", "Recreio dos Bandeirantes", "Jacarepaguá", "Cidade de Deus", "Taquara", "Freguesia", "Vargem Grande", "Vargem Pequena", "Camorim", "Grumari", "Guaratiba", "Campo Grande", "Santa Cruz", "Bangu", "Realengo", "Padre Miguel", "Senador Camará"]
       }
     },
     "statistics": {
@@ -156,7 +156,33 @@
     },
     "dataSource": "Data provided by",
     "lastUpdate": "Last update",
-    "understood": "Understood"
+    "understood": "Understood",
+    "crimeTypes": {
+      "cellPhoneTheft": "Cell phone theft",
+      "vehicleTheft": "Vehicle theft",
+      "streetRobbery": "Street robbery",
+      "transitTheft": "Transit theft",
+      "businessRobbery": "Business robbery",
+      "homeTheft": "Home theft"
+    },
+    "safetyTips": {
+      "avoidPhoneOnStreet": "Avoid using your phone on the street, especially in empty areas",
+      "preferTaxis": "Prefer taxis and ride-sharing apps at night",
+      "hideValuables": "Keep valuables hidden",
+      "avoidDesertedStreets": "Avoid deserted streets, especially after 6 PM",
+      "publicTransportPeakHours": "Use public transport only during busy hours",
+      "walkInGroups": "Walk in groups whenever possible",
+      "dontShowValuables": "Don't show off valuables",
+      "avoidNightCirculation": "Avoid going out at night unless necessary",
+      "preferMainAvenues": "Prefer main and well-lit avenues",
+      "keepWindowsClosed": "Keep windows closed and doors locked in traffic",
+      "avoidIsolatedSignals": "Avoid stopping at isolated traffic lights at night",
+      "dontReact": "Don't react to robberies",
+      "avoidQuietStreets": "Avoid quiet streets",
+      "installSecurity": "Install security systems in homes",
+      "watchSuspicious": "Watch for suspicious movements",
+      "preferPoliced": "Prefer areas with police presence"
+    }
   },
   "slang": {
     "title": "Rio Slang",

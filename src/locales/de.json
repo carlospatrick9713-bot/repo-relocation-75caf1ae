@@ -109,7 +109,7 @@
       "zonaNorte": {
         "name": "Nordzone",
         "message": "Isolierte Bereiche vermeiden. Bevorzugen Sie Hauptstraßen.",
-        "areas": ["Maracanã", "São Cristóvão", "Tijuca"]
+        "areas": ["Maracanã", "São Cristóvão", "Tijuca", "Vila Isabel", "Grajaú", "Andaraí", "Alto da Boa Vista", "Méier", "Engenho de Dentro", "Engenho Novo", "Cachambi", "Todos os Santos", "Del Castilho", "Pilares", "Abolição", "Piedade", "Encantado", "Riachuelo", "Sampaio", "Jacaré", "Mangueira", "Benfica", "Bonsucesso", "Complexo do Alemão", "Maré", "Penha", "Vigário Geral", "Parada de Lucas", "Pavuna", "Costa Barros", "Acari", "Irajá", "Vicente de Carvalho", "Vila da Penha", "Vista Alegre", "Olaria", "Ramos", "Bonsucesso"]
       },
       "zonaSul": {
         "name": "Südzone",
@@ -167,7 +167,33 @@
     },
     "dataSource": "Daten bereitgestellt von",
     "lastUpdate": "Letzte Aktualisierung",
-    "understood": "Verstanden"
+    "understood": "Verstanden",
+    "crimeTypes": {
+      "cellPhoneTheft": "Handydiebstahl",
+      "vehicleTheft": "Fahrzeugdiebstahl",
+      "streetRobbery": "Straßenraub",
+      "transitTheft": "Diebstahl im Verkehr",
+      "businessRobbery": "Geschäftsraub",
+      "homeTheft": "Wohnungsdiebstahl"
+    },
+    "safetyTips": {
+      "avoidPhoneOnStreet": "Vermeiden Sie die Nutzung des Handys auf der Straße, besonders in leeren Bereichen",
+      "preferTaxis": "Bevorzugen Sie Taxis und Fahrdienst-Apps nachts",
+      "hideValuables": "Halten Sie Wertgegenstände versteckt",
+      "avoidDesertedStreets": "Vermeiden Sie verlassene Straßen, besonders nach 18 Uhr",
+      "publicTransportPeakHours": "Nutzen Sie öffentliche Verkehrsmittel nur zu Hauptverkehrszeiten",
+      "walkInGroups": "Gehen Sie in Gruppen, wann immer möglich",
+      "dontShowValuables": "Zeigen Sie keine Wertgegenstände",
+      "avoidNightCirculation": "Vermeiden Sie es, nachts ohne Notwendigkeit unterwegs zu sein",
+      "preferMainAvenues": "Bevorzugen Sie Hauptstraßen und beleuchtete Alleen",
+      "keepWindowsClosed": "Halten Sie Fenster geschlossen und Türen im Verkehr verschlossen",
+      "avoidIsolatedSignals": "Vermeiden Sie es, nachts an isolierten Ampeln anzuhalten",
+      "dontReact": "Reagieren Sie nicht auf Überfälle",
+      "avoidQuietStreets": "Vermeiden Sie ruhige Straßen",
+      "installSecurity": "Installieren Sie Sicherheitssysteme in Wohnungen",
+      "watchSuspicious": "Achten Sie auf verdächtige Bewegungen",
+      "preferPoliced": "Bevorzugen Sie Bereiche mit Polizeipräsenz"
+    }
   },
   "slang": {
     "title": "Carioca-Slang",

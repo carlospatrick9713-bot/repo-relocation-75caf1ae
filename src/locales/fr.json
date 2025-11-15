@@ -96,17 +96,17 @@
       "zonaNorte": {
         "name": "Zone Nord",
         "message": "Éviter les zones isolées. Préférez les voies principales.",
-        "areas": ["Maracanã", "São Cristóvão", "Tijuca"]
+        "areas": ["Maracanã", "São Cristóvão", "Tijuca", "Vila Isabel", "Grajaú", "Andaraí", "Alto da Boa Vista", "Méier", "Engenho de Dentro", "Engenho Novo", "Cachambi", "Todos os Santos", "Del Castilho", "Pilares", "Abolição", "Piedade", "Encantado", "Riachuelo", "Sampaio", "Jacaré", "Mangueira", "Benfica", "Bonsucesso", "Complexo do Alemão", "Maré", "Penha", "Vigário Geral", "Parada de Lucas", "Pavuna", "Costa Barros", "Acari", "Irajá", "Vicente de Carvalho", "Vila da Penha", "Vista Alegre", "Olaria", "Ramos", "Bonsucesso"]
       },
       "zonaSul": {
         "name": "Zone Sud",
         "message": "Région avec bonne sécurité. Gardez une attention de base.",
-        "areas": ["Copacabana", "Ipanema", "Leblon"]
+        "areas": ["Copacabana", "Ipanema", "Leblon", "Botafogo", "Flamengo", "Laranjeiras", "Catete", "Glória", "Leme", "Urca", "Humaitá", "Jardim Botânico", "Lagoa", "Gávea", "São Conrado", "Vidigal", "Rocinha"]
       },
       "zonaOeste": {
         "name": "Zone Ouest",
         "message": "Attention aux heures nocturnes. Évitez l'ostentation.",
-        "areas": ["Barra da Tijuca", "Recreio", "Jacarepaguá"]
+        "areas": ["Barra da Tijuca", "Recreio dos Bandeirantes", "Jacarepaguá", "Cidade de Deus", "Taquara", "Freguesia", "Vargem Grande", "Vargem Pequena", "Camorim", "Grumari", "Guaratiba", "Campo Grande", "Santa Cruz", "Bangu", "Realengo", "Padre Miguel", "Senador Camará"]
       }
     },
     "statistics": {
@@ -154,7 +154,33 @@
     },
     "dataSource": "Données fournies par",
     "lastUpdate": "Dernière mise à jour",
-    "understood": "Compris"
+    "understood": "Compris",
+    "crimeTypes": {
+      "cellPhoneTheft": "Vol de téléphone portable",
+      "vehicleTheft": "Vol de véhicule",
+      "streetRobbery": "Vol de rue",
+      "transitTheft": "Vol dans les transports",
+      "businessRobbery": "Agression de commerce",
+      "homeTheft": "Vol à domicile"
+    },
+    "safetyTips": {
+      "avoidPhoneOnStreet": "Évitez d'utiliser votre téléphone dans la rue, surtout dans les zones vides",
+      "preferTaxis": "Préférez les taxis et les applications de transport la nuit",
+      "hideValuables": "Gardez les objets de valeur cachés",
+      "avoidDesertedStreets": "Évitez les rues désertes, surtout après 18h",
+      "publicTransportPeakHours": "Utilisez les transports en commun uniquement aux heures de pointe",
+      "walkInGroups": "Marchez en groupe autant que possible",
+      "dontShowValuables": "Ne montrez pas d'objets de valeur",
+      "avoidNightCirculation": "Évitez de circuler la nuit sans nécessité",
+      "preferMainAvenues": "Préférez les avenues principales et éclairées",
+      "keepWindowsClosed": "Gardez les fenêtres fermées et les portes verrouillées dans le trafic",
+      "avoidIsolatedSignals": "Évitez de vous arrêter aux feux isolés la nuit",
+      "dontReact": "Ne réagissez pas aux vols",
+      "avoidQuietStreets": "Évitez les rues peu fréquentées",
+      "installSecurity": "Installez des systèmes de sécurité dans les maisons",
+      "watchSuspicious": "Surveillez les mouvements suspects",
+      "preferPoliced": "Préférez les zones avec présence policière"
+    }
   },
   "slang": {
     "title": "Argot Carioca",

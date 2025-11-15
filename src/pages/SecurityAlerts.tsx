@@ -212,7 +212,7 @@ export default function SecurityAlerts() {
                         <div className="space-y-2">
                           {region.crimeTypes.map((crime, idx) => (
                             <div key={idx} className="flex items-center justify-between p-2 rounded-lg bg-muted/50">
-                              <span className="text-sm">{crime.type}</span>
+                              <span className="text-sm">{t(`securityAlerts.${crime.type}`)}</span>
                               <Badge variant="outline">{t('securityAlerts.statistics.cases', { count: crime.count })}</Badge>
                             </div>
                           ))}
@@ -236,7 +236,7 @@ export default function SecurityAlerts() {
                           {region.safetyTips.map((tip, idx) => (
                             <div key={idx} className="flex items-start gap-2 p-2 rounded-lg bg-primary/5">
                               <Info className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                              <span className="text-sm">{tip}</span>
+                              <span className="text-sm">{t(`securityAlerts.${tip}`)}</span>
                             </div>
                           ))}
                         </div>

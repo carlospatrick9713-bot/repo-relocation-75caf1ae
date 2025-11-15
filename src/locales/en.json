@@ -36,7 +36,8 @@
     "features": {
       "routes": "+ 100 Tourist Attractions",
       "alerts": "Access to the best Restaurants in your area",
-      "offline": "Offline Maps",
+      "slang": "Carioca Slang Guide",
+      "tips": "Travel tips, communication and interaction with locals",
       "support": "Constant Security Alerts"
     },
     "cta": "Subscribe Premium",

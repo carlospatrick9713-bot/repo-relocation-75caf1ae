@@ -35,7 +35,8 @@
     "features": {
       "routes": "+ 100 Sehenswürdigkeiten",
       "alerts": "Zugang zu den besten Restaurants in Ihrer Nähe",
-      "offline": "Offline-Karten",
+      "slang": "Carioca-Slang",
+      "tips": "Reisetipps, Kommunikation und Interaktion mit Einheimischen",
       "support": "Ständige Sicherheitswarnungen"
     },
     "cta": "Premium abonnieren",

@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Crown, Navigation, Bell, Download, Headphones } from 'lucide-react';
+import { Crown, Navigation, Bell, MessageCircle, Lightbulb, Headphones } from 'lucide-react';
 import premiumBadge from '@/assets/premium-badge.png';
 
 export default function PremiumCard() {
@@ -11,7 +11,8 @@ export default function PremiumCard() {
   const features = [
     { icon: Navigation, text: t('premium.features.routes') },
     { icon: Bell, text: t('premium.features.alerts') },
-    { icon: Download, text: t('premium.features.offline') },
+    { icon: MessageCircle, text: t('premium.features.slang') },
+    { icon: Lightbulb, text: t('premium.features.tips') },
     { icon: Headphones, text: t('premium.features.support') }
   ];
 

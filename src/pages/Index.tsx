@@ -206,7 +206,7 @@ const Index = () => {
           <ZoomableMap />
 
           {/* Security Alerts Summary */}
-          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent relative">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-2xl">
                 <AlertTriangle className="w-7 h-7 text-primary" />
@@ -216,7 +216,22 @@ const Index = () => {
                 {t('securityAlerts.subtitle')}
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-3">
+            <CardContent className="space-y-3 relative">
+              {/* Blur overlay for non-premium users */}
+              {!isPremium && !isLoading && (
+                <div className="absolute inset-0 backdrop-blur-md bg-background/30 z-10 flex flex-col items-center justify-center rounded-lg">
+                  <Crown className="w-12 h-12 text-primary mb-3 animate-pulse" />
+                  <p className="text-center font-semibold text-lg mb-2">{t('premium.required')}</p>
+                  <Button 
+                    className="bg-gradient-to-r from-primary to-primary/80"
+                    onClick={() => window.open('https://pay.kiwify.com.br/lBcZdOF', '_blank')}
+                  >
+                    <Crown className="w-4 h-4 mr-2" />
+                    {t('premium.cta')}
+                  </Button>
+                </div>
+              )}
+              
               {securityAlerts.slice(0, 3).map((alert) => (
                 <div key={alert.id} className="p-4 border rounded-lg bg-background/50 hover:bg-background/80 transition-colors">
                   <div className="flex items-start justify-between gap-3 mb-1">
@@ -234,6 +249,7 @@ const Index = () => {
                 variant="outline" 
                 className="w-full" 
                 onClick={() => navigate('/security-alerts')}
+                disabled={!isPremium && !isLoading}
               >
                 {t('securityAlerts.viewAll')}
               </Button>
@@ -300,7 +316,7 @@ const Index = () => {
           <ZoomableMap />
 
           {/* Security Alerts Summary */}
-          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent relative">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-xl">
                 <AlertTriangle className="w-6 h-6 text-primary" />
@@ -310,7 +326,23 @@ const Index = () => {
                 {t('securityAlerts.subtitle')}
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-3">
+            <CardContent className="space-y-3 relative">
+              {/* Blur overlay for non-premium users */}
+              {!isPremium && !isLoading && (
+                <div className="absolute inset-0 backdrop-blur-md bg-background/30 z-10 flex flex-col items-center justify-center rounded-lg">
+                  <Crown className="w-10 h-10 text-primary mb-2 animate-pulse" />
+                  <p className="text-center font-semibold text-sm mb-2 px-4">{t('premium.required')}</p>
+                  <Button 
+                    size="sm"
+                    className="bg-gradient-to-r from-primary to-primary/80"
+                    onClick={() => window.open('https://pay.kiwify.com.br/lBcZdOF', '_blank')}
+                  >
+                    <Crown className="w-3 h-3 mr-1" />
+                    {t('premium.cta')}
+                  </Button>
+                </div>
+              )}
+              
               {securityAlerts.slice(0, 3).map((alert) => (
                 <div key={alert.id} className="p-3 border rounded-lg bg-background/50 hover:bg-background/80 transition-colors">
                   <div className="flex items-start justify-between gap-3 mb-1">
@@ -328,6 +360,7 @@ const Index = () => {
                 variant="outline" 
                 className="w-full" 
                 onClick={() => navigate('/security-alerts')}
+                disabled={!isPremium && !isLoading}
               >
                 {t('securityAlerts.viewAll')}
               </Button>

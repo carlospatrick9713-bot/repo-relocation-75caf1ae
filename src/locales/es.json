@@ -35,7 +35,8 @@
     "features": {
       "routes": "+ de 100 Puntos Turísticos",
       "alerts": "Acceso a los mejores Restaurantes en tu área",
-      "offline": "Mapas sin conexión",
+      "slang": "Jerga Carioca",
+      "tips": "Consejos de viaje, comunicación e interacción con los lugareños",
       "support": "Alertas Constantes de Seguridad"
     },
     "cta": "Suscribirse Premium",

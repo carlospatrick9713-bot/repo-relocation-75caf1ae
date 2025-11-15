@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Search, Volume2, MapPin, AlertCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -8,6 +9,9 @@ import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import AppMenu from '@/components/AppMenu';
 import LanguageSelector from '@/components/LanguageSelector';
+import PremiumCard from '@/components/PremiumCard';
+import { useAuth } from '@/hooks/useAuth';
+import { usePremium } from '@/hooks/usePremium';
 
 interface SlangItem {
   word: string;
@@ -19,7 +23,10 @@ interface SlangItem {
 }
 
 export default function Slang() {
+  const navigate = useNavigate();
   const { t } = useTranslation();
+  const { user, loading: authLoading } = useAuth();
+  const { isPremium, isLoading: premiumLoading } = usePremium();
   const [searchTerm, setSearchTerm] = useState('');
 
   const slangCategories = t('slang.categories', { returnObjects: true }) as Record<string, { name: string; items: SlangItem[] }>;
@@ -35,6 +42,14 @@ export default function Slang() {
     );
   };
 
+  if (authLoading || premiumLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center">
+        <p className="text-muted-foreground">Carregando...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-yellow-50 to-green-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Header */}
@@ -44,7 +59,7 @@ export default function Slang() {
             <a href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
               <img 
                 src="/src/assets/logo-transparent.png" 
-                alt="Safe Trip RJ Logo" 
+                alt="Safe Trip Rio Logo" 
                 className="h-8 w-8 object-contain"
               />
               <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 via-yellow-600 to-green-600 bg-clip-text text-transparent">
@@ -202,6 +217,15 @@ export default function Slang() {
           </CardContent>
         </Card>
       </main>
+
+      {/* Premium Overlay - Show if user is not authenticated or not premium */}
+      {(!user || !isPremium) && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 flex items-center justify-center p-4">
+          <div className="max-w-md w-full">
+            <PremiumCard />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

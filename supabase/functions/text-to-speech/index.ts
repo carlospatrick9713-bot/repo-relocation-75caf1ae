@@ -7,6 +7,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+const inFlight = new Map<string, Promise<ArrayBuffer>>();
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -60,47 +61,50 @@ serve(async (req) => {
 
     console.log('Cache miss. Generating speech for:', text);
 
-    // Using OpenAI TTS with nova voice (great for Portuguese)
-    const response = await fetch(
-      'https://api.openai.com/v1/audio/speech',
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${OPENAI_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'tts-1',
-          input: text,
-          voice: 'nova',
-          response_format: 'mp3',
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('OpenAI API error:', response.status, errorText);
-      
-      // Special handling for rate limit errors
-      if (response.status === 429) {
-        return new Response(
-          JSON.stringify({ 
-            error: 'Rate limit exceeded. Please wait a moment and try again.',
-            retryAfter: 5 
+    // Deduplicate concurrent generations per text within this instance
+    const doTTS = async (): Promise<ArrayBuffer> => {
+      let lastErrorText = '';
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        const res = await fetch('https://api.openai.com/v1/audio/speech', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${OPENAI_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            model: 'tts-1',
+            input: text,
+            voice: 'nova',
+            response_format: 'mp3',
           }),
-          {
-            status: 429,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          }
-        );
+        });
+
+        if (res.ok) {
+          return await res.arrayBuffer();
+        }
+
+        const errBody = await res.text();
+        lastErrorText = `status=${res.status} body=${errBody}`;
+        console.warn('OpenAI TTS attempt failed:', attempt, lastErrorText);
+        if (res.status === 429) {
+          const retryAfterHeader = res.headers.get('retry-after');
+          const retryMs = retryAfterHeader ? Number(retryAfterHeader) * 1000 : 500 * attempt + 1000;
+          await new Promise((r) => setTimeout(r, retryMs));
+          continue;
+        } else {
+          throw new Error(`OpenAI API error: ${res.status} ${errBody}`);
+        }
       }
-      
-      throw new Error(`OpenAI API error: ${response.status}`);
+      throw new Error(`OpenAI API rate limited after retries: ${lastErrorText}`);
+    };
+
+    let promise = inFlight.get(fileName);
+    if (!promise) {
+      promise = doTTS().finally(() => inFlight.delete(fileName));
+      inFlight.set(fileName, promise);
     }
 
-    // Get audio as array buffer
-    const arrayBuffer = await response.arrayBuffer();
+    const arrayBuffer = await promise;
     
     // Cache the audio in storage (background task - fire and forget)
     const audioBlob = new Blob([arrayBuffer], { type: 'audio/mpeg' });

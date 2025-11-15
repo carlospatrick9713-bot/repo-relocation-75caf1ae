@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 
 export interface SecurityAlert {
-  id: number;
+  id: string;
   title: string;
   level: 'low' | 'medium' | 'high';
   message: string;
@@ -12,93 +14,93 @@ export interface SecurityAlert {
   timestamp: number;
 }
 
-// Simulação de alertas que seriam buscados de uma API
-const generateSecurityAlerts = (t: any): SecurityAlert[] => {
-  const now = Date.now();
-  const alerts: SecurityAlert[] = [
-    {
-      id: Math.random(),
-      title: t('securityAlerts.alerts.highRisk.title'),
-      level: 'high',
-      message: t('securityAlerts.alerts.highRisk.message'),
-      time: 'now',
-      timestamp: now
-    },
-    {
-      id: Math.random(),
-      title: t('securityAlerts.alerts.traffic.title'),
-      level: 'medium',
-      message: t('securityAlerts.alerts.traffic.message'),
-      time: 'now',
-      timestamp: now
-    },
-    {
-      id: Math.random(),
-      title: t('securityAlerts.alerts.safeSouth.title'),
-      level: 'low',
-      message: t('securityAlerts.alerts.safeSouth.message'),
-      time: 'now',
-      timestamp: now
-    }
-  ];
+interface DBSecurityAlert {
+  id: string;
+  title_key: string;
+  message_key: string;
+  type: 'warning' | 'danger' | 'info';
+  created_at: string;
+}
 
-  return alerts;
+const mapTypeToLevel = (type: 'warning' | 'danger' | 'info'): 'low' | 'medium' | 'high' => {
+  switch (type) {
+    case 'danger': return 'high';
+    case 'warning': return 'medium';
+    case 'info': return 'low';
+  }
 };
 
 export const useSecurityAlerts = () => {
   const { t } = useTranslation();
-  const [alerts, setAlerts] = useState<SecurityAlert[]>([]);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
 
-  const updateAlerts = () => {
-    const newAlerts = generateSecurityAlerts(t);
-    setAlerts(newAlerts);
-    setLastUpdate(new Date());
+  const { data: dbAlerts = [] } = useQuery({
+    queryKey: ['security-alerts'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('security_alerts')
+        .select('*')
+        .eq('is_active', true)
+        .order('created_at', { ascending: false });
 
-    // Mostrar notificação para alertas de alto risco
-    const highRiskAlerts = newAlerts.filter(alert => alert.level === 'high');
-    
-    highRiskAlerts.forEach(alert => {
-      toast.custom(
-        (toastId) => (
-          <div className="bg-destructive/90 backdrop-blur-sm text-destructive-foreground p-4 rounded-lg shadow-lg border border-destructive">
-            <div className="space-y-2">
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex-1">
-                  <h4 className="font-semibold text-sm">{alert.title}</h4>
-                  <p className="text-sm mt-1 opacity-90">{alert.message}</p>
-                </div>
-              </div>
-              <Button
-                onClick={() => toast.dismiss(toastId)}
-                size="sm"
-                variant="secondary"
-                className="w-full mt-2"
-              >
-                {t('securityAlerts.understood')}
-              </Button>
-            </div>
-          </div>
-        ),
-        {
-          duration: Infinity, // Não fecha automaticamente
-          position: 'top-center',
-        }
-      );
-    });
-  };
+      if (error) throw error;
+      return data as DBSecurityAlert[];
+    },
+    refetchInterval: 5 * 60000, // Refetch every 5 minutes
+  });
+
+  const alerts: SecurityAlert[] = dbAlerts.map(alert => ({
+    id: alert.id,
+    title: t(alert.title_key),
+    level: mapTypeToLevel(alert.type),
+    message: t(alert.message_key),
+    time: 'now',
+    timestamp: new Date(alert.created_at).getTime(),
+  }));
 
   useEffect(() => {
-    // Carregar alertas iniciais
-    updateAlerts();
+    if (alerts.length > 0) {
+      // Mostrar notificação para alertas de alto risco
+      const highRiskAlerts = alerts.filter(alert => alert.level === 'high');
+      
+      highRiskAlerts.forEach(alert => {
+        toast.custom(
+          (toastId) => (
+            <div className="bg-destructive/90 backdrop-blur-sm text-destructive-foreground p-4 rounded-lg shadow-lg border border-destructive">
+              <div className="space-y-2">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-sm">{alert.title}</h4>
+                    <p className="text-sm mt-1 opacity-90">{alert.message}</p>
+                  </div>
+                </div>
+                <Button
+                  onClick={() => toast.dismiss(toastId)}
+                  size="sm"
+                  variant="secondary"
+                  className="w-full mt-2"
+                >
+                  {t('securityAlerts.understood')}
+                </Button>
+              </div>
+            </div>
+          ),
+          {
+            duration: Infinity,
+            position: 'top-center',
+          }
+        );
+      });
+    }
+  }, [alerts.length, t]);
 
-    // Atualizar a cada 5 minutos (300000 ms)
+  useEffect(() => {
     const interval = setInterval(() => {
-      updateAlerts();
-    }, 300000);
+      setLastUpdate(new Date());
+    }, 5 * 60000);
 
     return () => clearInterval(interval);
-  }, [t]);
+  }, []);
 
   return { alerts, lastUpdate };
 };

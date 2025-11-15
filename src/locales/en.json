@@ -50,12 +50,18 @@
   },
   "securityAlerts": {
     "title": "Security Alerts",
-    "subtitle": "Updated information about safety in different areas of Rio",
+    "subtitle": "Stay informed about the security situation in Rio de Janeiro",
     "realTimeAlerts": "Real-Time Alerts",
-    "regionAlerts": "Regional Alerts",
-    "mainAreas": "Main areas:",
-    "updatesEvery": "Updates every 5min",
     "updated": "Updated",
+    "updatesEvery": "Real-time updates",
+    "mainAreas": "Main areas:",
+    "understood": "Understood",
+    "dangerZoneMap": "Danger Zone Map",
+    "dangerZoneMapDescription": "Visual representation of areas with different risk levels across Rio de Janeiro",
+    "legend": "Legend",
+    "lowRisk": "Low Risk",
+    "mediumRisk": "Medium Risk",
+    "highRisk": "High Risk",
     "alerts": {
       "highRisk": {
         "title": "High Risk Zone Detected",

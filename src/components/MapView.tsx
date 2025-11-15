@@ -1,9 +1,12 @@
 import { GoogleMap, LoadScript, Polygon, Marker } from '@react-google-maps/api';
 import { useTranslation } from 'react-i18next';
+import type { TouristSpot } from '@/hooks/useTouristSpots';
+import type { Restaurant } from '@/hooks/useRestaurants';
 
 const containerStyle = {
   width: '100%',
-  height: '100%'
+  height: '400px',
+  minHeight: '400px'
 };
 
 const center = {
@@ -11,59 +14,85 @@ const center = {
   lng: -43.1729
 };
 
-// Zonas de risco (exemplo - áreas do Rio)
-const riskZones = [
-  {
-    id: 'zone1',
-    paths: [
-      { lat: -22.88, lng: -43.25 },
-      { lat: -22.88, lng: -43.20 },
-      { lat: -22.92, lng: -43.20 },
-      { lat: -22.92, lng: -43.25 },
-    ],
-    level: 'high',
-    color: '#ef4444'
-  },
-  {
-    id: 'zone2',
-    paths: [
-      { lat: -22.95, lng: -43.18 },
-      { lat: -22.95, lng: -43.14 },
-      { lat: -22.98, lng: -43.14 },
-      { lat: -22.98, lng: -43.18 },
-    ],
-    level: 'medium',
-    color: '#f59e0b'
-  },
-  {
-    id: 'zone3',
-    paths: [
-      { lat: -22.97, lng: -43.20 },
-      { lat: -22.97, lng: -43.16 },
-      { lat: -23.00, lng: -43.16 },
-      { lat: -23.00, lng: -43.20 },
-    ],
-    level: 'low',
-    color: '#10b981'
+interface DangerZone {
+  name: string;
+  level: 'low' | 'medium' | 'high';
+  areas: string[];
+}
+
+interface MapViewProps {
+  spots?: TouristSpot[];
+  restaurants?: Restaurant[];
+  dangerZones?: DangerZone[];
+}
+
+// Coordenadas das regiões do Rio de Janeiro
+const regionCoordinates: Record<string, { lat: number; lng: number }[]> = {
+  'Centro': [
+    { lat: -22.895, lng: -43.215 },
+    { lat: -22.895, lng: -43.165 },
+    { lat: -22.925, lng: -43.165 },
+    { lat: -22.925, lng: -43.215 },
+  ],
+  'Downtown': [
+    { lat: -22.895, lng: -43.215 },
+    { lat: -22.895, lng: -43.165 },
+    { lat: -22.925, lng: -43.165 },
+    { lat: -22.925, lng: -43.215 },
+  ],
+  'Zona Norte': [
+    { lat: -22.850, lng: -43.320 },
+    { lat: -22.850, lng: -43.220 },
+    { lat: -22.920, lng: -43.220 },
+    { lat: -22.920, lng: -43.320 },
+  ],
+  'North Zone': [
+    { lat: -22.850, lng: -43.320 },
+    { lat: -22.850, lng: -43.220 },
+    { lat: -22.920, lng: -43.220 },
+    { lat: -22.920, lng: -43.320 },
+  ],
+  'Zona Sul': [
+    { lat: -22.940, lng: -43.230 },
+    { lat: -22.940, lng: -43.160 },
+    { lat: -23.020, lng: -43.160 },
+    { lat: -23.020, lng: -43.230 },
+  ],
+  'South Zone': [
+    { lat: -22.940, lng: -43.230 },
+    { lat: -22.940, lng: -43.160 },
+    { lat: -23.020, lng: -43.160 },
+    { lat: -23.020, lng: -43.230 },
+  ],
+  'Zona Oeste': [
+    { lat: -22.920, lng: -43.470 },
+    { lat: -22.920, lng: -43.320 },
+    { lat: -23.020, lng: -43.320 },
+    { lat: -23.020, lng: -43.470 },
+  ],
+  'West Zone': [
+    { lat: -22.920, lng: -43.470 },
+    { lat: -22.920, lng: -43.320 },
+    { lat: -23.020, lng: -43.320 },
+    { lat: -23.020, lng: -43.470 },
+  ],
+};
+
+const getLevelColor = (level: 'low' | 'medium' | 'high') => {
+  switch (level) {
+    case 'high': return '#ef4444';
+    case 'medium': return '#f59e0b';
+    case 'low': return '#10b981';
   }
-];
+};
 
-// Pontos turísticos
-const touristSpots = [
-  { id: 1, name: 'Cristo Redentor', lat: -22.9519, lng: -43.2105 },
-  { id: 2, name: 'Pão de Açúcar', lat: -22.9489, lng: -43.1567 },
-  { id: 3, name: 'Copacabana', lat: -22.9711, lng: -43.1822 },
-  { id: 4, name: 'Ipanema', lat: -22.9838, lng: -43.2044 },
-  { id: 5, name: 'Maracanã', lat: -22.9122, lng: -43.2302 }
-];
-
-export default function MapView() {
+export default function MapView({ spots = [], restaurants = [], dangerZones = [] }: MapViewProps) {
   const { t } = useTranslation();
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_KEY || '';
 
   if (!apiKey) {
     return (
-      <div className="flex-1 flex items-center justify-center bg-muted/10">
+      <div className="flex items-center justify-center bg-muted/10 h-[400px] rounded-lg">
         <div className="text-center space-y-4 p-8 max-w-md">
           <h3 className="text-lg font-semibold">Google Maps API Key não configurada</h3>
           <p className="text-sm text-muted-foreground">
@@ -74,23 +103,34 @@ export default function MapView() {
     );
   }
 
+  // Create polygons from danger zones
+  const dangerPolygons = dangerZones.map(zone => {
+    const paths = regionCoordinates[zone.name] || [];
+    return {
+      name: zone.name,
+      paths,
+      level: zone.level,
+      color: getLevelColor(zone.level),
+    };
+  });
+
   return (
-    <div className="flex-1 relative">
+    <div className="relative w-full h-full">
       <LoadScript googleMapsApiKey={apiKey}>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={12}
+          zoom={11}
           options={{
             streetViewControl: false,
             mapTypeControl: false,
             fullscreenControl: false
           }}
         >
-          {/* Zonas de risco */}
-          {riskZones.map(zone => (
+          {/* Danger zones */}
+          {dangerPolygons.map((zone, index) => (
             <Polygon
-              key={zone.id}
+              key={`${zone.name}-${index}`}
               paths={zone.paths}
               options={{
                 fillColor: zone.color,
@@ -102,33 +142,50 @@ export default function MapView() {
             />
           ))}
 
-          {/* Pontos turísticos */}
-          {touristSpots.map(spot => (
+          {/* Tourist spots */}
+          {spots.map(spot => (
             <Marker
               key={spot.id}
               position={{ lat: spot.lat, lng: spot.lng }}
               title={spot.name}
+              icon={{
+                url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+              }}
+            />
+          ))}
+
+          {/* Restaurants */}
+          {restaurants.map(restaurant => (
+            <Marker
+              key={restaurant.id}
+              position={{ lat: restaurant.lat, lng: restaurant.lng }}
+              title={restaurant.name}
+              icon={{
+                url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png'
+              }}
             />
           ))}
         </GoogleMap>
       </LoadScript>
 
-      {/* Legenda */}
-      <div className="absolute right-4 bottom-6 bg-background rounded-lg shadow-lg p-4 space-y-2">
-        <h4 className="font-semibold text-sm mb-3">{t('legend.title')}</h4>
-        <div className="flex items-center gap-2 text-sm">
-          <div className="w-3 h-3 rounded-sm bg-[#10b981]" />
-          <span>{t('legend.safe')}</span>
+      {/* Legend */}
+      {dangerZones.length > 0 && (
+        <div className="absolute right-4 bottom-6 bg-background rounded-lg shadow-lg p-4 space-y-2 z-10">
+          <h4 className="font-semibold text-sm mb-3">{t('securityAlerts.legend')}</h4>
+          <div className="flex items-center gap-2 text-sm">
+            <div className="w-3 h-3 rounded-sm bg-[#10b981]" />
+            <span>{t('securityAlerts.lowRisk')}</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm">
+            <div className="w-3 h-3 rounded-sm bg-[#f59e0b]" />
+            <span>{t('securityAlerts.mediumRisk')}</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm">
+            <div className="w-3 h-3 rounded-sm bg-[#ef4444]" />
+            <span>{t('securityAlerts.highRisk')}</span>
+          </div>
         </div>
-        <div className="flex items-center gap-2 text-sm">
-          <div className="w-3 h-3 rounded-sm bg-[#f59e0b]" />
-          <span>{t('legend.moderate')}</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm">
-          <div className="w-3 h-3 rounded-sm bg-[#ef4444]" />
-          <span>{t('legend.danger')}</span>
-        </div>
-      </div>
+      )}
     </div>
   );
 }

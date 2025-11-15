@@ -1,26 +1,44 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Crown, AlertTriangle, MapPin } from 'lucide-react';
 import MapView from '@/components/MapView';
 import Sidebar from '@/components/Sidebar';
 import HeroCarousel from '@/components/HeroCarousel';
+import logo from '@/assets/logo-transparent.png';
+import rioBackground from '@/assets/rio-background.jpg';
 import AppMenu from '@/components/AppMenu';
 import LanguageSelector from '@/components/LanguageSelector';
-import { Button } from '@/components/ui/button';
-import { Crown } from 'lucide-react';
-import rioBackground from '@/assets/rio-background.jpg';
-import logo from '@/assets/logo-transparent.png';
 import { useAuth } from '@/hooks/useAuth';
+import { useTouristSpots } from '@/hooks/useTouristSpots';
+import { useRestaurants } from '@/hooks/useRestaurants';
 import { usePremium } from '@/hooks/usePremium';
+import { useSecurityAlerts } from '@/hooks/useSecurityAlerts';
+import RiskBadge from '@/components/RiskBadge';
+import TouristSpotCard from '@/components/TouristSpotCard';
+import TouristSpotDialog from '@/components/TouristSpotDialog';
+import PremiumCard from '@/components/PremiumCard';
+import type { TouristSpot } from '@/hooks/useTouristSpots';
 import '@/lib/i18n';
 
 const Index = () => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const { user } = useAuth();
-  const { isPremium } = usePremium();
+  const { isPremium, isLoading } = usePremium();
+  const { data: touristSpots = [] } = useTouristSpots();
+  const { data: restaurants = [] } = useRestaurants();
+  const { alerts: securityAlerts } = useSecurityAlerts(isPremium);
+  const [selectedSpot, setSelectedSpot] = useState<TouristSpot | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [showHero, setShowHero] = useState(() => {
     return localStorage.getItem('hideHero') !== 'true';
   });
+
+  const featuredSpots = touristSpots.filter(spot => spot.risk_level === 'low').slice(0, 10);
+  const featuredRestaurants = restaurants.slice(0, 10);
 
   const handleExplore = () => {
     localStorage.setItem('hideHero', 'true');
@@ -129,20 +147,103 @@ const Index = () => {
           </div>
         </header>
 
-        {/* Main Content */}
-        <main className="flex-1 flex overflow-hidden">
-          <div className="hidden md:block">
-            <Sidebar />
-          </div>
-          <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
-            <div className="flex-1 order-2 md:order-1">
-              <MapView />
-            </div>
-            <div className="md:hidden order-1 md:order-2 overflow-y-auto">
-              <Sidebar />
-            </div>
-          </div>
-        </main>
+      {/* Desktop Layout */}
+      <div className="hidden md:flex h-screen">
+        <div className="w-80 border-r overflow-y-auto">
+          <Sidebar />
+        </div>
+        <div className="flex-1">
+          <MapView spots={featuredSpots} restaurants={featuredRestaurants} />
+        </div>
+      </div>
+
+      {/* Mobile Layout */}
+      <div className="md:hidden flex flex-col min-h-screen pb-20">
+        <div className="w-full max-w-md mx-auto px-4 space-y-6 pt-6">
+          {/* Security Alerts */}
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <AlertTriangle className="w-5 h-5 text-primary" />
+                {t('sidebar.alerts')}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {securityAlerts.slice(0, 3).map((alert) => (
+                <div key={alert.id} className="p-3 border rounded-lg bg-background/50 hover:bg-background/80 transition-colors">
+                  <div className="flex items-start justify-between gap-3 mb-1">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h4 className="font-semibold text-sm">{alert.title}</h4>
+                        <RiskBadge level={alert.level} />
+                      </div>
+                      <p className="text-xs text-muted-foreground line-clamp-2">{alert.message}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <Button 
+                variant="outline" 
+                className="w-full" 
+                size="sm"
+                onClick={() => navigate('/security-alerts')}
+              >
+                {t('sidebar.viewAll')}
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Featured Spots */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <MapPin className="w-5 h-5 text-primary" />
+                {t('sidebar.featured')}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {featuredSpots.slice(0, 3).map(spot => (
+                <div 
+                  key={spot.id}
+                  className="cursor-pointer hover:opacity-80 transition-opacity p-3 border rounded-lg bg-background/50 hover:bg-background/80"
+                  onClick={() => {
+                    setSelectedSpot(spot);
+                    setDialogOpen(true);
+                  }}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <MapPin className="w-4 h-4 text-primary" />
+                    <h4 className="font-semibold text-sm">{spot.name}</h4>
+                    <RiskBadge level={spot.risk_level as 'low' | 'medium' | 'high'} />
+                  </div>
+                  <p className="text-xs text-muted-foreground line-clamp-2">{spot.description}</p>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+
+          {/* Premium Card - only for non-premium users */}
+          {!isPremium && !isLoading && (
+            <PremiumCard />
+          )}
+
+          {/* Map */}
+          <Card>
+            <CardContent className="p-0">
+              <div className="h-[400px] rounded-lg overflow-hidden">
+                <MapView spots={featuredSpots} restaurants={featuredRestaurants} />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      {/* Tourist Spot Dialog */}
+      <TouristSpotDialog
+        spot={selectedSpot as any}
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+      />
 
         {/* Footer */}
         <footer className="h-11 border-t bg-background/80 backdrop-blur-md flex items-center justify-center">

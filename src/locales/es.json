@@ -54,8 +54,14 @@
     "realTimeAlerts": "Alertas en Tiempo Real",
     "regionAlerts": "Alertas Regionales",
     "mainAreas": "Áreas principales:",
-    "updatesEvery": "Actualiza cada 5min",
+    "updatesEvery": "Actualizaciones en tiempo real",
     "updated": "Actualizado",
+    "dangerZoneMap": "Mapa de Zonas Peligrosas",
+    "dangerZoneMapDescription": "Representación visual de áreas con diferentes niveles de riesgo en Río de Janeiro",
+    "legend": "Leyenda",
+    "lowRisk": "Riesgo Bajo",
+    "mediumRisk": "Riesgo Medio",
+    "highRisk": "Riesgo Alto",
     "alerts": {
       "highRisk": {
         "title": "Zona de Alto Riesgo Detectada",

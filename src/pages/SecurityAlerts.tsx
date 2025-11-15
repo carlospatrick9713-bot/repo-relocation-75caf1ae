@@ -14,13 +14,14 @@ import ConfirmExitDialog from '@/components/ConfirmExitDialog';
 import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
 import LanguageSelector from '@/components/LanguageSelector';
+import MapView from '@/components/MapView';
 
 export default function SecurityAlerts() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { alerts, lastUpdate } = useSecurityAlerts();
   const { isPremium, isLoading } = usePremium();
   const { user, loading: authLoading } = useAuth();
+  const { alerts, lastUpdate } = useSecurityAlerts(isPremium);
   const [showExitDialog, setShowExitDialog] = useState(false);
 
   const formatLastUpdate = () => {
@@ -149,6 +150,30 @@ export default function SecurityAlerts() {
                 </div>
               </div>
             ))}
+          </CardContent>
+        </Card>
+
+        {/* Danger Zone Map */}
+        <Card className="animate-fade-in">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <MapPin className="w-5 h-5 text-primary" />
+              {t('securityAlerts.dangerZoneMap')}
+            </CardTitle>
+            <CardDescription>
+              {t('securityAlerts.dangerZoneMapDescription')}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <MapView 
+              spots={[]} 
+              restaurants={[]}
+              dangerZones={regionAlerts.map(alert => ({
+                name: alert.region,
+                level: alert.level,
+                areas: alert.areas,
+              }))}
+            />
           </CardContent>
         </Card>
 

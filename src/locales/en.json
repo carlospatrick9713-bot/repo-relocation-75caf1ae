@@ -350,5 +350,16 @@
         "In formal situations, avoid using too much slang"
       ]
     }
+  },
+  "menu": {
+    "home": "Home",
+    "highlights": "Highlights",
+    "touristSpots": "Tourist Spots",
+    "restaurants": "Restaurants",
+    "weather": "Weather",
+    "securityAlerts": "Security Alerts",
+    "gallery": "Photo Gallery",
+    "slang": "Carioca Slang",
+    "profile": "Profile"
   }
 }

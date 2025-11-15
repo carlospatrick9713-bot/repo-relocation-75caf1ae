@@ -397,14 +397,14 @@
   },
   "menu": {
     "home": "Accueil",
-    "touristSpots": "Sites Touristiques",
+    "highlights": "Points forts",
+    "touristSpots": "Sites touristiques",
     "restaurants": "Restaurants",
     "weather": "Météo",
-    "slang": "Argot",
-    "security": "Alertes de Sécurité",
-    "profile": "Profil",
-    "highlights": "Points Forts",
-    "gallery": "Galerie"
+    "securityAlerts": "Alertes de sécurité",
+    "gallery": "Galerie de photos",
+    "slang": "Argot Carioca",
+    "profile": "Profil"
   },
   "highlights": {
     "title": "Points Forts de Rio",

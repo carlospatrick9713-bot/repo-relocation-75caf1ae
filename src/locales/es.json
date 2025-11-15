@@ -158,6 +158,17 @@
       "tips": []
     }
   },
+  "menu": {
+    "home": "Inicio",
+    "highlights": "Destacados",
+    "touristSpots": "Puntos Turísticos",
+    "restaurants": "Restaurantes",
+    "weather": "Clima",
+    "securityAlerts": "Alertas de Seguridad",
+    "gallery": "Galería de Fotos",
+    "slang": "Jerga Carioca",
+    "profile": "Perfil"
+  },
   "languages": {
     "pt": "Portugués",
     "en": "Inglés",

@@ -8,12 +8,13 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { Menu, User, Sparkles, MapPin, Cloud, AlertTriangle, Images, LogOut, Crown, Utensils, Shield, MessageCircle } from 'lucide-react';
+import { Menu, User, Sparkles, MapPin, Cloud, AlertTriangle, Images, LogOut, Crown, Utensils, Shield, MessageCircle, Home } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { usePremium } from '@/hooks/usePremium';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Separator } from '@/components/ui/separator';
+import { useTranslation } from 'react-i18next';
 
 interface AppMenuProps {
   onNavigate?: (section: string) => void;
@@ -21,6 +22,7 @@ interface AppMenuProps {
 
 export default function AppMenu({ onNavigate }: AppMenuProps) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { isPremium } = usePremium();
   const [open, setOpen] = useState(false);
@@ -126,10 +128,19 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
             <Button
               variant="ghost"
               className="w-full justify-start text-base h-12"
+              onClick={() => { setOpen(false); navigate('/'); }}
+            >
+              <Home className="w-5 h-5 mr-3 text-primary" />
+              {t('menu.home')}
+            </Button>
+
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-base h-12"
               onClick={() => handleMenuClick('highlights')}
             >
               <Sparkles className="w-5 h-5 mr-3 text-primary" />
-              Destaques
+              {t('menu.highlights')}
             </Button>
 
             <Button
@@ -138,7 +149,7 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
               onClick={() => handleMenuClick('spots')}
             >
               <MapPin className="w-5 h-5 mr-3 text-primary" />
-              Pontos Turísticos
+              {t('menu.touristSpots')}
             </Button>
 
             <Button
@@ -147,7 +158,7 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
               onClick={() => handleMenuClick('restaurants')}
             >
               <Utensils className="w-5 h-5 mr-3 text-primary" />
-              Restaurantes
+              {t('menu.restaurants')}
               {!isPremium && (
                 <Crown className="w-4 h-4 ml-auto text-yellow-500" />
               )}
@@ -159,7 +170,7 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
               onClick={() => handleMenuClick('weather')}
             >
               <Cloud className="w-5 h-5 mr-3 text-primary" />
-              Meteorologia
+              {t('menu.weather')}
             </Button>
 
             <Button
@@ -168,7 +179,7 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
               onClick={() => handleMenuClick('security-alerts')}
             >
               <Shield className="w-5 h-5 mr-3 text-primary" />
-              Alertas de Segurança
+              {t('menu.securityAlerts')}
               {!isPremium && (
                 <Crown className="w-4 h-4 ml-auto text-yellow-500" />
               )}
@@ -180,7 +191,7 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
               onClick={() => handleMenuClick('gallery')}
             >
               <Images className="w-5 h-5 mr-3 text-primary" />
-              Galeria dos Turistas
+              {t('menu.gallery')}
             </Button>
 
             <Button
@@ -189,7 +200,7 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
               onClick={() => handleMenuClick('slang')}
             >
               <MessageCircle className="w-5 h-5 mr-3 text-primary" />
-              Gírias Cariocas
+              {t('menu.slang')}
               {!isPremium && (
                 <Crown className="w-4 h-4 ml-auto text-yellow-500" />
               )}

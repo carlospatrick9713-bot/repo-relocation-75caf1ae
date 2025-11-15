@@ -171,6 +171,17 @@
       "tips": []
     }
   },
+  "menu": {
+    "home": "Startseite",
+    "highlights": "Highlights",
+    "touristSpots": "Sehenswürdigkeiten",
+    "restaurants": "Restaurants",
+    "weather": "Wetter",
+    "securityAlerts": "Sicherheitswarnungen",
+    "gallery": "Fotogalerie",
+    "slang": "Carioca-Slang",
+    "profile": "Profil"
+  },
   "languages": {
     "pt": "Portugiesisch",
     "en": "Englisch",

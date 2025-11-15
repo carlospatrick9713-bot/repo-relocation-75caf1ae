@@ -12,6 +12,7 @@ import LanguageSelector from '@/components/LanguageSelector';
 import PremiumCard from '@/components/PremiumCard';
 import { useAuth } from '@/hooks/useAuth';
 import { usePremium } from '@/hooks/usePremium';
+import logo from '@/assets/logo-transparent.png';
 
 interface SlangItem {
   word: string;
@@ -56,16 +57,15 @@ export default function Slang() {
       <header className="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <a href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-              <img 
-                src="/src/assets/logo-transparent.png" 
-                alt="Safe Trip Rio Logo" 
-                className="h-8 w-8 object-contain"
-              />
-              <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 via-yellow-600 to-green-600 bg-clip-text text-transparent">
-                {t('slang.title')}
-              </h1>
-            </a>
+            <img 
+              src={logo} 
+              alt="Safe Trip Rio Logo" 
+              className="h-8 w-8 object-contain cursor-pointer hover:opacity-80 transition-opacity"
+              onClick={() => navigate('/')}
+            />
+            <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 via-yellow-600 to-green-600 bg-clip-text text-transparent">
+              {t('slang.title')}
+            </h1>
           </div>
           <div className="flex items-center gap-2">
             <LanguageSelector />

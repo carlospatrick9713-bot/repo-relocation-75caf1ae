@@ -101,5 +101,254 @@
       }
     },
     "understood": "Understood"
+  },
+  "slang": {
+    "title": "Rio Slang",
+    "hero": {
+      "title": "Welcome to the Rio Slang Guide",
+      "subtitle": "Learn how locals really speak"
+    },
+    "introduction": "Slang is an informal and creative form of language used in everyday life. Cariocas (people from Rio) love using unique expressions that reflect the city's vibrant and laid-back culture. Knowing these slangs will help you better understand conversations, connect with locals, and make the most of your experience in the city!",
+    "searchPlaceholder": "Search slang...",
+    "categories": {
+      "greetings": {
+        "name": "Greetings and Common Expressions",
+        "items": [
+          {
+            "word": "E aí?",
+            "translation": "What's up?",
+            "explanation": "Very casual greeting used among friends",
+            "example": "E aí, cara? Tudo bem?",
+            "exampleTranslation": "What's up, dude? All good?",
+            "pronunciation": "ee-AH-ee"
+          },
+          {
+            "word": "Beleza!",
+            "translation": "Cool! / Alright!",
+            "explanation": "Means everything is fine or to agree with something",
+            "example": "Vamos à praia? Beleza!",
+            "exampleTranslation": "Shall we go to the beach? Alright!",
+            "pronunciation": "beh-LEH-zah"
+          },
+          {
+            "word": "Firmeza",
+            "translation": "Sure / Solid",
+            "explanation": "Confirmation or agreement with something",
+            "example": "Nos vemos às 7? Firmeza!",
+            "exampleTranslation": "See you at 7? Sure!",
+            "pronunciation": "feer-MEH-zah"
+          },
+          {
+            "word": "Valeu!",
+            "translation": "Thanks!",
+            "explanation": "Casual way to say thank you",
+            "example": "Valeu pela ajuda, mano!",
+            "exampleTranslation": "Thanks for the help, bro!",
+            "pronunciation": "vah-LEH-oo"
+          }
+        ]
+      },
+      "expressions": {
+        "name": "Everyday Expressions",
+        "items": [
+          {
+            "word": "Tá ligado?",
+            "translation": "You know?",
+            "explanation": "Asks if the person understood or is aware of something",
+            "example": "O show é às 8, tá ligado?",
+            "exampleTranslation": "The show is at 8, you know?",
+            "pronunciation": "tah lee-GAH-doo"
+          },
+          {
+            "word": "Massa!",
+            "translation": "Awesome! / Cool!",
+            "explanation": "Expresses approval or enthusiasm",
+            "example": "Esse lugar é muito massa!",
+            "exampleTranslation": "This place is so cool!",
+            "pronunciation": "MAH-sah"
+          },
+          {
+            "word": "Sinistro",
+            "translation": "Amazing / Crazy good",
+            "explanation": "Means something impressive or very good",
+            "example": "Esse DJ é sinistro!",
+            "exampleTranslation": "This DJ is amazing!",
+            "pronunciation": "see-NEES-troo"
+          },
+          {
+            "word": "Vacilo",
+            "translation": "Mistake / Slip up",
+            "explanation": "Error or failure in something",
+            "example": "Não ir à festa foi um vacilo.",
+            "exampleTranslation": "Not going to the party was a mistake.",
+            "pronunciation": "vah-SEE-loo"
+          },
+          {
+            "word": "Pô",
+            "translation": "Come on / Man",
+            "explanation": "Interjection to express disappointment or surprise",
+            "example": "Pô, cara, por que você não veio?",
+            "exampleTranslation": "Come on, man, why didn't you come?",
+            "pronunciation": "poh"
+          }
+        ]
+      },
+      "people": {
+        "name": "Referring to People",
+        "items": [
+          {
+            "word": "Mano / Mina",
+            "translation": "Dude / Girl",
+            "explanation": "Casual way to refer to a man or woman",
+            "example": "Esse mano é meu brother!",
+            "exampleTranslation": "This dude is my bro!",
+            "pronunciation": "MAH-noo / MEE-nah"
+          },
+          {
+            "word": "Parça",
+            "translation": "Buddy / Partner",
+            "explanation": "Close friend, partner",
+            "example": "Esse é meu parça de infância.",
+            "exampleTranslation": "This is my childhood buddy.",
+            "pronunciation": "PAR-sah"
+          },
+          {
+            "word": "Maluco(a)",
+            "translation": "Crazy person",
+            "explanation": "Can be affectionate or literal, depending on context",
+            "example": "Você é maluco, cara!",
+            "exampleTranslation": "You're crazy, man!",
+            "pronunciation": "mah-LOO-koo"
+          },
+          {
+            "word": "Patrão / Patroa",
+            "translation": "Boss / Chief",
+            "explanation": "Respectful or affectionate term for someone",
+            "example": "Fala, patrão! Tudo certo?",
+            "exampleTranslation": "Hey, boss! Everything good?",
+            "pronunciation": "pah-TROW / pah-TRO-ah"
+          }
+        ]
+      },
+      "situations": {
+        "name": "Situations and Feelings",
+        "items": [
+          {
+            "word": "Tá rolando",
+            "translation": "It's happening",
+            "explanation": "Something is happening or in progress",
+            "example": "Tá rolando uma festa na praia hoje.",
+            "exampleTranslation": "There's a party happening at the beach today.",
+            "pronunciation": "tah ho-LAHN-doo"
+          },
+          {
+            "word": "Quebrar o galho",
+            "translation": "Help out / Fix it",
+            "explanation": "Solve a problem in an improvised way",
+            "example": "Você pode quebrar meu galho?",
+            "exampleTranslation": "Can you help me out?",
+            "pronunciation": "keh-BRAR oo GAH-lyoo"
+          },
+          {
+            "word": "Dar mole",
+            "translation": "Let your guard down",
+            "explanation": "Being inattentive or making it easier for something bad to happen",
+            "example": "Não dá mole na rua à noite.",
+            "exampleTranslation": "Don't let your guard down on the street at night.",
+            "pronunciation": "dar MOH-lee"
+          },
+          {
+            "word": "Tá suave",
+            "translation": "It's cool / No problem",
+            "explanation": "It's calm, no problems",
+            "example": "Tudo tá suave por aqui.",
+            "exampleTranslation": "Everything's cool around here.",
+            "pronunciation": "tah soo-AH-vee"
+          },
+          {
+            "word": "Tá osso",
+            "translation": "It's tough / Difficult",
+            "explanation": "Difficult or complicated situation",
+            "example": "Esse trânsito tá osso!",
+            "exampleTranslation": "This traffic is tough!",
+            "pronunciation": "tah OH-soo"
+          }
+        ]
+      }
+    },
+    "rioWordsTitle": "Words Used Only in Rio",
+    "rioWords": [
+      {
+        "word": "Carioca",
+        "translation": "Person from Rio",
+        "explanation": "Name given to those born or living in Rio de Janeiro"
+      },
+      {
+        "word": "Zona Sul / Zona Norte",
+        "translation": "South Zone / North Zone",
+        "explanation": "Important geographical divisions of the city"
+      },
+      {
+        "word": "Favela",
+        "translation": "Hillside community",
+        "explanation": "Community built on hills"
+      },
+      {
+        "word": "Baile funk",
+        "translation": "Funk party",
+        "explanation": "Party with Rio funk music"
+      },
+      {
+        "word": "Globeleza",
+        "translation": "Rio Carnival icon",
+        "explanation": "Iconic Rio Carnival character"
+      },
+      {
+        "word": "Birosca",
+        "translation": "Small bar",
+        "explanation": "Small, simple neighborhood bar"
+      }
+    ],
+    "emergencyTitle": "Emergency Phrases",
+    "emergency": [
+      {
+        "word": "Socorro!",
+        "translation": "Help!",
+        "explanation": "Urgent request for help",
+        "example": "Socorro! Preciso de ajuda!",
+        "exampleTranslation": "Help! I need help!"
+      },
+      {
+        "word": "Onde fica o hospital?",
+        "translation": "Where is the hospital?",
+        "explanation": "Essential question in medical emergencies",
+        "example": "Por favor, onde fica o hospital mais próximo?",
+        "exampleTranslation": "Please, where is the nearest hospital?"
+      },
+      {
+        "word": "Preciso chamar a polícia",
+        "translation": "I need to call the police",
+        "explanation": "Request police assistance",
+        "example": "Preciso chamar a polícia, onde posso ligar?",
+        "exampleTranslation": "I need to call the police, where can I call?"
+      },
+      {
+        "word": "Alguém me roubou",
+        "translation": "Someone robbed me",
+        "explanation": "Report a robbery",
+        "example": "Alguém me roubou, preciso fazer um boletim.",
+        "exampleTranslation": "Someone robbed me, I need to file a report."
+      }
+    ],
+    "culturalTips": {
+      "title": "Cultural Tips",
+      "tips": [
+        "Cariocas are very informal and friendly - don't be offended by quick intimacy",
+        "The 'r' at the end of words is usually not pronounced strongly",
+        "Always use 'por favor' and 'obrigado/a' - politeness is valued",
+        "Slang changes fast - don't be afraid to ask the meaning",
+        "In formal situations, avoid using too much slang"
+      ]
+    }
   }
 }

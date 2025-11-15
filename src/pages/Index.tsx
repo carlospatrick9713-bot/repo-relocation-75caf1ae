@@ -46,6 +46,11 @@ const Index = () => {
     setShowHero(false);
   };
 
+  const handleLogoClick = () => {
+    localStorage.removeItem('hideHero');
+    setShowHero(true);
+  };
+
   useEffect(() => {
     const handleStorageChange = () => {
       setShowHero(localStorage.getItem('hideHero') !== 'true');
@@ -74,7 +79,7 @@ const Index = () => {
                 src={logo} 
                 alt="Safe Trip" 
                 className="w-16 h-16 drop-shadow-2xl cursor-pointer hover:opacity-80 transition-opacity" 
-                onClick={() => window.location.href = '/'}
+                onClick={handleLogoClick}
               />
               <h1 className="text-xl font-bold drop-shadow-md">{t('header.title')}</h1>
             </div>
@@ -138,7 +143,7 @@ const Index = () => {
               src={logo} 
               alt="Safe Trip" 
               className="w-12 h-12 cursor-pointer hover:opacity-80 transition-opacity" 
-              onClick={() => window.location.href = '/'}
+              onClick={handleLogoClick}
             />
             <h1 className="text-xl font-bold">{t('header.title')}</h1>
           </div>
@@ -149,12 +154,96 @@ const Index = () => {
         </header>
 
       {/* Desktop Layout */}
-      <div className="hidden md:flex h-screen">
-        <div className="w-80 border-r overflow-y-auto">
-          <Sidebar />
-        </div>
-        <div className="flex-1">
-          <MapView spots={featuredSpots} restaurants={featuredRestaurants} />
+      <div className="hidden md:flex flex-col h-screen overflow-y-auto">
+        <div className="w-full max-w-7xl mx-auto px-6 space-y-8 pt-6 pb-20">
+          {/* Featured Spots Section */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h2 className="text-3xl font-bold flex items-center gap-2">
+                <MapPin className="w-8 h-8 text-primary" />
+                {t('sidebar.featured')}
+              </h2>
+            </div>
+            
+            <div className="grid grid-cols-5 gap-4">
+              {featuredSpots.slice(0, 10).map(spot => (
+                <Card 
+                  key={spot.id}
+                  className="cursor-pointer hover:shadow-lg transition-all overflow-hidden group"
+                  onClick={() => {
+                    setSelectedSpot(spot);
+                    setDialogOpen(true);
+                  }}
+                >
+                  <div className="aspect-video overflow-hidden">
+                    <img 
+                      src={spot.image} 
+                      alt={spot.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                  </div>
+                  <CardContent className="p-3">
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <h4 className="font-semibold text-sm line-clamp-1 flex-1">{spot.name}</h4>
+                      <RiskBadge level={spot.risk_level as 'low' | 'medium' | 'high'} />
+                    </div>
+                    <p className="text-xs text-muted-foreground line-clamp-2">{spot.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <Button 
+              variant="outline" 
+              className="w-full" 
+              onClick={() => navigate('/tourist-spots')}
+            >
+              {t('touristSpots.viewAll')}
+            </Button>
+          </div>
+
+          {/* Illustrative Map Section */}
+          <IllustrativeMap />
+
+          {/* Security Alerts Summary */}
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-2xl">
+                <AlertTriangle className="w-7 h-7 text-primary" />
+                {t('securityAlerts.title')}
+              </CardTitle>
+              <CardDescription>
+                {t('securityAlerts.subtitle')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {securityAlerts.slice(0, 3).map((alert) => (
+                <div key={alert.id} className="p-4 border rounded-lg bg-background/50 hover:bg-background/80 transition-colors">
+                  <div className="flex items-start justify-between gap-3 mb-1">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h4 className="font-semibold text-base">{alert.title}</h4>
+                        <RiskBadge level={alert.level} />
+                      </div>
+                      <p className="text-sm text-muted-foreground line-clamp-2">{alert.message}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <Button 
+                variant="outline" 
+                className="w-full" 
+                onClick={() => navigate('/security-alerts')}
+              >
+                {t('securityAlerts.viewAll')}
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Premium Card - only for non-premium users */}
+          {!isPremium && !isLoading && (
+            <PremiumCard />
+          )}
         </div>
       </div>
 

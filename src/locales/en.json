@@ -18,6 +18,7 @@
     "high": "High",
     "touristSpots": "Tourist Spots",
     "viewOnMap": "View on Map",
+    "viewAll": "View All",
     "featured": "Featured",
     "timeAgo": {
       "now": "Now",
@@ -50,8 +51,9 @@
   },
   "securityAlerts": {
     "title": "Security Alerts",
-    "subtitle": "Stay informed about the security situation in Rio de Janeiro",
-    "realTimeAlerts": "Real-Time Alerts",
+    "subtitle": "Real-time safety information for Rio de Janeiro",
+    "viewAll": "View All Alerts",
+    "realtime": "Real-time Alerts",
     "updated": "Updated",
     "updatesEvery": "Real-time updates",
     "mainAreas": "Main areas:",

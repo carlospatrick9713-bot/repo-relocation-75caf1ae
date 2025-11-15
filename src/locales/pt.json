@@ -18,6 +18,7 @@
     "high": "Alto",
     "touristSpots": "Pontos Turísticos",
     "viewOnMap": "Ver no Mapa",
+    "viewAll": "Ver Todos",
     "featured": "Em Destaque",
     "timeAgo": {
       "now": "Agora",
@@ -50,8 +51,9 @@
   },
   "securityAlerts": {
     "title": "Alertas de Segurança",
-    "subtitle": "Informações atualizadas sobre segurança nas diferentes regiões do Rio",
-    "realTimeAlerts": "Alertas em Tempo Real",
+    "subtitle": "Informações em tempo real sobre segurança no Rio de Janeiro",
+    "viewAll": "Ver Todos os Alertas",
+    "realtime": "Alertas em Tempo Real",
     "regionAlerts": "Alertas Regionais",
     "mainAreas": "Principais áreas:",
     "updatesEvery": "Atualizações em tempo real",

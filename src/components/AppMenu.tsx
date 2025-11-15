@@ -46,7 +46,7 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    toast.success('Logout realizado com sucesso!');
+    toast.success(t('auth.logoutSuccess'));
     setOpen(false);
     navigate('/auth');
   };
@@ -87,7 +87,7 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
       </SheetTrigger>
       <SheetContent side="right" className="w-80 overflow-y-auto">
         <SheetHeader className="mb-6">
-          <SheetTitle className="text-xl">Menu</SheetTitle>
+          <SheetTitle className="text-xl">{t('common.menu')}</SheetTitle>
         </SheetHeader>
 
         <div className="space-y-4">
@@ -106,10 +106,10 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
                   {isPremium ? (
                     <div className="flex items-center gap-1 text-xs text-yellow-600 dark:text-yellow-400">
                       <Crown className="w-3 h-3" />
-                      <span>Premium</span>
+                      <span>{t('profile.premiumPlan')}</span>
                     </div>
                   ) : (
-                    <p className="text-xs text-muted-foreground">Plano Free</p>
+                    <p className="text-xs text-muted-foreground">{t('profile.freePlan')}</p>
                   )}
                 </div>
               </div>

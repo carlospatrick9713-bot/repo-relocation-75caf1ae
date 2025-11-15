@@ -1,5 +1,6 @@
 import { MapPin } from 'lucide-react';
 import RiskBadge from './RiskBadge';
+import { useTranslation } from 'react-i18next';
 
 interface TouristSpotCardProps {
   name: string;
@@ -9,6 +10,8 @@ interface TouristSpotCardProps {
 }
 
 export default function TouristSpotCard({ name, risk, image, onClick }: TouristSpotCardProps) {
+  const { t } = useTranslation();
+  
   return (
     <div 
       onClick={onClick}
@@ -32,7 +35,7 @@ export default function TouristSpotCard({ name, risk, image, onClick }: TouristS
           </div>
           <RiskBadge level={risk} />
         </div>
-        <p className="text-xs text-muted-foreground">Clique para ver detalhes</p>
+        <p className="text-xs text-muted-foreground">{t('common.clickForDetails')}</p>
       </div>
     </div>
   );

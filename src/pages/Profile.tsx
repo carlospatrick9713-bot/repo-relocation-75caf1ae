@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, User, Crown, Mail, Calendar, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, User, Crown, Mail, Calendar, AlertTriangle, Camera, Upload } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { usePremium } from '@/hooks/usePremium';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
 import PremiumCard from '@/components/PremiumCard';
@@ -29,8 +31,115 @@ export default function Profile() {
   const { user, loading } = useAuth();
   const { isPremium } = usePremium();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+
+  const { data: profile } = useQuery({
+    queryKey: ['profile', user?.id],
+    queryFn: async () => {
+      if (!user) return null;
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('avatar_url')
+        .eq('id', user.id)
+        .single();
+      
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!user,
+  });
+
+  const handleAvatarClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file || !user) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast({
+        title: "Erro",
+        description: "Por favor, selecione uma imagem válida.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate file size (5MB max)
+    if (file.size > 5 * 1024 * 1024) {
+      toast({
+        title: "Erro",
+        description: "A imagem deve ter no máximo 5MB.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsUploading(true);
+
+    try {
+      // Delete old avatar if exists
+      if (profile?.avatar_url) {
+        const oldPath = profile.avatar_url.split('/').pop();
+        if (oldPath) {
+          await supabase.storage
+            .from('avatars')
+            .remove([`${user.id}/${oldPath}`]);
+        }
+      }
+
+      // Upload new avatar
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${crypto.randomUUID()}.${fileExt}`;
+      const filePath = `${user.id}/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(filePath);
+
+      // Update profile with new avatar URL
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ avatar_url: publicUrl })
+        .eq('id', user.id);
+
+      if (updateError) throw updateError;
+
+      // Invalidate profile query to refetch
+      queryClient.invalidateQueries({ queryKey: ['profile', user.id] });
+
+      toast({
+        title: "Sucesso",
+        description: "Foto de perfil atualizada com sucesso!",
+      });
+    } catch (error: any) {
+      console.error('Error uploading avatar:', error);
+      toast({
+        title: "Erro ao atualizar foto",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploading(false);
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
 
   const handleDeleteAccount = async () => {
     setIsDeleting(true);
@@ -145,6 +254,39 @@ export default function Profile() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
+              {/* Avatar Section */}
+              <div className="flex flex-col items-center gap-4 pb-4 border-b">
+                <div className="relative group">
+                  <Avatar className="w-24 h-24 border-4 border-primary/20">
+                    <AvatarImage src={profile?.avatar_url || undefined} alt={user.email || 'User'} />
+                    <AvatarFallback className="bg-primary/10 text-primary text-2xl">
+                      {user.email?.charAt(0).toUpperCase() || 'U'}
+                    </AvatarFallback>
+                  </Avatar>
+                  <button
+                    onClick={handleAvatarClick}
+                    disabled={isUploading}
+                    className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer disabled:cursor-not-allowed"
+                  >
+                    {isUploading ? (
+                      <Upload className="w-6 h-6 text-white animate-pulse" />
+                    ) : (
+                      <Camera className="w-6 h-6 text-white" />
+                    )}
+                  </button>
+                </div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
+                <p className="text-sm text-muted-foreground text-center">
+                  Clique na foto para alterar
+                </p>
+              </div>
+
               <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
                 <Mail className="w-5 h-5 text-primary" />
                 <div>

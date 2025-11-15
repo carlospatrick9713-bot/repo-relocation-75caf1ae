@@ -12,41 +12,57 @@ serve(async (req) => {
   }
 
   try {
-    const { spotId, targetLanguage } = await req.json();
+    const { spotId, targetLanguage, spotData } = await req.json();
 
-    if (!spotId || !targetLanguage) {
-      throw new Error("spotId and targetLanguage are required");
+    if (!targetLanguage) {
+      throw new Error("targetLanguage is required");
     }
+
+    console.log("Translation request:", { spotId, targetLanguage, hasSpotData: !!spotData });
 
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Get the tourist spot data
-    const { data: spot, error: spotError } = await supabase
-      .from("tourist_spots")
-      .select("*")
-      .eq("id", spotId)
-      .single();
+    let spot = spotData;
+    
+    // Only fetch from database if spotData is not provided and spotId is a UUID
+    if (!spot && spotId && typeof spotId === 'string' && spotId.includes('-')) {
+      const { data: dbSpot, error: spotError } = await supabase
+        .from("tourist_spots")
+        .select("*")
+        .eq("id", spotId)
+        .maybeSingle();
 
-    if (spotError || !spot) {
-      throw new Error("Tourist spot not found");
+      if (spotError) {
+        console.error("Database error:", spotError);
+        throw new Error(`Database error: ${spotError.message}`);
+      }
+      
+      spot = dbSpot;
     }
 
-    // Check if translation already exists
-    const nameCol = `name_${targetLanguage}`;
-    const descCol = `description_${targetLanguage}`;
-    const catCol = `category_${targetLanguage}`;
+    if (!spot) {
+      console.error("No spot data available");
+      throw new Error("Tourist spot data not found");
+    }
 
-    if (spot[nameCol] && spot[descCol] && spot[catCol]) {
-      return new Response(
-        JSON.stringify({
-          name: spot[nameCol],
-          description: spot[descCol],
-          category: spot[catCol],
-        }),
-        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+    // Check if translation already exists in database (only for Supabase spots)
+    if (spotId && typeof spotId === 'string' && spotId.includes('-')) {
+      const nameCol = `name_${targetLanguage}`;
+      const descCol = `description_${targetLanguage}`;
+      const catCol = `category_${targetLanguage}`;
+
+      if (spot[nameCol] && spot[descCol] && spot[catCol]) {
+        return new Response(
+          JSON.stringify({
+            name: spot[nameCol],
+            description: spot[descCol],
+            category: spot[catCol],
+          }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
     }
 
     // Translate using Lovable AI
@@ -109,20 +125,28 @@ Category: ${spot.category}`;
     
     const translation = JSON.parse(cleanedText);
 
-    // Save translation to database
-    const updateData: any = {};
-    updateData[nameCol] = translation.name;
-    updateData[descCol] = translation.description;
-    updateData[catCol] = translation.category;
+    // Save translation to database only if spot has a UUID
+    if (spotId && typeof spotId === 'string' && spotId.includes('-')) {
+      const nameCol = `name_${targetLanguage}`;
+      const descCol = `description_${targetLanguage}`;
+      const catCol = `category_${targetLanguage}`;
+      
+      const updateData: any = {};
+      updateData[nameCol] = translation.name;
+      updateData[descCol] = translation.description;
+      updateData[catCol] = translation.category;
 
-    const { error: updateError } = await supabase
-      .from("tourist_spots")
-      .update(updateData)
-      .eq("id", spotId);
+      const { error: updateError } = await supabase
+        .from("tourist_spots")
+        .update(updateData)
+        .eq("id", spotId);
 
-    if (updateError) {
-      console.error("Failed to save translation:", updateError);
-      // Still return the translation even if save fails
+      if (updateError) {
+        console.error("Failed to save translation:", updateError);
+        // Still return the translation even if save fails
+      }
+    } else {
+      console.log("Skipping database save for local spot data");
     }
 
     return new Response(

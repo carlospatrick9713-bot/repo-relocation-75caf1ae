@@ -54,6 +54,11 @@ export function useTranslatedSpot(spot: TouristSpot | null) {
           body: {
             spotId: spot.id,
             targetLanguage: currentLang,
+            spotData: {
+              name: spot.name,
+              description: spot.description,
+              category: spot.category || '',
+            },
           },
         });
 

@@ -1,10 +1,20 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts';
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
+
+const DEBUG = Deno.env.get('DEBUG') === 'true';
+
+const spotDataSchema = z.object({
+  name: z.string().min(1).max(200),
+  description: z.string().min(1).max(2000),
+  category: z.string().min(1).max(100),
+  tips: z.array(z.string().max(500)).max(10).optional(),
+});
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -15,10 +25,30 @@ serve(async (req) => {
     const { spotId, targetLanguage, spotData } = await req.json();
 
     if (!targetLanguage) {
-      throw new Error("targetLanguage is required");
+      return new Response(
+        JSON.stringify({ error: 'Target language is required' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
-    console.log("Translation request:", { spotId, targetLanguage, hasSpotData: !!spotData });
+    if (DEBUG) {
+      console.log('Processing translation request');
+    }
+
+    // Validate spotData if provided
+    if (spotData) {
+      try {
+        spotDataSchema.parse(spotData);
+      } catch (validationError) {
+        if (DEBUG) {
+          console.error('[INTERNAL] Validation error:', validationError);
+        }
+        return new Response(
+          JSON.stringify({ error: 'Invalid input data' }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+    }
 
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -35,16 +65,23 @@ serve(async (req) => {
         .maybeSingle();
 
       if (spotError) {
-        console.error("Database error:", spotError);
-        throw new Error(`Database error: ${spotError.message}`);
+        if (DEBUG) {
+          console.error('[INTERNAL] Database error:', spotError);
+        }
+        return new Response(
+          JSON.stringify({ error: 'Unable to process request' }),
+          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
       }
       
       spot = dbSpot;
     }
 
     if (!spot) {
-      console.error("No spot data available");
-      throw new Error("Tourist spot data not found");
+      return new Response(
+        JSON.stringify({ error: 'Tourist spot data not found' }),
+        { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
     // Check if translation already exists in database (only for Supabase spots)
@@ -68,7 +105,13 @@ serve(async (req) => {
     // Translate using Lovable AI
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
-      throw new Error("LOVABLE_API_KEY not configured");
+      if (DEBUG) {
+        console.error('[INTERNAL] LOVABLE_API_KEY not configured');
+      }
+      return new Response(
+        JSON.stringify({ error: 'Service temporarily unavailable' }),
+        { status: 503, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
     const languageNames: Record<string, string> = {
@@ -108,9 +151,14 @@ ${spot.tips && spot.tips.length > 0 ? `Tips:\n${spot.tips.map((tip: string, i: n
     });
 
     if (!aiResponse.ok) {
-      const errorText = await aiResponse.text();
-      console.error("AI translation error:", aiResponse.status, errorText);
-      throw new Error("Translation failed");
+      if (DEBUG) {
+        const errorText = await aiResponse.text();
+        console.error("[INTERNAL] AI translation error:", aiResponse.status, errorText);
+      }
+      return new Response(
+        JSON.stringify({ error: 'Translation service unavailable' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
     const aiData = await aiResponse.json();
@@ -142,11 +190,10 @@ ${spot.tips && spot.tips.length > 0 ? `Tips:\n${spot.tips.map((tip: string, i: n
         .update(updateData)
         .eq("id", spotId);
 
-      if (updateError) {
-        console.error("Failed to save translation:", updateError);
-        // Still return the translation even if save fails
+      if (updateError && DEBUG) {
+        console.error("[INTERNAL] Failed to save translation:", updateError);
       }
-    } else {
+    } else if (DEBUG) {
       console.log("Skipping database save for local spot data");
     }
 
@@ -155,9 +202,11 @@ ${spot.tips && spot.tips.length > 0 ? `Tips:\n${spot.tips.map((tip: string, i: n
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
-    console.error("Translation error:", error);
+    if (DEBUG) {
+      console.error('[INTERNAL] Translation error:', error);
+    }
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : "Translation failed" }),
+      JSON.stringify({ error: 'Unable to process translation' }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }

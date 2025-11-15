@@ -7,6 +7,8 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+const DEBUG = Deno.env.get('DEBUG') === 'true';
+
 interface Review {
   author_name: string;
   author_url?: string;
@@ -111,7 +113,9 @@ serve(async (req) => {
     const data = await response.json();
 
     if (data.status !== 'OK') {
-      console.warn('Google Places API error, using fallback reviews:', data);
+      if (DEBUG) {
+        console.error('[INTERNAL] Google Places API error:', data.status, data.error_message);
+      }
       // Return fallback reviews instead of error
       const fallbackReviews = getFallbackReviews();
       return new Response(
@@ -139,7 +143,9 @@ serve(async (req) => {
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   } catch (error) {
-    console.warn('Error in get-place-reviews, using fallback reviews:', error);
+    if (DEBUG) {
+      console.error('[INTERNAL] Error in get-place-reviews:', error);
+    }
     // Return fallback reviews instead of error
     const fallbackReviews = getFallbackReviews();
     return new Response(

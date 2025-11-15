@@ -7,6 +7,8 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+const DEBUG = Deno.env.get('DEBUG') === 'true';
+
 const inFlight = new Map<string, Promise<ArrayBuffer>>();
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -62,22 +64,28 @@ serve(async (req) => {
     const fileName = `slang-audio/${textHash}.mp3`;
 
     // Check if audio already exists in storage
-    const { data: existingFile } = await supabase.storage
-      .from('tourist-photos')
-      .download(fileName);
+    try {
+      const { data: existingFile } = await supabase.storage
+        .from('tourist-photos')
+        .download(fileName);
 
-    if (existingFile) {
-      const arrayBuffer = await existingFile.arrayBuffer();
-      const base64Audio = btoa(
-        String.fromCharCode(...new Uint8Array(arrayBuffer))
-      );
+      if (existingFile) {
+        const arrayBuffer = await existingFile.arrayBuffer();
+        const base64Audio = btoa(
+          String.fromCharCode(...new Uint8Array(arrayBuffer))
+        );
 
-      return new Response(
-        JSON.stringify({ audioContent: base64Audio }),
-        {
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
+        return new Response(
+          JSON.stringify({ audioContent: base64Audio }),
+          {
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          }
+        );
+      }
+    } catch (error) {
+      if (DEBUG) {
+        console.error('[INTERNAL] Cache check error:', error);
+      }
     }
 
     // Deduplicate concurrent generations per text within this instance
@@ -105,7 +113,11 @@ serve(async (req) => {
       });
 
       if (!aiResponse.ok) {
-        throw new Error(`AI generation failed: ${aiResponse.status}`);
+        if (DEBUG) {
+          const errorText = await aiResponse.text();
+          console.error('[INTERNAL] AI generation failed:', aiResponse.status, errorText);
+        }
+        throw new Error(`AI generation failed`);
       }
 
       const aiData = await aiResponse.json();

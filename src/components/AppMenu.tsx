@@ -195,10 +195,14 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
                   <p className="text-xs text-muted-foreground mb-2">
                     Acesso completo a rotas seguras e recursos exclusivos
                   </p>
-                  <p className="text-lg font-bold text-primary">R$ 19,90/ano</p>
+                  <p className="text-lg font-bold text-primary">R$ 29,90/ano</p>
                 </div>
               </div>
-              <Button className="w-full" size="sm">
+              <Button 
+                className="w-full" 
+                size="sm"
+                onClick={() => window.open('https://pay.kiwify.com.br/lBcZdOF', '_blank')}
+              >
                 <Crown className="w-4 h-4 mr-2" />
                 Assinar Agora
               </Button>

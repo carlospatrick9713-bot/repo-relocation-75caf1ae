@@ -51,7 +51,10 @@ export default function PremiumCard() {
           <div className="text-center mb-3">
             <span className="text-2xl font-bold text-primary">{t('premium.price')}</span>
           </div>
-          <Button className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover-scale">
+          <Button 
+            className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover-scale"
+            onClick={() => window.open('https://pay.kiwify.com.br/lBcZdOF', '_blank')}
+          >
             <Crown className="w-4 h-4 mr-2" />
             {t('premium.cta')}
           </Button>

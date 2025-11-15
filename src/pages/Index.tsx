@@ -20,7 +20,7 @@ import RiskBadge from '@/components/RiskBadge';
 import TouristSpotCard from '@/components/TouristSpotCard';
 import TouristSpotDialog from '@/components/TouristSpotDialog';
 import PremiumCard from '@/components/PremiumCard';
-import IllustrativeMap from '@/components/IllustrativeMap';
+import { ZoomableMap } from '@/components/ZoomableMap';
 import type { TouristSpot } from '@/hooks/useTouristSpots';
 import '@/lib/i18n';
 
@@ -203,7 +203,7 @@ const Index = () => {
           </div>
 
           {/* Illustrative Map Section */}
-          <IllustrativeMap />
+          <ZoomableMap />
 
           {/* Security Alerts Summary */}
           <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
@@ -297,7 +297,7 @@ const Index = () => {
           </div>
 
           {/* Illustrative Map Section */}
-          <IllustrativeMap />
+          <ZoomableMap />
 
           {/* Security Alerts Summary */}
           <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">

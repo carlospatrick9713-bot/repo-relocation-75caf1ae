@@ -81,18 +81,18 @@ export default function TouristSpots() {
             <div className="mb-4 flex items-center justify-between">
               <Button variant="ghost" onClick={() => setShowPremiumCard(false)}>
                 <ArrowLeft className="w-5 h-5 mr-2" />
-                Voltar
+                {t('common.back')}
               </Button>
               <Button variant="outline" onClick={() => setShowExitDialog(true)}>
-                Ir para Tela Principal
+                {t('common.goToHome')}
               </Button>
             </div>
             {!user ? (
               <Card className="p-8 text-center space-y-4">
-                <h2 className="text-2xl font-bold">Faça Login para Continuar</h2>
-                <p className="text-muted-foreground">Você precisa estar logado para acessar o plano premium.</p>
+                <h2 className="text-2xl font-bold">{t('auth.loginRequired')}</h2>
+                <p className="text-muted-foreground">{t('auth.loginRequiredDescription')}</p>
                 <div className="flex gap-3 justify-center">
-                  <Button onClick={() => navigate('/auth')}>Fazer Login / Cadastro</Button>
+                  <Button onClick={() => navigate('/auth')}>{t('auth.loginOrSignup')}</Button>
                   <Button variant="outline" onClick={() => setShowExitDialog(true)}>Voltar ao Início</Button>
                 </div>
               </Card>

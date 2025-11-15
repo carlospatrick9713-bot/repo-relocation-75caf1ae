@@ -41,6 +41,7 @@ import { toast } from 'sonner';
 import { usePremium } from '@/hooks/usePremium';
 import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { useTranslatedSpot } from '@/hooks/useTranslatedSpot';
 
 interface TouristSpotDialogProps {
   spot: TouristSpot | any | null;
@@ -129,6 +130,9 @@ export default function TouristSpotDialog({ spot, open, onOpenChange }: TouristS
   const spotData = spot as ExtendedTouristSpot | null;
   const riskLevel = spotData?.risk || spotData?.risk_level || 'low';
 
+  // Use translation hook
+  const { translatedData, isTranslating } = useTranslatedSpot(spot as any);
+
   useEffect(() => {
     if (spot && open) {
       if (spotData?.placeId) {
@@ -199,7 +203,7 @@ export default function TouristSpotDialog({ spot, open, onOpenChange }: TouristS
             <div className="relative w-full h-64 md:h-96 bg-muted">
               <img
                 src={spot.image}
-                alt={spot.name}
+                alt={translatedData?.name || spot.name}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -211,10 +215,17 @@ export default function TouristSpotDialog({ spot, open, onOpenChange }: TouristS
                   <div className="space-y-2 flex-1">
                     <DialogTitle className="text-2xl flex items-center gap-3">
                       <MapPin className="w-6 h-6 text-primary" />
-                      {spot.name}
+                      {isTranslating ? (
+                        <span className="flex items-center gap-2">
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          {spot.name}
+                        </span>
+                      ) : (
+                        translatedData?.name || spot.name
+                      )}
                     </DialogTitle>
                     <DialogDescription className="text-base">
-                      {spot.description}
+                      {isTranslating ? spot.description : (translatedData?.description || spot.description)}
                     </DialogDescription>
                   </div>
                   <RiskBadge level={riskLevel} className="flex-shrink-0" />

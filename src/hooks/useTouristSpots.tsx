@@ -10,6 +10,18 @@ export interface TouristSpot {
   lat: number;
   lng: number;
   risk_level: 'low' | 'medium' | 'high';
+  name_en?: string;
+  name_es?: string;
+  name_fr?: string;
+  name_de?: string;
+  description_en?: string;
+  description_es?: string;
+  description_fr?: string;
+  description_de?: string;
+  category_en?: string;
+  category_es?: string;
+  category_fr?: string;
+  category_de?: string;
 }
 
 export function useTouristSpots() {

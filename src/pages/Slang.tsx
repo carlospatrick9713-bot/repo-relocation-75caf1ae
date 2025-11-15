@@ -38,7 +38,15 @@ export default function Slang() {
         body: { text: example }
       });
 
-      if (error) throw error;
+      if (error) {
+        // Check if it's a rate limit error
+        if (error.message?.includes('429') || error.message?.includes('Rate limit')) {
+          toast.error('Muitas requisições. Por favor, aguarde alguns segundos e tente novamente.');
+          setPlayingWord(null);
+          return;
+        }
+        throw error;
+      }
 
       if (data?.audioContent) {
         // Convert base64 to audio and play

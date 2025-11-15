@@ -12,6 +12,7 @@ import Restaurants from "./pages/Restaurants";
 import Weather from "./pages/Weather";
 import SecurityAlerts from "./pages/SecurityAlerts";
 import TouristGallery from "./pages/TouristGallery";
+import Slang from "./pages/Slang";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/weather" element={<Weather />} />
           <Route path="/security-alerts" element={<SecurityAlerts />} />
           <Route path="/gallery" element={<TouristGallery />} />
+          <Route path="/slang" element={<Slang />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

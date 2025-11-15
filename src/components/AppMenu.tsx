@@ -8,7 +8,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { Menu, User, Sparkles, MapPin, Cloud, AlertTriangle, Images, LogOut, Crown, Utensils, Shield } from 'lucide-react';
+import { Menu, User, Sparkles, MapPin, Cloud, AlertTriangle, Images, LogOut, Crown, Utensils, Shield, MessageCircle } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { usePremium } from '@/hooks/usePremium';
 import { supabase } from '@/integrations/supabase/client';
@@ -47,7 +47,8 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
       'restaurants': '/restaurants',
       'weather': '/weather',
       'security-alerts': '/security-alerts',
-      'gallery': '/gallery'
+      'gallery': '/gallery',
+      'slang': '/slang'
     };
     
     const route = routes[section];
@@ -180,6 +181,15 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
             >
               <Images className="w-5 h-5 mr-3 text-primary" />
               Galeria dos Turistas
+            </Button>
+
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-base h-12"
+              onClick={() => handleMenuClick('slang')}
+            >
+              <MessageCircle className="w-5 h-5 mr-3 text-primary" />
+              Gírias Cariocas
             </Button>
           </div>
 

@@ -101,5 +101,254 @@
       }
     },
     "understood": "Entendi"
+  },
+  "slang": {
+    "title": "Gírias Cariocas",
+    "hero": {
+      "title": "Bem-vindo ao Guia de Gírias Cariocas",
+      "subtitle": "Aprenda como os locais realmente falam"
+    },
+    "introduction": "Gíria é uma forma informal e criativa de linguagem usada no dia a dia. Os cariocas adoram usar expressões únicas que refletem a cultura vibrante e descontraída do Rio. Conhecer essas gírias vai te ajudar a entender melhor as conversas, conectar-se com os locais e aproveitar ao máximo sua experiência na cidade!",
+    "searchPlaceholder": "Buscar gírias...",
+    "categories": {
+      "greetings": {
+        "name": "Cumprimentos e Expressões Comuns",
+        "items": [
+          {
+            "word": "E aí?",
+            "translation": "What's up?",
+            "explanation": "Cumprimento casual muito usado entre amigos",
+            "example": "E aí, cara? Tudo bem?",
+            "exampleTranslation": "What's up, dude? All good?",
+            "pronunciation": "ee-AH-ee"
+          },
+          {
+            "word": "Beleza!",
+            "translation": "Cool! / Alright!",
+            "explanation": "Significa que está tudo bem ou para concordar com algo",
+            "example": "Vamos à praia? Beleza!",
+            "exampleTranslation": "Shall we go to the beach? Alright!",
+            "pronunciation": "beh-LEH-zah"
+          },
+          {
+            "word": "Firmeza",
+            "translation": "Sure / Solid",
+            "explanation": "Confirmação ou concordância com algo",
+            "example": "Nos vemos às 7? Firmeza!",
+            "exampleTranslation": "See you at 7? Sure!",
+            "pronunciation": "feer-MEH-zah"
+          },
+          {
+            "word": "Valeu!",
+            "translation": "Thanks!",
+            "explanation": "Forma casual de agradecer",
+            "example": "Valeu pela ajuda, mano!",
+            "exampleTranslation": "Thanks for the help, bro!",
+            "pronunciation": "vah-LEH-oo"
+          }
+        ]
+      },
+      "expressions": {
+        "name": "Expressões do Dia a Dia",
+        "items": [
+          {
+            "word": "Tá ligado?",
+            "translation": "You know?",
+            "explanation": "Pergunta se a pessoa entendeu ou está ciente de algo",
+            "example": "O show é às 8, tá ligado?",
+            "exampleTranslation": "The show is at 8, you know?",
+            "pronunciation": "tah lee-GAH-doo"
+          },
+          {
+            "word": "Massa!",
+            "translation": "Awesome! / Cool!",
+            "explanation": "Expressa aprovação ou entusiasmo",
+            "example": "Esse lugar é muito massa!",
+            "exampleTranslation": "This place is so cool!",
+            "pronunciation": "MAH-sah"
+          },
+          {
+            "word": "Sinistro",
+            "translation": "Amazing / Crazy good",
+            "explanation": "Significa algo impressionante ou muito bom",
+            "example": "Esse DJ é sinistro!",
+            "exampleTranslation": "This DJ is amazing!",
+            "pronunciation": "see-NEES-troo"
+          },
+          {
+            "word": "Vacilo",
+            "translation": "Mistake / Slip up",
+            "explanation": "Erro ou falha em algo",
+            "example": "Não ir à festa foi um vacilo.",
+            "exampleTranslation": "Not going to the party was a mistake.",
+            "pronunciation": "vah-SEE-loo"
+          },
+          {
+            "word": "Pô",
+            "translation": "Come on / Man",
+            "explanation": "Interjeição para expressar decepção ou surpresa",
+            "example": "Pô, cara, por que você não veio?",
+            "exampleTranslation": "Come on, man, why didn't you come?",
+            "pronunciation": "poh"
+          }
+        ]
+      },
+      "people": {
+        "name": "Referindo-se a Pessoas",
+        "items": [
+          {
+            "word": "Mano / Mina",
+            "translation": "Dude / Girl",
+            "explanation": "Forma casual de se referir a um homem ou mulher",
+            "example": "Esse mano é meu brother!",
+            "exampleTranslation": "This dude is my bro!",
+            "pronunciation": "MAH-noo / MEE-nah"
+          },
+          {
+            "word": "Parça",
+            "translation": "Buddy / Partner",
+            "explanation": "Amigo próximo, parceiro",
+            "example": "Esse é meu parça de infância.",
+            "exampleTranslation": "This is my childhood buddy.",
+            "pronunciation": "PAR-sah"
+          },
+          {
+            "word": "Maluco(a)",
+            "translation": "Crazy person",
+            "explanation": "Pode ser carinhoso ou literal, dependendo do contexto",
+            "example": "Você é maluco, cara!",
+            "exampleTranslation": "You're crazy, man!",
+            "pronunciation": "mah-LOO-koo"
+          },
+          {
+            "word": "Patrão / Patroa",
+            "translation": "Boss / Chief",
+            "explanation": "Termo respeitoso ou carinhoso para alguém",
+            "example": "Fala, patrão! Tudo certo?",
+            "exampleTranslation": "Hey, boss! Everything good?",
+            "pronunciation": "pah-TROW / pah-TRO-ah"
+          }
+        ]
+      },
+      "situations": {
+        "name": "Situações e Sentimentos",
+        "items": [
+          {
+            "word": "Tá rolando",
+            "translation": "It's happening",
+            "explanation": "Algo está acontecendo ou está em andamento",
+            "example": "Tá rolando uma festa na praia hoje.",
+            "exampleTranslation": "There's a party happening at the beach today.",
+            "pronunciation": "tah ho-LAHN-doo"
+          },
+          {
+            "word": "Quebrar o galho",
+            "translation": "Help out / Fix it",
+            "explanation": "Resolver um problema de forma improvisada",
+            "example": "Você pode quebrar meu galho?",
+            "exampleTranslation": "Can you help me out?",
+            "pronunciation": "keh-BRAR oo GAH-lyoo"
+          },
+          {
+            "word": "Dar mole",
+            "translation": "Let your guard down",
+            "explanation": "Ficar desatento ou facilitar para algo ruim acontecer",
+            "example": "Não dá mole na rua à noite.",
+            "exampleTranslation": "Don't let your guard down on the street at night.",
+            "pronunciation": "dar MOH-lee"
+          },
+          {
+            "word": "Tá suave",
+            "translation": "It's cool / No problem",
+            "explanation": "Está tranquilo, sem problemas",
+            "example": "Tudo tá suave por aqui.",
+            "exampleTranslation": "Everything's cool around here.",
+            "pronunciation": "tah soo-AH-vee"
+          },
+          {
+            "word": "Tá osso",
+            "translation": "It's tough / Difficult",
+            "explanation": "Situação difícil ou complicada",
+            "example": "Esse trânsito tá osso!",
+            "exampleTranslation": "This traffic is tough!",
+            "pronunciation": "tah OH-soo"
+          }
+        ]
+      }
+    },
+    "rioWordsTitle": "Palavras Usadas Apenas no Rio",
+    "rioWords": [
+      {
+        "word": "Carioca",
+        "translation": "Person from Rio",
+        "explanation": "Nome dado a quem nasce ou mora no Rio de Janeiro"
+      },
+      {
+        "word": "Zona Sul / Zona Norte",
+        "translation": "South Zone / North Zone",
+        "explanation": "Divisões geográficas importantes da cidade"
+      },
+      {
+        "word": "Favela",
+        "translation": "Hillside community",
+        "explanation": "Comunidade construída em morros"
+      },
+      {
+        "word": "Baile funk",
+        "translation": "Funk party",
+        "explanation": "Festa com música funk carioca"
+      },
+      {
+        "word": "Globeleza",
+        "translation": "Rio Carnival icon",
+        "explanation": "Personagem icônica do Carnaval carioca"
+      },
+      {
+        "word": "Birosca",
+        "translation": "Small bar",
+        "explanation": "Bar pequeno e simples de bairro"
+      }
+    ],
+    "emergencyTitle": "Frases de Emergência",
+    "emergency": [
+      {
+        "word": "Socorro!",
+        "translation": "Help!",
+        "explanation": "Pedido de ajuda urgente",
+        "example": "Socorro! Preciso de ajuda!",
+        "exampleTranslation": "Help! I need help!"
+      },
+      {
+        "word": "Onde fica o hospital?",
+        "translation": "Where is the hospital?",
+        "explanation": "Pergunta essencial em emergências médicas",
+        "example": "Por favor, onde fica o hospital mais próximo?",
+        "exampleTranslation": "Please, where is the nearest hospital?"
+      },
+      {
+        "word": "Preciso chamar a polícia",
+        "translation": "I need to call the police",
+        "explanation": "Solicitar ajuda policial",
+        "example": "Preciso chamar a polícia, onde posso ligar?",
+        "exampleTranslation": "I need to call the police, where can I call?"
+      },
+      {
+        "word": "Alguém me roubou",
+        "translation": "Someone robbed me",
+        "explanation": "Reportar um roubo",
+        "example": "Alguém me roubou, preciso fazer um boletim.",
+        "exampleTranslation": "Someone robbed me, I need to file a report."
+      }
+    ],
+    "culturalTips": {
+      "title": "Dicas Culturais",
+      "tips": [
+        "Cariocas são muito informais e amigáveis - não se ofenda com intimidade rápida",
+        "O 'r' no final das palavras geralmente não é pronunciado fortemente",
+        "Use 'por favor' e 'obrigado/a' sempre - educação é valorizada",
+        "Gírias mudam rápido - não tenha medo de perguntar o significado",
+        "Em situações formais, evite usar gírias demais"
+      ]
+    }
   }
 }

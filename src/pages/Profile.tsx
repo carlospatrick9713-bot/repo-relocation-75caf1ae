@@ -247,8 +247,7 @@ export default function Profile() {
                 <span>Informações da Conta</span>
                 {isPremium && (
                   <Badge className="bg-gradient-to-r from-yellow-500 to-primary">
-                    <Crown className="w-3 h-3 mr-1" />
-                    Premium
+                    <Crown className="w-3 h-3" />
                   </Badge>
                 )}
               </CardTitle>

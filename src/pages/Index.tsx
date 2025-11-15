@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import MapView from '@/components/MapView';
@@ -18,11 +18,22 @@ const Index = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const { isPremium } = usePremium();
-  const [showHero, setShowHero] = useState(true);
+  const [showHero, setShowHero] = useState(() => {
+    return localStorage.getItem('hideHero') !== 'true';
+  });
 
   const handleExplore = () => {
+    localStorage.setItem('hideHero', 'true');
     setShowHero(false);
   };
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setShowHero(localStorage.getItem('hideHero') !== 'true');
+    };
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   const handleMenuNavigation = (section: string) => {
     console.log('Navegando para:', section);
@@ -52,7 +63,6 @@ const Index = () => {
               {user && isPremium && (
                 <div className="flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm border border-yellow-500/30 text-yellow-300 px-3 py-1.5 rounded-lg animate-fade-in">
                   <Crown className="w-4 h-4" />
-                  <span className="text-sm font-semibold">Premium</span>
                 </div>
               )}
               <div className="animate-fade-in">
@@ -122,7 +132,6 @@ const Index = () => {
             {user && isPremium && (
               <div className="flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/30 text-yellow-600 dark:text-yellow-400 px-3 py-1.5 rounded-lg">
                 <Crown className="w-4 h-4" />
-                <span className="text-sm font-semibold">Premium</span>
               </div>
             )}
             <LanguageSelector />

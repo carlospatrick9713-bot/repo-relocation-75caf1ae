@@ -75,7 +75,7 @@ export default function TouristSpots() {
 
   return (
     <>
-      {showPremiumCard && (
+      {showPremiumCard && !isPremium && (
         <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-start justify-center overflow-auto">
           <div className="container max-w-4xl py-8 px-4">
             <div className="mb-4 flex items-center justify-between">

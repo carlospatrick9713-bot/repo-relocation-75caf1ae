@@ -5,7 +5,6 @@ import { AlertCircle, Sparkles, Bell, Clock } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import PremiumCard from './PremiumCard';
 import TouristSpotCard from './TouristSpotCard';
 import TouristSpotDialog from './TouristSpotDialog';
 import RiskBadge from './RiskBadge';
@@ -43,9 +42,6 @@ export default function Sidebar() {
       <div className="w-80 border-r bg-background">
         <ScrollArea className="h-full">
           <div className="p-4 space-y-4">
-            {/* Premium Card */}
-            <PremiumCard />
-
             {/* Tabs para Alertas e Notificações */}
             <Card className="animate-fade-in">
               <Tabs defaultValue="alerts" className="w-full">

@@ -106,6 +106,42 @@
         "areas": ["Barra da Tijuca", "Recreio", "Jacarepaguá"]
       }
     },
+    "statistics": {
+      "crimeTypes": "Tipos de Crimen",
+      "dangerousHours": "Horarios",
+      "tips": "Consejos",
+      "incidentsLast24h": "incidentes registrados en las últimas 24 horas",
+      "cases": "casos",
+      "highRiskHours": "Horarios de mayor riesgo:",
+      "title": "Estadísticas y Análisis",
+      "description": "Visualizaciones interactivas de los datos de seguridad de Río de Janeiro",
+      "incidentsTab": "Incidentes",
+      "comparisonTab": "Comparación",
+      "trendsTab": "Tendencias",
+      "rankingTab": "Ranking",
+      "incidentsByRegion": "Incidentes por Región (24h)",
+      "totalOccurrences": "Total de ocurrencias registradas en cada región",
+      "incidents": "Incidentes",
+      "crimeDistribution": "Distribución de Tipos de Crimen",
+      "crimeProportions": "Proporción de cada tipo de crimen registrado",
+      "incidentTrends": "Tendencias de Incidentes",
+      "temporalComparison": "Comparación temporal entre regiones",
+      "safetyRanking": "Ranking de Seguridad",
+      "orderedBySafety": "Regiones ordenadas por nivel de seguridad",
+      "position": "posición",
+      "safetyNote": "Cuanto menor el número de incidentes, más segura es la región"
+    },
+    "emergency": {
+      "title": "Teléfonos de Emergencia",
+      "police": "Policía Militar",
+      "fireDept": "Bomberos",
+      "ambulance": "SAMU",
+      "civilDefense": "Defensa Civil",
+      "tipLine": "Línea de Denuncia",
+      "roadPolice": "Policía de Carretera"
+    },
+    "dataSource": "Datos proporcionados por",
+    "lastUpdate": "Última actualización",
     "understood": "Entendido"
   },
   "slang": {

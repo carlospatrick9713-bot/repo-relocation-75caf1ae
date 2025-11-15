@@ -14,6 +14,7 @@ import ConfirmExitDialog from '@/components/ConfirmExitDialog';
 import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
 import { usePremium } from '@/hooks/usePremium';
+import { useAuth } from '@/hooks/useAuth';
 import PremiumCard from '@/components/PremiumCard';
 import LanguageSelector from '@/components/LanguageSelector';
 
@@ -21,6 +22,7 @@ export default function Restaurants() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { isPremium, isLoading } = usePremium();
+  const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [showExitDialog, setShowExitDialog] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
@@ -215,7 +217,7 @@ export default function Restaurants() {
       </main>
 
       {/* Premium Overlay */}
-      {!isPremium && !isLoading && (
+      {!user && !isPremium && !isLoading && (
         <div className="fixed inset-0 z-40 flex items-center justify-center p-4 bg-background/20">
           <div className="w-full max-w-md animate-fade-in">
             <PremiumCard />

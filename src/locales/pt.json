@@ -106,6 +106,42 @@
         "areas": ["Barra da Tijuca", "Recreio", "Jacarepaguá"]
       }
     },
+    "statistics": {
+      "crimeTypes": "Tipos de Crime",
+      "dangerousHours": "Horários",
+      "tips": "Dicas",
+      "incidentsLast24h": "incidentes registrados nas últimas 24 horas",
+      "cases": "casos",
+      "highRiskHours": "Horários de maior risco:",
+      "title": "Estatísticas e Análises",
+      "description": "Visualizações interativas dos dados de segurança do Rio de Janeiro",
+      "incidentsTab": "Incidentes",
+      "comparisonTab": "Comparação",
+      "trendsTab": "Tendências",
+      "rankingTab": "Ranking",
+      "incidentsByRegion": "Incidentes por Região (24h)",
+      "totalOccurrences": "Total de ocorrências registradas em cada região",
+      "incidents": "Incidentes",
+      "crimeDistribution": "Distribuição de Tipos de Crime",
+      "crimeProportions": "Proporção de cada tipo de crime registrado",
+      "incidentTrends": "Tendência de Incidentes",
+      "temporalComparison": "Comparação temporal entre regiões",
+      "safetyRanking": "Ranking de Segurança",
+      "orderedBySafety": "Regiões ordenadas por nível de segurança",
+      "position": "posição",
+      "safetyNote": "Quanto menor o número de incidentes, mais segura é a região"
+    },
+    "emergency": {
+      "title": "Telefones de Emergência",
+      "police": "Polícia Militar",
+      "fireDept": "Bombeiros",
+      "ambulance": "SAMU",
+      "civilDefense": "Defesa Civil",
+      "tipLine": "Disque Denúncia",
+      "roadPolice": "Polícia Rodoviária"
+    },
+    "dataSource": "Dados fornecidos por",
+    "lastUpdate": "Última atualização",
     "understood": "Entendi"
   },
   "slang": {

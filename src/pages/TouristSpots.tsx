@@ -109,7 +109,10 @@ export default function TouristSpots() {
               <Button variant="ghost" size="icon" onClick={() => navigate('/')}>
                 <ArrowLeft className="w-5 h-5" />
               </Button>
-              <img src={logo} alt="Safe Trip" className="w-10 h-10 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => navigate('/')} />
+              <img src={logo} alt="Safe Trip" className="w-10 h-10 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => {
+                localStorage.removeItem('hideHero');
+                navigate('/');
+              }} />
               <h1 className="text-xl font-bold">{t('header.title')}</h1>
             </div>
             <div className="flex items-center gap-3">

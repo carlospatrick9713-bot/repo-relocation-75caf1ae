@@ -17,7 +17,8 @@ import LanguageSelector from '@/components/LanguageSelector';
 import MapView from '@/components/MapView';
 import { useRealSecurityData } from '@/hooks/useRealSecurityData';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Phone, Info } from 'lucide-react';
+import { Phone, Info, TrendingUp, BarChart3 } from 'lucide-react';
+import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 export default function SecurityAlerts() {
   const navigate = useNavigate();
@@ -84,7 +85,10 @@ export default function SecurityAlerts() {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => navigate('/')}
+              onClick={() => {
+                localStorage.removeItem('hideHero');
+                navigate('/');
+              }}
             >
               <ArrowLeft className="w-5 h-5" />
             </Button>
@@ -92,7 +96,10 @@ export default function SecurityAlerts() {
               src={logo} 
               alt="Safe Trip" 
               className="w-10 h-10 cursor-pointer hover:opacity-80 transition-opacity" 
-              onClick={() => navigate('/')}
+              onClick={() => {
+                localStorage.removeItem('hideHero');
+                navigate('/');
+              }}
             />
             <h1 className="text-xl font-bold">{t('header.title')}</h1>
           </div>
@@ -125,37 +132,6 @@ export default function SecurityAlerts() {
           </div>
         </div>
 
-        {/* Real-time Alerts */}
-        <Card className="animate-fade-in border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Clock className="w-5 h-5 text-primary" />
-              {t('securityAlerts.realTimeAlerts')}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {alerts.map((alert, index) => (
-              <div
-                key={alert.id}
-                className="p-4 border rounded-lg bg-background/50 hover:bg-background/80 transition-colors animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="flex items-start justify-between gap-4 mb-2">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="font-semibold">{alert.title}</h3>
-                      <RiskBadge level={alert.level} />
-                    </div>
-                    <p className="text-sm text-muted-foreground">{alert.message}</p>
-                  </div>
-                  <span className="text-xs text-muted-foreground whitespace-nowrap">
-                    {alert.time === 'now' ? t('sidebar.timeAgo.now') : alert.time}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
 
         {/* Danger Zone Map */}
         <Card className="animate-fade-in">
@@ -315,6 +291,201 @@ export default function SecurityAlerts() {
                 <p className="text-xs text-muted-foreground text-center">
                   Dados fornecidos por: {realData.source} | Última atualização: {new Date(realData.lastUpdate).toLocaleString('pt-BR')}
                 </p>
+              </CardContent>
+            </Card>
+
+            {/* Statistics and Data Visualization */}
+            <Card className="animate-fade-in">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5 text-primary" />
+                  Estatísticas e Análises
+                </CardTitle>
+                <CardDescription>
+                  Visualizações interativas dos dados de segurança do Rio de Janeiro
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Tabs defaultValue="incidents" className="w-full">
+                  <TabsList className="grid w-full grid-cols-4">
+                    <TabsTrigger value="incidents">Incidentes</TabsTrigger>
+                    <TabsTrigger value="comparison">Comparação</TabsTrigger>
+                    <TabsTrigger value="trends">Tendências</TabsTrigger>
+                    <TabsTrigger value="ranking">Ranking</TabsTrigger>
+                  </TabsList>
+
+                  {/* Incidents by Region - Bar Chart */}
+                  <TabsContent value="incidents" className="space-y-4 mt-6">
+                    <div className="space-y-2">
+                      <h3 className="text-lg font-semibold">Incidentes por Região (24h)</h3>
+                      <p className="text-sm text-muted-foreground">Total de ocorrências registradas em cada região</p>
+                    </div>
+                    <ResponsiveContainer width="100%" height={400}>
+                      <BarChart data={realData.data}>
+                        <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                        <XAxis dataKey="regionName" className="text-xs" />
+                        <YAxis className="text-xs" />
+                        <Tooltip 
+                          contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))' }}
+                          labelStyle={{ color: 'hsl(var(--foreground))' }}
+                        />
+                        <Legend />
+                        <Bar dataKey="incidents" fill="hsl(var(--primary))" name="Incidentes" radius={[8, 8, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </TabsContent>
+
+                  {/* Crime Types Comparison - Pie Chart */}
+                  <TabsContent value="comparison" className="space-y-4 mt-6">
+                    <div className="space-y-2">
+                      <h3 className="text-lg font-semibold">Distribuição de Tipos de Crime</h3>
+                      <p className="text-sm text-muted-foreground">Proporção de cada tipo de crime registrado</p>
+                    </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      {realData.data.slice(0, 2).map((region) => {
+                        const COLORS = ['hsl(var(--primary))', 'hsl(var(--destructive))', 'hsl(var(--warning))', 'hsl(var(--success))', 'hsl(var(--secondary))'];
+                        return (
+                          <div key={region.regionName} className="space-y-2">
+                            <h4 className="font-medium text-center">{region.regionName}</h4>
+                            <ResponsiveContainer width="100%" height={300}>
+                              <PieChart>
+                                <Pie
+                                  data={region.crimeTypes}
+                                  cx="50%"
+                                  cy="50%"
+                                  labelLine={false}
+                                  label={(entry) => entry.type}
+                                  outerRadius={80}
+                                  fill="hsl(var(--primary))"
+                                  dataKey="count"
+                                >
+                                  {region.crimeTypes.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                  ))}
+                                </Pie>
+                                <Tooltip 
+                                  contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))' }}
+                                />
+                              </PieChart>
+                            </ResponsiveContainer>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </TabsContent>
+
+                  {/* Trends - Line Chart */}
+                  <TabsContent value="trends" className="space-y-4 mt-6">
+                    <div className="space-y-2">
+                      <h3 className="text-lg font-semibold">Tendência de Incidentes</h3>
+                      <p className="text-sm text-muted-foreground">Comparação temporal entre regiões</p>
+                    </div>
+                    <ResponsiveContainer width="100%" height={400}>
+                      <LineChart data={realData.data}>
+                        <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                        <XAxis dataKey="regionName" className="text-xs" />
+                        <YAxis className="text-xs" />
+                        <Tooltip 
+                          contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))' }}
+                          labelStyle={{ color: 'hsl(var(--foreground))' }}
+                        />
+                        <Legend />
+                        <Line 
+                          type="monotone" 
+                          dataKey="incidents" 
+                          stroke="hsl(var(--primary))" 
+                          strokeWidth={3}
+                          name="Incidentes"
+                          dot={{ fill: 'hsl(var(--primary))', r: 6 }}
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </TabsContent>
+
+                  {/* Safety Ranking */}
+                  <TabsContent value="ranking" className="space-y-4 mt-6">
+                    <div className="space-y-2">
+                      <h3 className="text-lg font-semibold">Ranking de Segurança</h3>
+                      <p className="text-sm text-muted-foreground">Regiões ordenadas por nível de segurança</p>
+                    </div>
+                    <div className="space-y-3">
+                      {[...realData.data]
+                        .sort((a, b) => a.incidents - b.incidents)
+                        .map((region, index) => {
+                          const position = index + 1;
+                          const getMedalEmoji = () => {
+                            if (position === 1) return '🥇';
+                            if (position === 2) return '🥈';
+                            if (position === 3) return '🥉';
+                            return `${position}º`;
+                          };
+                          
+                          return (
+                            <div
+                              key={region.regionName}
+                              className="flex items-center justify-between p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
+                            >
+                              <div className="flex items-center gap-4">
+                                <span className="text-2xl font-bold w-12 text-center">
+                                  {getMedalEmoji()}
+                                </span>
+                                <div>
+                                  <h4 className="font-semibold">{region.regionName}</h4>
+                                  <p className="text-sm text-muted-foreground">
+                                    {region.incidents} incidentes
+                                  </p>
+                                </div>
+                              </div>
+                              <RiskBadge level={region.level} />
+                            </div>
+                          );
+                        })}
+                    </div>
+                    
+                    {/* Summary Statistics */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 pt-6 border-t">
+                      <Card>
+                        <CardContent className="pt-6">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="text-sm text-muted-foreground">Região Mais Segura</p>
+                              <p className="text-lg font-bold text-primary">
+                                {[...realData.data].sort((a, b) => a.incidents - b.incidents)[0]?.regionName}
+                              </p>
+                            </div>
+                            <TrendingUp className="w-8 h-8 text-primary" />
+                          </div>
+                        </CardContent>
+                      </Card>
+                      <Card>
+                        <CardContent className="pt-6">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="text-sm text-muted-foreground">Total de Incidentes</p>
+                              <p className="text-lg font-bold text-destructive">
+                                {realData.data.reduce((sum, r) => sum + r.incidents, 0)}
+                              </p>
+                            </div>
+                            <AlertTriangle className="w-8 h-8 text-destructive" />
+                          </div>
+                        </CardContent>
+                      </Card>
+                      <Card>
+                        <CardContent className="pt-6">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="text-sm text-muted-foreground">Média por Região</p>
+                              <p className="text-lg font-bold">
+                                {Math.round(realData.data.reduce((sum, r) => sum + r.incidents, 0) / realData.data.length)}
+                              </p>
+                            </div>
+                            <BarChart3 className="w-8 h-8 text-primary" />
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </TabsContent>
+                </Tabs>
               </CardContent>
             </Card>
           </>

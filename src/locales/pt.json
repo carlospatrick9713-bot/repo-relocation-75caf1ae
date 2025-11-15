@@ -168,12 +168,116 @@
             "pronunciation": "MAH-sah"
           },
           {
+            "word": "Irado",
+            "translation": "Awesome / Cool",
+            "explanation": "Algo muito legal ou impressionante",
+            "example": "A festa estava irada demais!",
+            "exampleTranslation": "The party was super awesome!",
+            "pronunciation": "ee-RAH-doo"
+          },
+          {
+            "word": "Bolado",
+            "translation": "Angry / Upset",
+            "explanation": "Chateado ou irritado com algo",
+            "example": "Ele ficou bolado com a notícia.",
+            "exampleTranslation": "He got upset with the news.",
+            "pronunciation": "boh-LAH-doo"
+          },
+          {
+            "word": "De boa",
+            "translation": "Easygoing / No problem",
+            "explanation": "Tranquilo, sem preocupações",
+            "example": "Tá tudo de boa aqui.",
+            "exampleTranslation": "Everything's cool here.",
+            "pronunciation": "jee BO-ah"
+          },
+          {
+            "word": "Tranquilo / Tranks",
+            "translation": "All good / Chill",
+            "explanation": "Tudo bem, relaxado",
+            "example": "Fica tranks, vai dar tudo certo.",
+            "exampleTranslation": "Stay chill, it'll all work out.",
+            "pronunciation": "tran-KEE-loo / TRANKS"
+          },
+          {
+            "word": "Caraca!",
+            "translation": "Wow! / Whoa!",
+            "explanation": "Expressão de surpresa ou admiração",
+            "example": "Caraca! Que casa linda!",
+            "exampleTranslation": "Wow! What a beautiful house!",
+            "pronunciation": "kah-RAH-kah"
+          },
+          {
+            "word": "Caramba!",
+            "translation": "Damn! / Gosh!",
+            "explanation": "Interjeição de espanto",
+            "example": "Caramba, que susto!",
+            "exampleTranslation": "Damn, what a scare!",
+            "pronunciation": "kah-RAM-bah"
+          },
+          {
             "word": "Sinistro",
-            "translation": "Amazing / Crazy good",
-            "explanation": "Significa algo impressionante ou muito bom",
+            "translation": "Amazing / Crazy",
+            "explanation": "Significa algo impressionante (bom ou ruim dependendo do contexto)",
             "example": "Esse DJ é sinistro!",
             "exampleTranslation": "This DJ is amazing!",
             "pronunciation": "see-NEES-troo"
+          },
+          {
+            "word": "Papo reto",
+            "translation": "Real talk / Honestly",
+            "explanation": "Falar sério, com sinceridade",
+            "example": "Papo reto, você precisa estudar mais.",
+            "exampleTranslation": "Real talk, you need to study more.",
+            "pronunciation": "PAH-poo HEH-too"
+          },
+          {
+            "word": "Tipo assim...",
+            "translation": "Like... / You know...",
+            "explanation": "Expressão de hesitação ou para exemplificar",
+            "example": "Tipo assim, a gente podia ir ao cinema.",
+            "exampleTranslation": "Like, we could go to the movies.",
+            "pronunciation": "CHEE-poo ah-SEEM"
+          },
+          {
+            "word": "Zoar",
+            "translation": "To make fun / To tease",
+            "explanation": "Fazer brincadeiras ou tirar sarro de alguém",
+            "example": "Para de me zoar, cara!",
+            "exampleTranslation": "Stop making fun of me, dude!",
+            "pronunciation": "zoh-AR"
+          },
+          {
+            "word": "Maneiro",
+            "translation": "Cool / Nice",
+            "explanation": "Algo legal ou interessante",
+            "example": "Que rolê maneiro!",
+            "exampleTranslation": "What a cool hangout!",
+            "pronunciation": "mah-NAY-roo"
+          },
+          {
+            "word": "Zoado",
+            "translation": "Messed up / Broken",
+            "explanation": "Algo que está quebrado ou em mau estado",
+            "example": "Meu celular tá zoado.",
+            "exampleTranslation": "My phone is messed up.",
+            "pronunciation": "zoh-AH-doo"
+          },
+          {
+            "word": "Mó",
+            "translation": "Really / Very",
+            "explanation": "Abreviação de 'muito', usado para intensificar",
+            "example": "Mó legal essa música!",
+            "exampleTranslation": "This song is really cool!",
+            "pronunciation": "moh"
+          },
+          {
+            "word": "Sussa",
+            "translation": "Super chill / No worries",
+            "explanation": "Muito tranquilo, sem problemas",
+            "example": "Tá tudo sussa por aqui.",
+            "exampleTranslation": "Everything's super chill here.",
+            "pronunciation": "SOO-sah"
           },
           {
             "word": "Vacilo",
@@ -186,7 +290,7 @@
           {
             "word": "Pô",
             "translation": "Come on / Man",
-            "explanation": "Interjeição para expressar decepção ou surpresa",
+            "explanation": "Interjeição casual (como 'yo', 'man')",
             "example": "Pô, cara, por que você não veio?",
             "exampleTranslation": "Come on, man, why didn't you come?",
             "pronunciation": "poh"
@@ -205,12 +309,28 @@
             "pronunciation": "MAH-noo / MEE-nah"
           },
           {
-            "word": "Parça",
-            "translation": "Buddy / Partner",
-            "explanation": "Amigo próximo, parceiro",
-            "example": "Esse é meu parça de infância.",
-            "exampleTranslation": "This is my childhood buddy.",
-            "pronunciation": "PAR-sah"
+            "word": "Mermão",
+            "translation": "Bro / Dude",
+            "explanation": "Variação de 'meu irmão', muito usada no Rio",
+            "example": "E aí, mermão? Bora praia?",
+            "exampleTranslation": "Hey bro, let's go to the beach?",
+            "pronunciation": "mehr-MOW"
+          },
+          {
+            "word": "Parceiro / Parça",
+            "translation": "Partner / Buddy",
+            "explanation": "Amigo próximo, companheiro",
+            "example": "Esse é meu parceiro de sempre.",
+            "exampleTranslation": "This is my longtime buddy.",
+            "pronunciation": "par-SAY-roo / PAR-sah"
+          },
+          {
+            "word": "Brother / Brod",
+            "translation": "Bro / Brother",
+            "explanation": "Versão carioca de 'brother', amigo próximo",
+            "example": "Salve, brod! Tudo tranks?",
+            "exampleTranslation": "Hey bro! All good?",
+            "pronunciation": "BRO-der / BROD"
           },
           {
             "word": "Maluco(a)",
@@ -242,12 +362,84 @@
             "pronunciation": "tah ho-LAHN-doo"
           },
           {
-            "word": "Quebrar o galho",
-            "translation": "Help out / Fix it",
-            "explanation": "Resolver um problema de forma improvisada",
-            "example": "Você pode quebrar meu galho?",
-            "exampleTranslation": "Can you help me out?",
-            "pronunciation": "keh-BRAR oo GAH-lyoo"
+            "word": "Vambora",
+            "translation": "Let's go",
+            "explanation": "Contração de 'vamos embora', convite para ir",
+            "example": "Vambora, galera! Tá tarde!",
+            "exampleTranslation": "Let's go, guys! It's late!",
+            "pronunciation": "vam-BO-rah"
+          },
+          {
+            "word": "Dar ruim",
+            "translation": "Go wrong",
+            "explanation": "Quando algo dá errado ou tem consequências ruins",
+            "example": "Se você chegar tarde, vai dar ruim.",
+            "exampleTranslation": "If you arrive late, it'll go wrong.",
+            "pronunciation": "dar HOO-eem"
+          },
+          {
+            "word": "Dar bom",
+            "translation": "Go well",
+            "explanation": "Quando algo dá certo",
+            "example": "Relaxa que vai dar bom!",
+            "exampleTranslation": "Relax, it'll work out!",
+            "pronunciation": "dar BOM"
+          },
+          {
+            "word": "Marrento",
+            "translation": "Cocky / Arrogant",
+            "explanation": "Pessoa convencida ou arrogante",
+            "example": "Esse cara é muito marrento.",
+            "exampleTranslation": "This guy is very cocky.",
+            "pronunciation": "mah-HREN-too"
+          },
+          {
+            "word": "Gambiarra",
+            "translation": "Improvised fix",
+            "explanation": "Solução criativa e improvisada para um problema",
+            "example": "Fiz uma gambiarra pra consertar.",
+            "exampleTranslation": "I made a workaround to fix it.",
+            "pronunciation": "gam-bee-AH-hah"
+          },
+          {
+            "word": "Perrengue",
+            "translation": "Tough situation",
+            "explanation": "Situação difícil ou problemática",
+            "example": "Passei um perrengue danado ontem.",
+            "exampleTranslation": "I went through a tough time yesterday.",
+            "pronunciation": "peh-HREN-gee"
+          },
+          {
+            "word": "B.O.",
+            "translation": "Problem / Trouble",
+            "explanation": "Abreviação de 'boletim de ocorrência', significa problema",
+            "example": "Não quero B.O. com ninguém.",
+            "exampleTranslation": "I don't want problems with anyone.",
+            "pronunciation": "beh-OH"
+          },
+          {
+            "word": "Quebra galho",
+            "translation": "Makeshift solution",
+            "explanation": "Solução rápida e improvisada",
+            "example": "Esse app é um quebra galho.",
+            "exampleTranslation": "This app is a makeshift solution.",
+            "pronunciation": "KEH-brah GAH-lyoo"
+          },
+          {
+            "word": "Vacilão",
+            "translation": "Unreliable / Someone who messed up",
+            "explanation": "Pessoa que falha ou não é confiável",
+            "example": "Ele é vacilão, sempre chega atrasado.",
+            "exampleTranslation": "He's unreliable, always arrives late.",
+            "pronunciation": "vah-see-LOW"
+          },
+          {
+            "word": "Bonde",
+            "translation": "Group of friends",
+            "explanation": "Grupo de amigos que andam juntos",
+            "example": "Chamei todo o bonde pra festa.",
+            "exampleTranslation": "I called the whole crew for the party.",
+            "pronunciation": "BON-jee"
           },
           {
             "word": "Dar mole",
@@ -272,6 +464,125 @@
             "example": "Esse trânsito tá osso!",
             "exampleTranslation": "This traffic is tough!",
             "pronunciation": "tah OH-soo"
+          }
+        ]
+      },
+      "places": {
+        "name": "Lugares e Cultura Local",
+        "items": [
+          {
+            "word": "Rolé",
+            "translation": "Hangout / Walk",
+            "explanation": "Passeio informal com amigos",
+            "example": "Vamos dar um rolé na orla?",
+            "exampleTranslation": "Let's take a walk on the boardwalk?",
+            "pronunciation": "ho-LEH"
+          },
+          {
+            "word": "Partiu praia?",
+            "translation": "Let's go to the beach?",
+            "explanation": "Convite típico carioca para ir à praia",
+            "example": "O sol tá lindo! Partiu praia?",
+            "exampleTranslation": "The sun is beautiful! Let's go to the beach?",
+            "pronunciation": "par-CHEE-oo PRAI-ah"
+          },
+          {
+            "word": "Morro / Asfalto",
+            "translation": "Hill favela / Non-favela area",
+            "explanation": "Termos culturais: morro = favelas nas colinas, asfalto = áreas formais da cidade",
+            "example": "Ele mora no morro, eu moro no asfalto.",
+            "exampleTranslation": "He lives in the favela, I live in the formal area.",
+            "pronunciation": "MOH-hoo / as-FAL-too"
+          },
+          {
+            "word": "Favelinha",
+            "translation": "Little favela (affectionate)",
+            "explanation": "Apelido carinhoso para comunidade de favela",
+            "example": "Cresci na favelinha do morro.",
+            "exampleTranslation": "I grew up in the little favela on the hill.",
+            "pronunciation": "fah-veh-LEE-nyah"
+          },
+          {
+            "word": "Laje",
+            "translation": "Rooftop",
+            "explanation": "Terraço ou telhado plano, comum nas comunidades",
+            "example": "Vamos fazer um churrasco na laje?",
+            "exampleTranslation": "Let's have a barbecue on the rooftop?",
+            "pronunciation": "LAH-jee"
+          }
+        ]
+      },
+      "food": {
+        "name": "Comida e Bebida",
+        "items": [
+          {
+            "word": "Farofa / Farofeiro",
+            "translation": "Toasted flour / Beach person with lots of supplies",
+            "explanation": "Farofa = acompanhamento; Farofeiro = pessoa que vai à praia muito equipada com comida e utensílios",
+            "example": "Aquele farofeiro trouxe mesa, cadeira e tudo!",
+            "exampleTranslation": "That beach-goer brought table, chairs and everything!",
+            "pronunciation": "fah-RO-fah / fah-ro-FAY-roo"
+          },
+          {
+            "word": "Sacolé / Chopp de geladinho",
+            "translation": "Popsicle-in-a-bag",
+            "explanation": "Picolé vendido em saquinho plástico, típico das praias",
+            "example": "Vou comprar um sacolé de limão.",
+            "exampleTranslation": "I'll buy a lemon popsicle.",
+            "pronunciation": "sah-ko-LEH / SHOHP jee zheh-lah-JEE-nyoo"
+          },
+          {
+            "word": "Salgados",
+            "translation": "Savory snacks",
+            "explanation": "Salgadinhos como coxinha, pastel, quibe",
+            "example": "Vou pegar uns salgados na padaria.",
+            "exampleTranslation": "I'll grab some snacks at the bakery.",
+            "pronunciation": "sal-GAH-doos"
+          },
+          {
+            "word": "Biscoito",
+            "translation": "Cookie / Cracker",
+            "explanation": "No Rio se fala 'biscoito' (não 'bolacha' como em outros estados)",
+            "example": "Me passa o pacote de biscoito.",
+            "exampleTranslation": "Pass me the cookie package.",
+            "pronunciation": "bees-KOY-too"
+          },
+          {
+            "word": "Mate com limão",
+            "translation": "Iced mate tea with lemon",
+            "explanation": "Bebida típica vendida nas praias cariocas",
+            "example": "Um mate gelado com limão, por favor!",
+            "exampleTranslation": "One iced mate with lemon, please!",
+            "pronunciation": "MAH-chee kom lee-MOW"
+          },
+          {
+            "word": "Pão francês / Pão careca",
+            "translation": "French bread / Bald bread",
+            "explanation": "Pãozinho tradicional brasileiro (em algumas áreas do RJ também chamado de pão careca)",
+            "example": "Quero dois pão francês com manteiga.",
+            "exampleTranslation": "I want two French breads with butter.",
+            "pronunciation": "POW fran-SACE / POW kah-REH-kah"
+          },
+          {
+            "word": "X-Tudo",
+            "translation": "Burger with everything",
+            "explanation": "Hambúrguer com todos os ingredientes possíveis",
+            "example": "Vou pedir um X-Tudo com fritas.",
+            "exampleTranslation": "I'll order a burger with everything and fries.",
+            "pronunciation": "SHEES-TOO-doo"
+          }
+        ]
+      },
+      "transport": {
+        "name": "Transporte",
+        "items": [
+          {
+            "word": "BRT / VLT / Barcas",
+            "translation": "Bus Rapid Transit / Light Rail / Ferries",
+            "explanation": "Sistemas de transporte público do Rio: BRT (ônibus expresso), VLT (trem leve), Barcas (balsas)",
+            "example": "Vou pegar o BRT até a Barra.",
+            "exampleTranslation": "I'll take the BRT to Barra.",
+            "pronunciation": "beh-eh-reh-TEH / veh-eh-leh-TEH / BAR-kas"
           }
         ]
       }

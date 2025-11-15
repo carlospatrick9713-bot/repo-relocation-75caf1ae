@@ -166,37 +166,73 @@ export type Database = {
       tourist_spots: {
         Row: {
           category: string
+          category_de: string | null
+          category_en: string | null
+          category_es: string | null
+          category_fr: string | null
           created_at: string | null
           description: string
+          description_de: string | null
+          description_en: string | null
+          description_es: string | null
+          description_fr: string | null
           id: string
           image: string
           lat: number
           lng: number
           name: string
+          name_de: string | null
+          name_en: string | null
+          name_es: string | null
+          name_fr: string | null
           risk_level: string
           updated_at: string | null
         }
         Insert: {
           category: string
+          category_de?: string | null
+          category_en?: string | null
+          category_es?: string | null
+          category_fr?: string | null
           created_at?: string | null
           description: string
+          description_de?: string | null
+          description_en?: string | null
+          description_es?: string | null
+          description_fr?: string | null
           id?: string
           image: string
           lat: number
           lng: number
           name: string
+          name_de?: string | null
+          name_en?: string | null
+          name_es?: string | null
+          name_fr?: string | null
           risk_level: string
           updated_at?: string | null
         }
         Update: {
           category?: string
+          category_de?: string | null
+          category_en?: string | null
+          category_es?: string | null
+          category_fr?: string | null
           created_at?: string | null
           description?: string
+          description_de?: string | null
+          description_en?: string | null
+          description_es?: string | null
+          description_fr?: string | null
           id?: string
           image?: string
           lat?: number
           lng?: number
           name?: string
+          name_de?: string | null
+          name_en?: string | null
+          name_es?: string | null
+          name_fr?: string | null
           risk_level?: string
           updated_at?: string | null
         }

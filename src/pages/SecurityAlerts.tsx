@@ -15,6 +15,9 @@ import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
 import LanguageSelector from '@/components/LanguageSelector';
 import MapView from '@/components/MapView';
+import { useRealSecurityData } from '@/hooks/useRealSecurityData';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Phone, Info } from 'lucide-react';
 
 export default function SecurityAlerts() {
   const navigate = useNavigate();
@@ -22,6 +25,7 @@ export default function SecurityAlerts() {
   const { isPremium, isLoading } = usePremium();
   const { user, loading: authLoading } = useAuth();
   const { alerts, lastUpdate } = useSecurityAlerts(isPremium);
+  const { data: realData, isLoading: loadingRealData } = useRealSecurityData(isPremium);
   const [showExitDialog, setShowExitDialog] = useState(false);
 
   const formatLastUpdate = () => {
@@ -177,39 +181,144 @@ export default function SecurityAlerts() {
           </CardContent>
         </Card>
 
-        {/* Regional Alerts */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {regionAlerts.map((alert, index) => (
-            <Card
-              key={alert.region}
-              className="animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
+        {/* Real Security Data from ISP Conecta */}
+        {loadingRealData ? (
+          <Card className="animate-fade-in">
+            <CardContent className="py-8 text-center">
+              <p className="text-muted-foreground">{t('common.loading')}</p>
+            </CardContent>
+          </Card>
+        ) : realData && (
+          <>
+            {/* Statistics Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {realData.data.map((region, index) => (
+                <Card key={region.regionName} className="animate-fade-in" style={{ animationDelay: `${index * 0.05}s` }}>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-sm font-medium flex items-center justify-between">
+                      <span>{region.regionName}</span>
+                      <RiskBadge level={region.level} />
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-primary">{region.incidents}</div>
+                    <p className="text-xs text-muted-foreground mt-1">Incidentes (últimas 24h)</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Detailed Regional Information */}
+            <div className="space-y-6">
+              {realData.data.map((region, index) => (
+                <Card key={region.regionName} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <CardHeader>
+                    <CardTitle className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-5 h-5 text-primary" />
+                        {region.regionName}
+                      </div>
+                      <RiskBadge level={region.level} />
+                    </CardTitle>
+                    <CardDescription>
+                      {region.incidents} incidentes registrados nas últimas 24 horas
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Tabs defaultValue="crimes" className="w-full">
+                      <TabsList className="grid w-full grid-cols-3">
+                        <TabsTrigger value="crimes">Tipos de Crime</TabsTrigger>
+                        <TabsTrigger value="hours">Horários</TabsTrigger>
+                        <TabsTrigger value="tips">Dicas</TabsTrigger>
+                      </TabsList>
+                      
+                      <TabsContent value="crimes" className="space-y-3 mt-4">
+                        <div className="space-y-2">
+                          {region.crimeTypes.map((crime, idx) => (
+                            <div key={idx} className="flex items-center justify-between p-2 rounded-lg bg-muted/50">
+                              <span className="text-sm">{crime.type}</span>
+                              <Badge variant="outline">{crime.count} casos</Badge>
+                            </div>
+                          ))}
+                        </div>
+                      </TabsContent>
+                      
+                      <TabsContent value="hours" className="space-y-3 mt-4">
+                        <div className="space-y-2">
+                          <p className="text-sm font-medium">Horários de maior risco:</p>
+                          {region.dangerousHours.map((hour, idx) => (
+                            <div key={idx} className="flex items-center gap-2 p-2 rounded-lg bg-destructive/10">
+                              <Clock className="w-4 h-4 text-destructive" />
+                              <span className="text-sm">{hour}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </TabsContent>
+                      
+                      <TabsContent value="tips" className="space-y-3 mt-4">
+                        <div className="space-y-2">
+                          {region.safetyTips.map((tip, idx) => (
+                            <div key={idx} className="flex items-start gap-2 p-2 rounded-lg bg-primary/5">
+                              <Info className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                              <span className="text-sm">{tip}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </TabsContent>
+                    </Tabs>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Emergency Contacts */}
+            <Card className="animate-fade-in bg-gradient-to-br from-destructive/5 to-transparent">
               <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-5 h-5 text-primary" />
-                    {alert.region}
-                  </div>
-                  <RiskBadge level={alert.level} />
+                <CardTitle className="flex items-center gap-2">
+                  <Phone className="w-5 h-5 text-destructive" />
+                  Telefones de Emergência
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground">{alert.message}</p>
-                <div>
-                  <div className="text-sm font-medium mb-2">{t('securityAlerts.mainAreas')}</div>
-                  <div className="flex flex-wrap gap-2">
-                    {alert.areas.map((area) => (
-                      <Badge key={area} variant="secondary">
-                        {area}
-                      </Badge>
-                    ))}
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-background">
+                    <span className="font-medium">Polícia Militar</span>
+                    <a href="tel:190" className="text-lg font-bold text-primary hover:underline">190</a>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-background">
+                    <span className="font-medium">Bombeiros</span>
+                    <a href="tel:193" className="text-lg font-bold text-primary hover:underline">193</a>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-background">
+                    <span className="font-medium">SAMU</span>
+                    <a href="tel:192" className="text-lg font-bold text-primary hover:underline">192</a>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-background">
+                    <span className="font-medium">Defesa Civil</span>
+                    <a href="tel:199" className="text-lg font-bold text-primary hover:underline">199</a>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-background">
+                    <span className="font-medium">Disque Denúncia</span>
+                    <a href="tel:21971997" className="text-lg font-bold text-primary hover:underline">2197-1997</a>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-background">
+                    <span className="font-medium">Polícia Rodoviária</span>
+                    <a href="tel:191" className="text-lg font-bold text-primary hover:underline">191</a>
                   </div>
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
+
+            {/* Data Source */}
+            <Card className="animate-fade-in">
+              <CardContent className="py-4">
+                <p className="text-xs text-muted-foreground text-center">
+                  Dados fornecidos por: {realData.source} | Última atualização: {new Date(realData.lastUpdate).toLocaleString('pt-BR')}
+                </p>
+              </CardContent>
+            </Card>
+          </>
+        )}
       </main>
 
       {/* Premium Overlay */}

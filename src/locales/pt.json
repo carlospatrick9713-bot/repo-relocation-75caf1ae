@@ -826,9 +826,13 @@
   },
   "restaurants": {
     "title": "Restaurantes",
-    "searchPlaceholder": "Buscar por nome ou tipo de culinária...",
+    "subtitle": "Os 20 melhores restaurantes do Rio de Janeiro",
+    "searchPlaceholder": "Buscar restaurantes ou tipo de culinária...",
     "byCuisine": "Por Tipo de Culinária",
     "all": "Todos",
+    "restaurantsCount": "Restaurantes",
+    "cuisineTypesCount": "Tipos de Culinária",
+    "averageRating": "Avaliação Média",
     "hours": "Horário",
     "averagePrice": "Média",
     "rating": "Avaliação",
@@ -840,6 +844,33 @@
     "title": "404",
     "message": "Ops! Página não encontrada",
     "returnHome": "Voltar para a Página Inicial"
+  },
+  "highlights": {
+    "title": "Destaques do Rio",
+    "subtitle": "Explore os pontos turísticos mais populares e bem avaliados da Cidade Maravilhosa",
+    "topTenTitle": "Top 10 Mais Visitados"
+  },
+  "weather": {
+    "title": "Meteorologia",
+    "subtitle": "Previsão do tempo atualizada para o Rio de Janeiro",
+    "currentWeather": "Agora no Rio de Janeiro",
+    "wind": "Vento",
+    "humidity": "Umidade",
+    "visibility": "Visibilidade",
+    "pressure": "Pressão",
+    "forecastTitle": "Previsão para os Próximos Dias",
+    "days": {
+      "monday": "Segunda",
+      "tuesday": "Terça",
+      "wednesday": "Quarta",
+      "thursday": "Quinta",
+      "friday": "Sexta"
+    },
+    "conditions": {
+      "sunny": "Ensolarado",
+      "partlyCloudy": "Parcialmente nublado",
+      "rainy": "Chuvoso"
+    }
   },
   "gallery": {
     "title": "Galeria de Fotos",

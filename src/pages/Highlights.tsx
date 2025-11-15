@@ -63,10 +63,10 @@ export default function Highlights() {
           <div className="text-center space-y-4 animate-fade-in">
             <div className="flex items-center justify-center gap-3">
               <Sparkles className="w-10 h-10 text-primary" />
-              <h2 className="text-4xl font-bold">Destaques do Rio</h2>
+              <h2 className="text-4xl font-bold">{t('highlights.title')}</h2>
             </div>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Explore os pontos turísticos mais populares e bem avaliados da Cidade Maravilhosa
+              {t('highlights.subtitle')}
             </p>
           </div>
 
@@ -75,7 +75,7 @@ export default function Highlights() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-primary" />
-                Top 10 Mais Visitados
+                {t('highlights.topTenTitle')}
               </CardTitle>
             </CardHeader>
             <CardContent>

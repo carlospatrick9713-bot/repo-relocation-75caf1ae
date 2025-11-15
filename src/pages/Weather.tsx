@@ -56,17 +56,17 @@ export default function Weather() {
         <div className="text-center space-y-4 animate-fade-in">
           <div className="flex items-center justify-center gap-3">
             <Cloud className="w-10 h-10 text-primary" />
-            <h2 className="text-4xl font-bold">Meteorologia</h2>
+            <h2 className="text-4xl font-bold">{t('weather.title')}</h2>
           </div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Previsão do tempo atualizada para o Rio de Janeiro
+            {t('weather.subtitle')}
           </p>
         </div>
 
         {/* Current Weather */}
         <Card className="animate-fade-in bg-gradient-to-br from-primary/10 to-primary/5 border-primary/20">
           <CardHeader>
-            <CardTitle className="text-center">Agora no Rio de Janeiro</CardTitle>
+            <CardTitle className="text-center">{t('weather.currentWeather')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="flex items-center justify-center gap-8">
@@ -116,7 +116,7 @@ export default function Weather() {
         {/* Forecast */}
         <Card className="animate-fade-in">
           <CardHeader>
-            <CardTitle>Previsão para os Próximos Dias</CardTitle>
+            <CardTitle>{t('weather.forecastTitle')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">

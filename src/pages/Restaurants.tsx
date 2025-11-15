@@ -122,20 +122,20 @@ export default function Restaurants() {
       {/* Main Content */}
       <main className={`container py-8 px-4 space-y-8 ${!isPremium && !isLoading ? 'blur-md pointer-events-none' : ''}`}>
         {/* Hero Section */}
-        <div className="space-y-4 animate-fade-in">
+          <div className="space-y-4 animate-fade-in">
           <div className="flex items-center gap-3">
             <Utensils className="w-10 h-10 text-primary" />
-            <h2 className="text-4xl font-bold">Restaurantes</h2>
+            <h2 className="text-4xl font-bold">{t('restaurants.title')}</h2>
           </div>
           <p className="text-lg text-muted-foreground">
-            Os 20 melhores restaurantes do Rio de Janeiro
+            {t('restaurants.subtitle')}
           </p>
 
           {/* Search */}
           <div className="relative max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <Input
-              placeholder="Buscar restaurantes ou tipo de culinária..."
+              placeholder={t('restaurants.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -149,7 +149,7 @@ export default function Restaurants() {
             <CardContent className="pt-6">
               <div className="text-center space-y-2">
                 <div className="text-4xl font-bold">{restaurants.length}</div>
-                <div className="text-sm text-muted-foreground">Restaurantes</div>
+                <div className="text-sm text-muted-foreground">{t('restaurants.restaurantsCount')}</div>
               </div>
             </CardContent>
           </Card>
@@ -157,7 +157,7 @@ export default function Restaurants() {
             <CardContent className="pt-6">
               <div className="text-center space-y-2">
                 <div className="text-4xl font-bold">{cuisineTypes.length}</div>
-                <div className="text-sm text-muted-foreground">Tipos de Culinária</div>
+                <div className="text-sm text-muted-foreground">{t('restaurants.cuisineTypesCount')}</div>
               </div>
             </CardContent>
           </Card>
@@ -165,7 +165,7 @@ export default function Restaurants() {
             <CardContent className="pt-6">
               <div className="text-center space-y-2">
                 <div className="text-4xl font-bold">4.6</div>
-                <div className="text-sm text-muted-foreground">Avaliação Média</div>
+                <div className="text-sm text-muted-foreground">{t('restaurants.averageRating')}</div>
               </div>
             </CardContent>
           </Card>
@@ -175,7 +175,7 @@ export default function Restaurants() {
         <Tabs defaultValue="all" className="w-full">
           <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 h-auto">
             <TabsTrigger value="all" className="text-xs">
-              Todos ({filteredRestaurants.length})
+              {t('restaurants.all')} ({filteredRestaurants.length})
             </TabsTrigger>
             {cuisineTypes.slice(0, 5).map(cuisine => (
               <TabsTrigger key={cuisine} value={cuisine} className="text-xs">

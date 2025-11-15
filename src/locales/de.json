@@ -344,9 +344,13 @@
   },
   "restaurants": {
     "title": "Restaurants",
-    "searchPlaceholder": "Nach Name oder Küchenart suchen...",
+    "subtitle": "Die 20 besten Restaurants in Rio de Janeiro",
+    "searchPlaceholder": "Restaurants oder Küchenart suchen...",
     "byCuisine": "Nach Küchenart",
     "all": "Alle",
+    "restaurantsCount": "Restaurants",
+    "cuisineTypesCount": "Küchenarten",
+    "averageRating": "Durchschnittliche Bewertung",
     "hours": "Öffnungszeiten",
     "averagePrice": "Durchschnitt",
     "rating": "Bewertung",
@@ -358,6 +362,33 @@
     "title": "404",
     "message": "Ups! Seite nicht gefunden",
     "returnHome": "Zurück zur Startseite"
+  },
+  "highlights": {
+    "title": "Highlights von Rio",
+    "subtitle": "Erkunden Sie die beliebtesten und bestbewerteten Sehenswürdigkeiten der Wunderstadt",
+    "topTenTitle": "Top 10 Meistbesucht"
+  },
+  "weather": {
+    "title": "Wetter",
+    "subtitle": "Aktualisierte Wettervorhersage für Rio de Janeiro",
+    "currentWeather": "Aktuelles Wetter in Rio de Janeiro",
+    "wind": "Wind",
+    "humidity": "Luftfeuchtigkeit",
+    "visibility": "Sichtweite",
+    "pressure": "Luftdruck",
+    "forecastTitle": "Vorhersage für die nächsten Tage",
+    "days": {
+      "monday": "Montag",
+      "tuesday": "Dienstag",
+      "wednesday": "Mittwoch",
+      "thursday": "Donnerstag",
+      "friday": "Freitag"
+    },
+    "conditions": {
+      "sunny": "Sonnig",
+      "partlyCloudy": "Teilweise bewölkt",
+      "rainy": "Regnerisch"
+    }
   },
   "gallery": {
     "title": "Fotogalerie",

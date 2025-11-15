@@ -605,6 +605,33 @@
     "message": "Oups ! Page non trouvée",
     "returnHome": "Retour à l'accueil"
   },
+  "highlights": {
+    "title": "Points Forts de Rio",
+    "subtitle": "Explorez les sites touristiques les plus populaires et les mieux notés de la Ville Merveilleuse",
+    "topTenTitle": "Top 10 des Plus Visités"
+  },
+  "weather": {
+    "title": "Météo",
+    "subtitle": "Prévisions météorologiques actualisées pour Rio de Janeiro",
+    "currentWeather": "Météo Actuelle à Rio de Janeiro",
+    "wind": "Vent",
+    "humidity": "Humidité",
+    "visibility": "Visibilité",
+    "pressure": "Pression",
+    "forecastTitle": "Prévisions pour les Prochains Jours",
+    "days": {
+      "monday": "Lundi",
+      "tuesday": "Mardi",
+      "wednesday": "Mercredi",
+      "thursday": "Jeudi",
+      "friday": "Vendredi"
+    },
+    "conditions": {
+      "sunny": "Ensoleillé",
+      "partlyCloudy": "Partiellement nuageux",
+      "rainy": "Pluvieux"
+    }
+  },
   "gallery": {
     "title": "Galerie de photos",
     "subtitle": "Partagez vos expériences à Rio de Janeiro",

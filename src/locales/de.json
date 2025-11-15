@@ -114,5 +114,68 @@
       }
     },
     "understood": "Verstanden"
+  },
+  "slang": {
+    "title": "Carioca-Slang",
+    "hero": {
+      "title": "Willkommen zum Carioca-Slang-Guide",
+      "subtitle": "Lerne, wie Einheimische wirklich sprechen"
+    },
+    "introduction": "Slang ist eine informelle und kreative Sprachform, die im Alltag verwendet wird. Cariocas lieben es, einzigartige Ausdrücke zu verwenden, die die lebendige und entspannte Kultur von Rio widerspiegeln. Diese Slangausdrücke zu kennen, wird dir helfen, Gespräche besser zu verstehen, dich mit Einheimischen zu verbinden und das Beste aus deiner Erfahrung in der Stadt zu machen!",
+    "searchPlaceholder": "Slang suchen...",
+    "categories": {
+      "greetings": {
+        "name": "Begrüßungen und Häufige Ausdrücke",
+        "items": [
+          {
+            "word": "E aí?",
+            "translation": "Was geht?",
+            "explanation": "Lockere Begrüßung, die oft unter Freunden verwendet wird",
+            "example": "E aí, cara? Tudo bem?",
+            "exampleTranslation": "Was geht, Kumpel? Alles gut?",
+            "pronunciation": "ee-AH-ee"
+          },
+          {
+            "word": "Beleza!",
+            "translation": "Cool! / In Ordnung!",
+            "explanation": "Bedeutet, dass alles gut ist oder um etwas zuzustimmen",
+            "example": "Vamos à praia? Beleza!",
+            "exampleTranslation": "Gehen wir zum Strand? In Ordnung!",
+            "pronunciation": "beh-LEH-zah"
+          },
+          {
+            "word": "Firmeza",
+            "translation": "Sicher / Klar",
+            "explanation": "Bestätigung oder Zustimmung zu etwas",
+            "example": "Nos vemos às 7? Firmeza!",
+            "exampleTranslation": "Sehen wir uns um 7? Klar!",
+            "pronunciation": "feer-MEH-zah"
+          },
+          {
+            "word": "Valeu!",
+            "translation": "Danke!",
+            "explanation": "Lockere Art, sich zu bedanken",
+            "example": "Valeu pela ajuda, mano!",
+            "exampleTranslation": "Danke für die Hilfe, Kumpel!",
+            "pronunciation": "vah-LEH-oo"
+          }
+        ]
+      }
+    },
+    "rioWordsTitle": "Wörter, die nur in Rio verwendet werden",
+    "rioWords": [],
+    "emergencyTitle": "Notfallphrasen",
+    "emergency": [],
+    "culturalTips": {
+      "title": "Kulturelle Tipps",
+      "tips": []
+    }
+  },
+  "languages": {
+    "pt": "Portugiesisch",
+    "en": "Englisch",
+    "es": "Spanisch",
+    "de": "Deutsch",
+    "fr": "Französisch"
   }
 }

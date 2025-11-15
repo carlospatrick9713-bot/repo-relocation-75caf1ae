@@ -101,5 +101,68 @@
       }
     },
     "understood": "Entendido"
+  },
+  "slang": {
+    "title": "Jerga Carioca",
+    "hero": {
+      "title": "Bienvenido a la Guía de Jerga Carioca",
+      "subtitle": "Aprende cómo hablan realmente los locales"
+    },
+    "introduction": "La jerga es una forma informal y creativa de lenguaje utilizada en el día a día. Los cariocas adoran usar expresiones únicas que reflejan la cultura vibrante y relajada de Río. Conocer estas jergas te ayudará a entender mejor las conversaciones, conectarte con los locales y aprovechar al máximo tu experiencia en la ciudad!",
+    "searchPlaceholder": "Buscar jerga...",
+    "categories": {
+      "greetings": {
+        "name": "Saludos y Expresiones Comunes",
+        "items": [
+          {
+            "word": "E aí?",
+            "translation": "¿Qué tal?",
+            "explanation": "Saludo casual muy usado entre amigos",
+            "example": "E aí, cara? Tudo bem?",
+            "exampleTranslation": "¿Qué tal, tío? ¿Todo bien?",
+            "pronunciation": "ee-AH-ee"
+          },
+          {
+            "word": "Beleza!",
+            "translation": "¡Genial! / ¡Vale!",
+            "explanation": "Significa que todo está bien o para estar de acuerdo con algo",
+            "example": "Vamos à praia? Beleza!",
+            "exampleTranslation": "¿Vamos a la playa? ¡Vale!",
+            "pronunciation": "beh-LEH-zah"
+          },
+          {
+            "word": "Firmeza",
+            "translation": "Seguro / Vale",
+            "explanation": "Confirmación o acuerdo con algo",
+            "example": "Nos vemos às 7? Firmeza!",
+            "exampleTranslation": "¿Nos vemos a las 7? ¡Seguro!",
+            "pronunciation": "feer-MEH-zah"
+          },
+          {
+            "word": "Valeu!",
+            "translation": "¡Gracias!",
+            "explanation": "Forma casual de agradecer",
+            "example": "Valeu pela ajuda, mano!",
+            "exampleTranslation": "¡Gracias por la ayuda, tío!",
+            "pronunciation": "vah-LEH-oo"
+          }
+        ]
+      }
+    },
+    "rioWordsTitle": "Palabras Usadas Solo en Río",
+    "rioWords": [],
+    "emergencyTitle": "Frases de Emergencia",
+    "emergency": [],
+    "culturalTips": {
+      "title": "Consejos Culturales",
+      "tips": []
+    }
+  },
+  "languages": {
+    "pt": "Portugués",
+    "en": "Inglés",
+    "es": "Español",
+    "de": "Alemán",
+    "fr": "Francés"
   }
 }

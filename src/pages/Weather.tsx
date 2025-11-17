@@ -12,11 +12,11 @@ export default function Weather() {
   const { t } = useTranslation();
 
   const forecast = [
-    { day: 'Segunda', temp: '28°C', condition: 'Ensolarado', icon: Sun },
-    { day: 'Terça', temp: '26°C', condition: 'Parcialmente nublado', icon: Cloud },
-    { day: 'Quarta', temp: '24°C', condition: 'Chuvoso', icon: CloudRain },
-    { day: 'Quinta', temp: '27°C', condition: 'Ensolarado', icon: Sun },
-    { day: 'Sexta', temp: '29°C', condition: 'Ensolarado', icon: Sun },
+    { day: t('weather.days.monday'), temp: '28°C', condition: t('weather.conditions.sunny'), icon: Sun },
+    { day: t('weather.days.tuesday'), temp: '26°C', condition: t('weather.conditions.partlyCloudy'), icon: Cloud },
+    { day: t('weather.days.wednesday'), temp: '24°C', condition: t('weather.conditions.rainy'), icon: CloudRain },
+    { day: t('weather.days.thursday'), temp: '27°C', condition: t('weather.conditions.sunny'), icon: Sun },
+    { day: t('weather.days.friday'), temp: '29°C', condition: t('weather.conditions.sunny'), icon: Sun },
   ];
 
   return (
@@ -73,7 +73,7 @@ export default function Weather() {
               <Sun className="w-24 h-24 text-yellow-500" />
               <div className="text-center">
                 <div className="text-6xl font-bold">28°C</div>
-                <div className="text-xl text-muted-foreground mt-2">Ensolarado</div>
+                <div className="text-xl text-muted-foreground mt-2">{t('weather.conditions.sunny')}</div>
               </div>
             </div>
 
@@ -81,7 +81,7 @@ export default function Weather() {
               <div className="flex items-center gap-3 p-4 bg-background/50 rounded-lg">
                 <Wind className="w-8 h-8 text-primary" />
                 <div>
-                  <div className="text-sm text-muted-foreground">Vento</div>
+                  <div className="text-sm text-muted-foreground">{t('weather.details.wind')}</div>
                   <div className="text-lg font-semibold">12 km/h</div>
                 </div>
               </div>
@@ -89,7 +89,7 @@ export default function Weather() {
               <div className="flex items-center gap-3 p-4 bg-background/50 rounded-lg">
                 <Droplets className="w-8 h-8 text-primary" />
                 <div>
-                  <div className="text-sm text-muted-foreground">Umidade</div>
+                  <div className="text-sm text-muted-foreground">{t('weather.details.humidity')}</div>
                   <div className="text-lg font-semibold">65%</div>
                 </div>
               </div>
@@ -97,7 +97,7 @@ export default function Weather() {
               <div className="flex items-center gap-3 p-4 bg-background/50 rounded-lg">
                 <Eye className="w-8 h-8 text-primary" />
                 <div>
-                  <div className="text-sm text-muted-foreground">Visibilidade</div>
+                  <div className="text-sm text-muted-foreground">{t('weather.details.visibility')}</div>
                   <div className="text-lg font-semibold">10 km</div>
                 </div>
               </div>
@@ -105,7 +105,7 @@ export default function Weather() {
               <div className="flex items-center gap-3 p-4 bg-background/50 rounded-lg">
                 <Gauge className="w-8 h-8 text-primary" />
                 <div>
-                  <div className="text-sm text-muted-foreground">Pressão</div>
+                  <div className="text-sm text-muted-foreground">{t('weather.details.pressure')}</div>
                   <div className="text-lg font-semibold">1013 hPa</div>
                 </div>
               </div>

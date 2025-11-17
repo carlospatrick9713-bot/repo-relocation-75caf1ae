@@ -4,7 +4,13 @@
   },
   "common": {
     "loading": "Cargando...",
-    "home": "Página de Inicio"
+    "home": "Página de Inicio",
+    "back": "Volver",
+    "goToHome": "Ir al Inicio",
+    "menu": "Menú"
+  },
+  "tourist": {
+    "highlights": "Lugares Destacados"
   },
   "hero": {
     "title": "Explora Río con Seguridad",
@@ -381,10 +387,12 @@
     "title": "Meteorología",
     "subtitle": "Previsión del tiempo actualizada para Río de Janeiro",
     "currentWeather": "Ahora en Río de Janeiro",
-    "wind": "Viento",
-    "humidity": "Humedad",
-    "visibility": "Visibilidad",
-    "pressure": "Presión",
+    "details": {
+      "wind": "Viento",
+      "humidity": "Humedad",
+      "visibility": "Visibilidad",
+      "pressure": "Presión"
+    },
     "forecastTitle": "Previsión para los Próximos Días",
     "days": {
       "monday": "Lunes",

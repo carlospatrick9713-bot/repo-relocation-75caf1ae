@@ -4,7 +4,13 @@
   },
   "common": {
     "loading": "Chargement...",
-    "home": "Page d'Accueil"
+    "home": "Page d'Accueil",
+    "back": "Retour",
+    "goToHome": "Aller à l'Accueil",
+    "menu": "Menu"
+  },
+  "tourist": {
+    "highlights": "Sites Touristiques Phares"
   },
   "hero": {
     "title": "Explorez Rio en Toute Sécurité",
@@ -616,10 +622,12 @@
     "title": "Météo",
     "subtitle": "Prévisions météorologiques actualisées pour Rio de Janeiro",
     "currentWeather": "Météo Actuelle à Rio de Janeiro",
-    "wind": "Vent",
-    "humidity": "Humidité",
-    "visibility": "Visibilité",
-    "pressure": "Pression",
+    "details": {
+      "wind": "Vent",
+      "humidity": "Humidité",
+      "visibility": "Visibilité",
+      "pressure": "Pression"
+    },
     "forecastTitle": "Prévisions pour les Prochains Jours",
     "days": {
       "monday": "Lundi",

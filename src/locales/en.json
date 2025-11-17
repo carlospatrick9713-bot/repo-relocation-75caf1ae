@@ -4,7 +4,13 @@
   },
   "common": {
     "loading": "Loading...",
-    "home": "Home"
+    "home": "Home",
+    "back": "Back",
+    "goToHome": "Go to Home",
+    "menu": "Menu"
+  },
+  "tourist": {
+    "highlights": "Tourist Highlights"
   },
   "hero": {
     "title": "Explore Rio Safely",
@@ -576,10 +582,12 @@
     "title": "Weather",
     "subtitle": "Updated weather forecast for Rio de Janeiro",
     "currentWeather": "Current Weather in Rio de Janeiro",
-    "wind": "Wind",
-    "humidity": "Humidity",
-    "visibility": "Visibility",
-    "pressure": "Pressure",
+    "details": {
+      "wind": "Wind",
+      "humidity": "Humidity",
+      "visibility": "Visibility",
+      "pressure": "Pressure"
+    },
     "forecastTitle": "Forecast for the Next Days",
     "days": {
       "monday": "Monday",

@@ -4,7 +4,13 @@
   },
   "common": {
     "loading": "Laden...",
-    "home": "Startseite"
+    "home": "Startseite",
+    "back": "Zurück",
+    "goToHome": "Zur Startseite",
+    "menu": "Menü"
+  },
+  "tourist": {
+    "highlights": "Touristische Highlights"
   },
   "hero": {
     "title": "Erkunde Rio sicher",
@@ -374,10 +380,12 @@
     "title": "Wetter",
     "subtitle": "Aktualisierte Wettervorhersage für Rio de Janeiro",
     "currentWeather": "Aktuelles Wetter in Rio de Janeiro",
-    "wind": "Wind",
-    "humidity": "Luftfeuchtigkeit",
-    "visibility": "Sichtweite",
-    "pressure": "Luftdruck",
+    "details": {
+      "wind": "Wind",
+      "humidity": "Luftfeuchtigkeit",
+      "visibility": "Sichtweite",
+      "pressure": "Luftdruck"
+    },
     "forecastTitle": "Vorhersage für die nächsten Tage",
     "days": {
       "monday": "Montag",

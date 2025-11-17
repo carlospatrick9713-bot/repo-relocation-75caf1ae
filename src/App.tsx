@@ -15,6 +15,7 @@ import SecurityAlerts from "./pages/SecurityAlerts";
 import TouristGallery from "./pages/TouristGallery";
 import Slang from "./pages/Slang";
 import NotFound from "./pages/NotFound";
+import "./lib/i18n";
 
 const queryClient = new QueryClient();
 

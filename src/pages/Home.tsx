@@ -17,7 +17,12 @@ export default function Home() {
   const { alerts = [] } = useSecurityAlerts();
   const [selectedSpot, setSelectedSpot] = useState<TouristSpot | null>(null);
 
-  const featuredSpots = spots.slice(0, 6);
+  // Ordem específica dos destaques: Cristo Redentor, Pão de Açúcar, Maracanã, Jardim Botânico, Ipanema
+  const featuredOrder = ['Cristo Redentor', 'Pão de Açúcar', 'Maracanã', 'Jardim Botânico', 'Ipanema', 'Copacabana'];
+  const featuredSpots = featuredOrder
+    .map(name => spots.find(spot => spot.name.includes(name)))
+    .filter((spot): spot is TouristSpot => spot !== undefined)
+    .slice(0, 6);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">

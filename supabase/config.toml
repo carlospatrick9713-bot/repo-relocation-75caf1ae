@@ -8,3 +8,9 @@ verify_jwt = true
 
 [functions.text-to-speech]
 verify_jwt = true
+
+[functions.fetch-rio-security-data]
+verify_jwt = true
+
+[functions.translate-tourist-spot]
+verify_jwt = true

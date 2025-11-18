@@ -5,25 +5,25 @@ import { useAuth } from './useAuth';
 export function usePremium() {
   const { user } = useAuth();
 
-  const { data: profile, isLoading } = useQuery({
-    queryKey: ['profile', user?.id],
+  const { data: hasRole, isLoading } = useQuery({
+    queryKey: ['user-role', user?.id, 'premium'],
     queryFn: async () => {
-      if (!user) return null;
+      if (!user) return false;
       
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('is_premium, premium_expires_at')
-        .eq('id', user.id)
-        .maybeSingle();
+      // Use the server-side has_role function for secure role checking
+      const { data, error } = await supabase.rpc('has_role', {
+        _user_id: user.id,
+        _role: 'premium'
+      });
 
-      if (error) throw error;
-      return data;
+      if (error) {
+        console.error('Error checking premium role:', error);
+        return false;
+      }
+      return data as boolean;
     },
     enabled: !!user,
   });
 
-  const isPremium = profile?.is_premium && 
-    (!profile.premium_expires_at || new Date(profile.premium_expires_at) > new Date());
-
-  return { isPremium, isLoading };
+  return { isPremium: hasRole ?? false, isLoading };
 }

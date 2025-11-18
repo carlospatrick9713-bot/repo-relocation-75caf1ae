@@ -152,7 +152,7 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
               onClick={() => handleMenuClick('home')}
             >
               <Home className="w-5 h-5 mr-3 text-primary" />
-              {t('common.home')}
+              {t('menu.home')}
             </Button>
 
             <Button

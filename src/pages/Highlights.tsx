@@ -2,12 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Sparkles, Crown, TrendingUp } from 'lucide-react';
-import { touristSpots } from '@/data/touristSpots';
-import TouristSpotCard from '@/components/TouristSpotCard';
+import { ArrowLeft, Sparkles, TrendingUp, Loader2 } from 'lucide-react';
+import { useTouristSpots, TouristSpot } from '@/hooks/useTouristSpots';
+import TranslatedTouristSpotCard from '@/components/TranslatedTouristSpotCard';
 import { useState } from 'react';
 import TouristSpotDialog from '@/components/TouristSpotDialog';
-import { TouristSpot } from '@/data/touristSpots';
 import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
 import LanguageSelector from '@/components/LanguageSelector';
@@ -15,6 +14,7 @@ import LanguageSelector from '@/components/LanguageSelector';
 export default function Highlights() {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { data: touristSpots = [], isLoading } = useTouristSpots();
   const [selectedSpot, setSelectedSpot] = useState<TouristSpot | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -70,33 +70,40 @@ export default function Highlights() {
             </p>
           </div>
 
+          {/* Loading State */}
+          {isLoading && (
+            <div className="flex justify-center items-center py-12">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            </div>
+          )}
+
           {/* Top 10 Most Visited */}
-          <Card className="animate-fade-in">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-primary" />
-                {t('highlights.topTenTitle')}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {topTenSpots.map((spot, index) => (
-                  <div 
-                    key={spot.id}
-                    className="animate-fade-in"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <TouristSpotCard
-                      name={spot.name}
-                      risk={spot.risk}
-                      image={spot.image}
-                      onClick={() => handleSpotClick(spot)}
-                    />
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          {!isLoading && (
+            <Card className="animate-fade-in">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-primary" />
+                  {t('highlights.topTenTitle')}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {topTenSpots.map((spot, index) => (
+                    <div 
+                      key={spot.id}
+                      className="animate-fade-in"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      <TranslatedTouristSpotCard
+                        spot={spot}
+                        onClick={() => handleSpotClick(spot)}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </main>
       </div>
 

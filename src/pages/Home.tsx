@@ -10,6 +10,7 @@ import LanguageSelector from '@/components/LanguageSelector';
 import AppMenu from '@/components/AppMenu';
 import { Shield } from 'lucide-react';
 import mapImage from '@/assets/rio-pois-map-v4.png';
+import logo from '@/assets/logo-transparent.png';
 
 export default function Home() {
   const { t } = useTranslation();
@@ -29,7 +30,14 @@ export default function Home() {
       {/* Header */}
       <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-primary">{t('menu.home')}</h1>
+          <div className="flex items-center gap-3">
+            <img 
+              src={logo} 
+              alt="Safe Trip Rio" 
+              className="w-10 h-10 object-contain" 
+            />
+            <h1 className="text-2xl font-bold text-primary">{t('menu.home')}</h1>
+          </div>
           <div className="flex items-center gap-2">
             <LanguageSelector />
             <AppMenu />

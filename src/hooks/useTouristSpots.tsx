@@ -1,3 +1,14 @@
+/**
+ * IMPORTANTE: CONFIGURAÇÃO DO BUCKET DE IMAGENS
+ * 
+ * Para que as imagens dos pontos turísticos sejam exibidas corretamente,
+ * o bucket 'tourist-spot-images' DEVE estar configurado como 'Public Bucket'
+ * nas configurações de Storage do painel do Supabase.
+ * 
+ * Sem essa configuração, as URLs públicas geradas não serão acessíveis e
+ * as imagens não carregarão na aplicação.
+ */
+
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 

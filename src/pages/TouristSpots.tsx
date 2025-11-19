@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, MapPin, Search, Crown, Loader2 } from 'lucide-react';
-import { useTouristSpots, TouristSpot } from '@/hooks/useTouristSpots';
+import { ArrowLeft, MapPin, Search, Crown } from 'lucide-react';
+import { touristSpots, regions, TouristSpot } from '@/data/touristSpots';
 import TranslatedTouristSpotCard from '@/components/TranslatedTouristSpotCard';
 import TouristSpotDialog from '@/components/TouristSpotDialog';
 import RiskBadge from '@/components/RiskBadge';
@@ -23,7 +23,6 @@ import LanguageSelector from '@/components/LanguageSelector';
 export default function TouristSpots() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { data: touristSpots = [], isLoading } = useTouristSpots();
   const [selectedSpot, setSelectedSpot] = useState<TouristSpot | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -58,23 +57,20 @@ export default function TouristSpots() {
   // Show all spots but mark premium ones
   const filteredSpots = touristSpots.filter(spot =>
     spot.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    spot.category.toLowerCase().includes(searchQuery.toLowerCase())
+    spot.region.toLowerCase().includes(searchQuery.toLowerCase())
   );
   
-  const isPremiumSpot = (spotId: string) => !freeSpotIds.includes(spotId);
+  const isPremiumSpot = (spotId: number) => !freeSpotIds.includes(spotId);
 
-  // Get unique categories from spots
-  const categories = Array.from(new Set(touristSpots.map(s => s.category))).sort();
-
-  const spotsByCategory = categories.reduce((acc, category) => {
-    acc[category] = filteredSpots.filter(s => s.category === category);
+  const spotsByRegion = regions.reduce((acc, region) => {
+    acc[region] = filteredSpots.filter(s => s.region === region);
     return acc;
   }, {} as Record<string, TouristSpot[]>);
 
   const spotsByRisk = {
-    low: filteredSpots.filter(s => s.risk_level === 'low'),
-    medium: filteredSpots.filter(s => s.risk_level === 'medium'),
-    high: filteredSpots.filter(s => s.risk_level === 'high'),
+    low: filteredSpots.filter(s => s.risk === 'low'),
+    medium: filteredSpots.filter(s => s.risk === 'medium'),
+    high: filteredSpots.filter(s => s.risk === 'high'),
   };
 
   return (
@@ -151,7 +147,7 @@ export default function TouristSpots() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Card><CardContent className="pt-6"><div className="text-center space-y-1"><div className="text-3xl font-bold">{filteredSpots.length}</div><div className="text-sm text-muted-foreground">Pontos Turísticos</div></div></CardContent></Card>
-            <Card><CardContent className="pt-6"><div className="text-center space-y-1"><div className="text-3xl font-bold">{categories.length}</div><div className="text-sm text-muted-foreground">Categorias</div></div></CardContent></Card>
+            <Card><CardContent className="pt-6"><div className="text-center space-y-1"><div className="text-3xl font-bold">{regions.length}</div><div className="text-sm text-muted-foreground">Regiões</div></div></CardContent></Card>
             <Card><CardContent className="pt-6"><div className="text-center space-y-1"><div className="text-3xl font-bold">{spotsByRisk.low.length}</div><div className="text-sm text-muted-foreground">Baixo Risco</div></div></CardContent></Card>
             <Card>
               <CardContent className="pt-6">
@@ -178,8 +174,8 @@ export default function TouristSpots() {
             <ScrollArea className="w-full">
               <TabsList className="inline-flex h-auto w-full min-w-max">
                 <TabsTrigger value="all" className="text-xs">Todos ({filteredSpots.length})</TabsTrigger>
-                {categories.map(category => (
-                  <TabsTrigger key={category} value={category} className="text-xs whitespace-nowrap">{category} ({spotsByCategory[category]?.length || 0})</TabsTrigger>
+                {regions.map(region => (
+                  <TabsTrigger key={region} value={region} className="text-xs whitespace-nowrap">{region} ({spotsByRegion[region]?.length || 0})</TabsTrigger>
                 ))}
               </TabsList>
             </ScrollArea>
@@ -207,7 +203,7 @@ export default function TouristSpots() {
                               <h3 className="font-semibold text-lg line-clamp-1 flex-1">
                                 {spot.name}
                               </h3>
-                              <RiskBadge level={spot.risk_level} />
+                              <RiskBadge level={spot.risk} />
                             </div>
                             <p className="text-sm text-muted-foreground line-clamp-2">
                               {spot.description}
@@ -229,14 +225,14 @@ export default function TouristSpots() {
               </div>
             </TabsContent>
 
-            {categories.map(category => (
-              <TabsContent key={category} value={category} className="mt-6">
+            {regions.map(region => (
+              <TabsContent key={region} value={region} className="mt-6">
                 <div className="mb-4">
-                  <h3 className="text-2xl font-bold">{category}</h3>
-                  <p className="text-muted-foreground">{spotsByCategory[category]?.length || 0} pontos turísticos</p>
+                  <h3 className="text-2xl font-bold">{region}</h3>
+                  <p className="text-muted-foreground">{spotsByRegion[region]?.length || 0} pontos turísticos</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                  {spotsByCategory[category]?.map((spot, index) => {
+                  {spotsByRegion[region]?.map((spot, index) => {
                     const isPremiumLocked = isPremiumSpot(spot.id) && !isPremium;
                     return (
                       <div key={spot.id} className="animate-fade-in relative group" style={{ animationDelay: `${index * 0.02}s` }}>
@@ -257,7 +253,7 @@ export default function TouristSpots() {
                                 <h3 className="font-semibold text-lg line-clamp-1 flex-1">
                                   {spot.name}
                                 </h3>
-                                <RiskBadge level={spot.risk_level} />
+                                <RiskBadge level={spot.risk} />
                               </div>
                               <p className="text-sm text-muted-foreground line-clamp-2">
                                 {spot.description}

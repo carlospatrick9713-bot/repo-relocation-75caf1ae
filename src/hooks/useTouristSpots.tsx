@@ -28,13 +28,38 @@ export function useTouristSpots() {
   return useQuery({
     queryKey: ['tourist-spots'],
     queryFn: async () => {
+      // 1. Defina o nome do seu bucket público de imagens no Supabase
+      const IMAGE_BUCKET_NAME = 'tourist-spot-images'; // <-- Altere aqui se o nome do seu bucket for outro
+
+      // 2. Busca os dados da tabela normalmente
       const { data, error } = await supabase
         .from('tourist_spots')
         .select('*')
         .order('name');
 
       if (error) throw error;
-      return data as TouristSpot[];
+
+      // 3. Transforma o campo 'image' de path para uma URL pública
+      const spotsWithPublicUrls = data.map((spot) => {
+        // Ignora se o campo de imagem estiver vazio
+        if (!spot.image) {
+          return spot;
+        }
+
+        // Gera a URL pública usando o path (spot.image)
+        const { data: imageUrlData } = supabase.storage
+          .from(IMAGE_BUCKET_NAME)
+          .getPublicUrl(spot.image); // spot.image é o path/nome do arquivo
+        
+        // Retorna o objeto do spot com o campo 'image' atualizado
+        return {
+          ...spot,
+          image: imageUrlData.publicUrl,
+        };
+      });
+
+      // 4. Retorna os dados transformados
+      return spotsWithPublicUrls as TouristSpot[];
     },
   });
 }

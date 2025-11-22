@@ -1,3 +1,19 @@
+/**
+ * ⚠️ ATENÇÃO - REQUISITOS DE TRADUÇÃO:
+ * 
+ * Este hook depende das colunas de tradução na tabela 'tourist_spots' do Supabase.
+ * As seguintes colunas DEVEM estar preenchidas para cada idioma suportado:
+ * 
+ * - name_en, name_es, name_fr, name_de (nome traduzido)
+ * - description_en, description_es, description_fr, description_de (descrição traduzida)
+ * - category_en, category_es, category_fr, category_de (categoria traduzida)
+ * 
+ * Se essas colunas estiverem vazias (null), o hook fará uma chamada à edge function
+ * 'translate-tourist-spot' para gerar as traduções automaticamente.
+ * 
+ * Para verificar: Acesse o Lovable Cloud e inspecione os registros da tabela tourist_spots.
+ */
+
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { supabase } from '@/integrations/supabase/client';
@@ -39,7 +55,21 @@ export function useTranslatedSpot(spot: TouristSpot | null) {
     const descKey = `description_${currentLang}` as keyof TouristSpot;
     const catKey = `category_${currentLang}` as keyof TouristSpot;
 
+    // 🔍 DEBUG: Log para verificar se as colunas traduzidas existem
+    console.log('🌐 [useTranslatedSpot] Verificando tradução:', {
+      spotId: spot.id,
+      spotName: spot.name,
+      targetLanguage: currentLang,
+      translationColumns: {
+        [nameKey]: spot[nameKey] || '❌ VAZIO',
+        [descKey]: spot[descKey] || '❌ VAZIO',
+        [catKey]: spot[catKey] || '❌ VAZIO',
+      },
+      hasAllTranslations: !!(spot[nameKey] && spot[descKey] && spot[catKey]),
+    });
+
     if (spot[nameKey] && spot[descKey] && spot[catKey]) {
+      console.log('✅ [useTranslatedSpot] Tradução encontrada no banco, usando diretamente');
       setTranslatedData({
         name: spot[nameKey] as string,
         description: spot[descKey] as string,
@@ -48,6 +78,8 @@ export function useTranslatedSpot(spot: TouristSpot | null) {
       });
       return;
     }
+
+    console.log('⚠️ [useTranslatedSpot] Tradução não encontrada, chamando edge function...');
 
     // Need to translate
     const translateSpot = async () => {
@@ -66,9 +98,13 @@ export function useTranslatedSpot(spot: TouristSpot | null) {
           },
         });
 
-        if (error) throw error;
+        if (error) {
+          console.error('❌ [useTranslatedSpot] Erro na edge function:', error);
+          throw error;
+        }
 
         if (data) {
+          console.log('✅ [useTranslatedSpot] Tradução recebida da edge function:', data);
           setTranslatedData(data);
         }
       } catch (error) {

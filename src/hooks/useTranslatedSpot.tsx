@@ -39,7 +39,20 @@ export function useTranslatedSpot(spot: TouristSpot | null) {
     const descKey = `description_${currentLang}` as keyof TouristSpot;
     const catKey = `category_${currentLang}` as keyof TouristSpot;
 
+    // 🐛 DEBUG LOG: Verificando traduções no banco de dados
+    console.log('🌍 [Translation Debug]', {
+      spotId: spot.id,
+      spotName: spot.name,
+      currentLang,
+      nameKey,
+      hasNameTranslation: !!spot[nameKey],
+      hasDescTranslation: !!spot[descKey],
+      hasCatTranslation: !!spot[catKey],
+      translatedName: spot[nameKey] || '(não encontrado)',
+    });
+
     if (spot[nameKey] && spot[descKey] && spot[catKey]) {
+      console.log('✅ Usando tradução do banco de dados');
       setTranslatedData({
         name: spot[nameKey] as string,
         description: spot[descKey] as string,
@@ -48,6 +61,8 @@ export function useTranslatedSpot(spot: TouristSpot | null) {
       });
       return;
     }
+
+    console.log('⚠️ Tradução não encontrada no banco. Invocando edge function...');
 
     // Need to translate
     const translateSpot = async () => {

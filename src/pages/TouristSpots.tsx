@@ -6,15 +6,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, MapPin, Search, Crown } from 'lucide-react';
-import { touristSpots, regions, TouristSpot } from '@/data/touristSpots';
+import { ArrowLeft, MapPin, Search, Crown, Loader2 } from 'lucide-react';
+import { useTouristSpots, TouristSpot } from '@/hooks/useTouristSpots';
 import TranslatedTouristSpotCard from '@/components/TranslatedTouristSpotCard';
 import TouristSpotDialog from '@/components/TouristSpotDialog';
-import RiskBadge from '@/components/RiskBadge';
 import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
 import { usePremium } from '@/hooks/usePremium';
-import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import PremiumCard from '@/components/PremiumCard';
 import ConfirmExitDialog from '@/components/ConfirmExitDialog';
@@ -30,8 +28,10 @@ export default function TouristSpots() {
   const [showPremiumCard, setShowPremiumCard] = useState(false);
   const [showExitDialog, setShowExitDialog] = useState(false);
   const { isPremium } = usePremium();
-  const { toast } = useToast();
   const { user } = useAuth();
+  
+  // Busca dados do Supabase
+  const { data: touristSpots, isLoading, error } = useTouristSpots();
 
   const handleSpotClick = (spot: TouristSpot, isPremiumSpot: boolean) => {
     // If it's a premium spot and user is not premium, show premium card
@@ -51,26 +51,52 @@ export default function TouristSpots() {
     setShowAllPremium(true);
   };
 
+  // Loading e erro
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto" />
+          <p className="text-muted-foreground">Carregando pontos turísticos...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !touristSpots) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <p className="text-destructive">Erro ao carregar dados. Tente novamente.</p>
+          <Button onClick={() => window.location.reload()}>Recarregar</Button>
+        </div>
+      </div>
+    );
+  }
+
   // Top 10 most visited spots (free for everyone)
   const freeSpotIds = touristSpots.slice(0, 10).map(s => s.id);
+  
+  // Extrai regiões únicas dos dados
+  const regions = Array.from(new Set(touristSpots.map(s => s.category))).sort();
   
   // Show all spots but mark premium ones
   const filteredSpots = touristSpots.filter(spot =>
     spot.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    spot.region.toLowerCase().includes(searchQuery.toLowerCase())
+    spot.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
   
-  const isPremiumSpot = (spotId: number) => !freeSpotIds.includes(spotId);
+  const isPremiumSpot = (spotId: string) => !freeSpotIds.includes(spotId);
 
   const spotsByRegion = regions.reduce((acc, region) => {
-    acc[region] = filteredSpots.filter(s => s.region === region);
+    acc[region] = filteredSpots.filter(s => s.category === region);
     return acc;
   }, {} as Record<string, TouristSpot[]>);
 
   const spotsByRisk = {
-    low: filteredSpots.filter(s => s.risk === 'low'),
-    medium: filteredSpots.filter(s => s.risk === 'medium'),
-    high: filteredSpots.filter(s => s.risk === 'high'),
+    low: filteredSpots.filter(s => s.risk_level === 'low'),
+    medium: filteredSpots.filter(s => s.risk_level === 'medium'),
+    high: filteredSpots.filter(s => s.risk_level === 'high'),
   };
 
   return (
@@ -187,29 +213,10 @@ export default function TouristSpots() {
                   return (
                     <div key={spot.id} className="animate-fade-in relative group" style={{ animationDelay: `${index * 0.02}s` }}>
                       <div className={isPremiumLocked ? 'blur-sm hover:blur-none transition-all duration-300' : ''}>
-                        <Card 
-                          className="overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group"
+                        <TranslatedTouristSpotCard
+                          spot={spot}
                           onClick={() => handleSpotClick(spot, isPremiumLocked)}
-                        >
-                          <div className="relative h-48 overflow-hidden">
-                            <img 
-                              src={spot.image} 
-                              alt={spot.name}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <CardContent className="p-4">
-                            <div className="flex items-start justify-between gap-2 mb-2">
-                              <h3 className="font-semibold text-lg line-clamp-1 flex-1">
-                                {spot.name}
-                              </h3>
-                              <RiskBadge level={spot.risk} />
-                            </div>
-                            <p className="text-sm text-muted-foreground line-clamp-2">
-                              {spot.description}
-                            </p>
-                          </CardContent>
-                        </Card>
+                        />
                       </div>
                       {isPremiumLocked && (
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:opacity-0 transition-opacity duration-300">
@@ -237,29 +244,10 @@ export default function TouristSpots() {
                     return (
                       <div key={spot.id} className="animate-fade-in relative group" style={{ animationDelay: `${index * 0.02}s` }}>
                         <div className={isPremiumLocked ? 'blur-sm hover:blur-none transition-all duration-300' : ''}>
-                          <Card 
-                            className="overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group"
+                          <TranslatedTouristSpotCard
+                            spot={spot}
                             onClick={() => handleSpotClick(spot, isPremiumLocked)}
-                          >
-                            <div className="relative h-48 overflow-hidden">
-                              <img 
-                                src={spot.image} 
-                                alt={spot.name}
-                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                              />
-                            </div>
-                            <CardContent className="p-4">
-                              <div className="flex items-start justify-between gap-2 mb-2">
-                                <h3 className="font-semibold text-lg line-clamp-1 flex-1">
-                                  {spot.name}
-                                </h3>
-                                <RiskBadge level={spot.risk} />
-                              </div>
-                              <p className="text-sm text-muted-foreground line-clamp-2">
-                                {spot.description}
-                              </p>
-                            </CardContent>
-                          </Card>
+                          />
                         </div>
                         {isPremiumLocked && (
                           <div className="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:opacity-0 transition-opacity duration-300">

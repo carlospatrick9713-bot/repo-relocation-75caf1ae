@@ -17,23 +17,6 @@
  * 4. Ative a opção "Public bucket"
  * 5. Salve as alterações
  * 
- * ⚠️ ATENÇÃO: TRADUÇÕES NO BANCO DE DADOS ⚠️
- * 
- * Para que as traduções funcionem corretamente, a tabela 'tourist_spots' 
- * DEVE ter as seguintes colunas preenchidas no Supabase:
- * 
- * - name_en, name_es, name_fr, name_de (nomes traduzidos)
- * - description_en, description_es, description_fr, description_de (descrições traduzidas)
- * - category_en, category_es, category_fr, category_de (categorias traduzidas)
- * 
- * ❌ SE NÃO ESTIVEREM PREENCHIDAS:
- * - O sistema tentará invocar a edge function 'translate-tourist-spot'
- * - Pode haver lentidão na exibição das traduções
- * - Em caso de erro, exibirá o texto original em português
- * 
- * 💡 DICA: Verifique os logs do console (🌍 [Translation Debug]) para depurar 
- * problemas de tradução e confirmar se as colunas estão populadas.
- * 
  * Certifique-se de que o bucket 'tourist-spot-images' está definido como 
  * PÚBLICO para que as URLs funcionem corretamente.
  */
@@ -81,12 +64,9 @@ export function useTouristSpots() {
 
       // 3. Transforma o campo 'image' de path para uma URL pública
       const spotsWithPublicUrls = data.map((spot) => {
-        // Se o campo de imagem estiver vazio ou inválido, usa placeholder
-        if (!spot.image || spot.image.trim() === '') {
-          return {
-            ...spot,
-            image: '', // Será tratado pelo componente TranslatedTouristSpotCard
-          };
+        // Ignora se o campo de imagem estiver vazio
+        if (!spot.image) {
+          return spot;
         }
 
         // Gera a URL pública usando o path (spot.image)

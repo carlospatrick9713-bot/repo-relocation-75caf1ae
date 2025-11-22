@@ -2,12 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Sparkles, Crown, TrendingUp } from 'lucide-react';
-import { touristSpots } from '@/data/touristSpots';
-import TouristSpotCard from '@/components/TouristSpotCard';
+import { ArrowLeft, Sparkles, TrendingUp, Loader2 } from 'lucide-react';
+import { useTouristSpots, TouristSpot } from '@/hooks/useTouristSpots';
+import TranslatedTouristSpotCard from '@/components/TranslatedTouristSpotCard';
 import { useState } from 'react';
 import TouristSpotDialog from '@/components/TouristSpotDialog';
-import { TouristSpot } from '@/data/touristSpots';
 import logo from '@/assets/logo-transparent.png';
 import AppMenu from '@/components/AppMenu';
 import LanguageSelector from '@/components/LanguageSelector';
@@ -18,12 +17,37 @@ export default function Highlights() {
   const [selectedSpot, setSelectedSpot] = useState<TouristSpot | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const topTenSpots = touristSpots.slice(0, 10);
+  // Busca dados do Supabase
+  const { data: touristSpots, isLoading, error } = useTouristSpots();
+  
+  const topTenSpots = touristSpots?.slice(0, 10) || [];
 
   const handleSpotClick = (spot: TouristSpot) => {
     setSelectedSpot(spot);
     setDialogOpen(true);
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto" />
+          <p className="text-muted-foreground">Carregando destaques...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !touristSpots) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <p className="text-destructive">Erro ao carregar dados. Tente novamente.</p>
+          <Button onClick={() => window.location.reload()}>Recarregar</Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -86,10 +110,8 @@ export default function Highlights() {
                     className="animate-fade-in"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <TouristSpotCard
-                      name={spot.name}
-                      risk={spot.risk}
-                      image={spot.image}
+                    <TranslatedTouristSpotCard
+                      spot={spot}
                       onClick={() => handleSpotClick(spot)}
                     />
                   </div>

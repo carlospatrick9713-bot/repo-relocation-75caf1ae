@@ -64,17 +64,29 @@ export function useTouristSpots() {
 
       // 3. Transforma o campo 'image' de path para uma URL pública
       const spotsWithPublicUrls = data.map((spot) => {
-        // Ignora se o campo de imagem estiver vazio
+        // Tratamento de nulos: mantém como está se não houver imagem
         if (!spot.image) {
-          return spot;
+          return {
+            ...spot,
+            image: '', // String vazia para fallback no componente UI
+          };
         }
 
-        // Gera a URL pública usando o path (spot.image)
+        // Verifica se é um path local do projeto (começa com /src/ ou path relativo)
+        // Paths locais são mantidos como estão para o Vite processar
+        if (spot.image.startsWith('/src/') || spot.image.startsWith('src/') || spot.image.startsWith('./')) {
+          return {
+            ...spot,
+            image: spot.image,
+          };
+        }
+
+        // Para paths do Supabase Storage, gera a URL pública completa
         const { data: imageUrlData } = supabase.storage
           .from(IMAGE_BUCKET_NAME)
-          .getPublicUrl(spot.image); // spot.image é o path/nome do arquivo
+          .getPublicUrl(spot.image);
         
-        // Retorna o objeto do spot com o campo 'image' atualizado
+        // Retorna o objeto do spot com o campo 'image' como URL pública
         return {
           ...spot,
           image: imageUrlData.publicUrl,

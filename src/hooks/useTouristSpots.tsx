@@ -60,10 +60,13 @@ export function useTouristSpots() {
 
       if (error) throw error;
 
+      console.log('📊 [useTouristSpots] Dados crus do banco:', data);
+
       // 3. Transforma o campo 'image' de path para uma URL pública do Supabase Storage
       const spotsWithPublicUrls = data.map((spot) => {
         // Tratamento de nulos: mantém string vazia se não houver imagem
         if (!spot.image) {
+          console.log(`⚠️ [useTouristSpots] Imagem vazia para: ${spot.name}`);
           return {
             ...spot,
             image: '',
@@ -76,11 +79,16 @@ export function useTouristSpots() {
           .from(IMAGE_BUCKET_NAME)
           .getPublicUrl(spot.image);
         
+        const publicUrl = imageUrlData.publicUrl;
+        console.log(`🖼️ [useTouristSpots] ${spot.name}: ${spot.image} -> ${publicUrl}`);
+        
         return {
           ...spot,
-          image: imageUrlData.publicUrl,
+          image: publicUrl,
         };
       });
+
+      console.log('✅ [useTouristSpots] Spots carregados com URLs:', spotsWithPublicUrls);
 
       // 4. Retorna os dados transformados
       return spotsWithPublicUrls as TouristSpot[];

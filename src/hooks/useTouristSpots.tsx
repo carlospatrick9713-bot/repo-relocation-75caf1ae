@@ -1,24 +1,22 @@
 /**
- * ⚠️ ATENÇÃO CRÍTICA: CONFIGURAÇÃO DO BUCKET DE IMAGENS ⚠️
+ * ⚠️ ATENÇÃO: MIGRAÇÃO DE IMAGENS ⚠️
  * 
- * Para que as imagens dos pontos turísticos sejam exibidas corretamente,
- * o bucket 'tourist-spot-images' DEVE estar configurado como 'Public Bucket'
- * no painel do Supabase (Storage > tourist-spot-images > Settings > Public bucket).
+ * Este hook busca dados de pontos turísticos do Supabase e gera URLs públicas
+ * para as imagens armazenadas no bucket 'tourist-spot-images'.
  * 
- * ❌ SEM ESSA CONFIGURAÇÃO:
- * - As URLs públicas geradas retornarão erro 404/403
- * - As imagens NÃO carregarão na aplicação
- * - Você verá apenas placeholders de imagem quebrada
+ * 🔧 MIGRAÇÃO AUTOMÁTICA DISPONÍVEL:
+ * - Acesse o menu do app (usuário logado)
+ * - Clique em "Migrar Imagens para Storage"
+ * - O processo fará upload automático das imagens e atualizará o banco
  * 
- * ✅ COMO CONFIGURAR:
- * 1. Acesse o painel do Supabase
- * 2. Vá em Storage > tourist-spot-images
- * 3. Clique em Settings
- * 4. Ative a opção "Public bucket"
- * 5. Salve as alterações
+ * ✅ REQUISITOS:
+ * 1. O bucket 'tourist-spot-images' DEVE estar configurado como PÚBLICO
+ * 2. Após a migração, os paths no banco devem ser apenas nomes de arquivo
+ *    (ex: 'cristo-redentor.jpg' em vez de '/src/assets/cristo-redentor.jpg')
  * 
- * Certifique-se de que o bucket 'tourist-spot-images' está definido como 
- * PÚBLICO para que as URLs funcionem corretamente.
+ * ❌ SEM O BUCKET PÚBLICO:
+ * - As URLs geradas retornarão erro 404/403
+ * - As imagens não carregarão na aplicação
  */
 
 import { useQuery } from '@tanstack/react-query';
@@ -62,31 +60,22 @@ export function useTouristSpots() {
 
       if (error) throw error;
 
-      // 3. Transforma o campo 'image' de path para uma URL pública
+      // 3. Transforma o campo 'image' de path para uma URL pública do Supabase Storage
       const spotsWithPublicUrls = data.map((spot) => {
-        // Tratamento de nulos: mantém como está se não houver imagem
+        // Tratamento de nulos: mantém string vazia se não houver imagem
         if (!spot.image) {
           return {
             ...spot,
-            image: '', // String vazia para fallback no componente UI
+            image: '',
           };
         }
 
-        // Verifica se é um path local do projeto (começa com /src/ ou path relativo)
-        // Paths locais são mantidos como estão para o Vite processar
-        if (spot.image.startsWith('/src/') || spot.image.startsWith('src/') || spot.image.startsWith('./')) {
-          return {
-            ...spot,
-            image: spot.image,
-          };
-        }
-
-        // Para paths do Supabase Storage, gera a URL pública completa
+        // Gera a URL pública completa do Supabase Storage
+        // Após a migração, todos os paths devem ser apenas nomes de arquivo (ex: 'cristo-redentor.jpg')
         const { data: imageUrlData } = supabase.storage
           .from(IMAGE_BUCKET_NAME)
           .getPublicUrl(spot.image);
         
-        // Retorna o objeto do spot com o campo 'image' como URL pública
         return {
           ...spot,
           image: imageUrlData.publicUrl,

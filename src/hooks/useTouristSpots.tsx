@@ -73,6 +73,14 @@ export function useTouristSpots() {
           };
         }
 
+        // Se já for uma URL completa (http/https), retorna como está
+        if (spot.image.startsWith('http')) {
+          return {
+            ...spot,
+            image: spot.image,
+          };
+        }
+
         // Gera a URL pública completa do Supabase Storage
         // Após a migração, todos os paths devem ser apenas nomes de arquivo (ex: 'cristo-redentor.jpg')
         const { data: imageUrlData } = supabase.storage

@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { useQuery } from '@tanstack/react-query';
 import { ImageMigrationButton } from '@/components/ImageMigrationButton';
+import DataMigrationButton from '@/components/DataMigrationButton';
 
 interface AppMenuProps {
   onNavigate?: (section: string) => void;
@@ -131,7 +132,10 @@ export default function AppMenu({ onNavigate }: AppMenuProps) {
                 <LogOut className="w-4 h-4 mr-2" />
                 Sair
               </Button>
-              <ImageMigrationButton />
+              <div className="space-y-2">
+                <DataMigrationButton />
+                <ImageMigrationButton />
+              </div>
             </div>
           ) : (
             <div className="pb-4 border-b">
